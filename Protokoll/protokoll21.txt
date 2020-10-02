@@ -1,0 +1,36 @@
+# Meeting Agenda
+
+Group: 1 (gruppnamn: New Five)
+Date: 1/10 13:15-15:00
+Chair: TDA 367, Chalmers
+Participants: Moa Berglund, Markus Grahn, Victor Cousin, Christian Lind, Oliver Andersson
+Facilitator: Oliver Karmetun
+Sekreterare: Markus Grahn
+
+## Objectives 
+
+- Bestämma hur OccupiedTime, Employee och WorkShift ska interagera
+- Fortsätta med SSD samt UML diagram
+- Omstuktuera kod och modeller efter eventuellt nya interaktioner. 
+
+## Reports from previous meeting
+
+Fler tester har skrivits men vi kom in i ett massivt relations problem mellan olika klasser som vi behöver discutera med handledare
+
+## Discussion items 
+
+1. Hur ska vi implementera bra förhållanden via OccupiedTime, Employee och WorkShift?
+2. Hur ska raster hanteras och deligeras?
+
+## Outcomes and assignments 
+
+1. Vi kom fram till med handledare att låta ett WorkShift endast hantera en Employee och därmed en OccupiedTime vilket gör det lättare för WorkShift att kunna ta bort Employee och dess OccupiedTime samtidigt
+2. Vi ska även låta WorkShift ha koll på Certifiactes istället för att Department ska göra det. 
+3. Departments ska nu endast hålla kåll på alla WorkShifts som dom har tillgång till och som användare schemalägger man ett WorkShift per Employee i Department
+4. Markus och Christian updaterade WorkShift för dess nya funktion.
+5. Moa och Victor updaterade Departments till dess nya funktion, har avslutat sin userstory "Välja hur ofta anställda jobbar" och uppdaterat RAD med en ny userstory "Ledighet"
+6. Oliver har börjat bygga UML diagrammet för vyn och lägger mest fokus på SSD.
+7. Diskutionen om raster pågår än. 
+## Wrap up
+ 
+- Nästa möte: 2/10 10:00, Vi fortsätter arbeta med SSD, relaterade UML diagram och fortsätta implementera den nya strukturen som vi vill ha. 
