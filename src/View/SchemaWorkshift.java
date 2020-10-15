@@ -17,9 +17,9 @@ public class SchemaWorkshift extends AnchorPane {
     private double sizeX = 900, fullDay = 1000*60*60*24;;
 
     @FXML AnchorPane timeBar;
-    @FXML Label start, end, name;
+    @FXML Label start, end, name, departmentName;
 
-    public SchemaWorkshift(WorkShift workShift, Color color) {
+    public SchemaWorkshift(WorkShift workShift, Color color, String departmentName) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SchemaWorkshift.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -33,6 +33,7 @@ public class SchemaWorkshift extends AnchorPane {
         this.color = color;
         this.start.setText(new Date(workShift.START).toString());
         this.end.setText(new Date(workShift.END).toString());
+        this.departmentName.setText(departmentName);
         this.timeBar.setPrefWidth(sizeX*percentageOfDayFilled(workShift.START, workShift.END));
         this.timeBar.setTranslateX(getOffset(workShift.START)*sizeX);
         if (workShift.getEmployee()==null) {

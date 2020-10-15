@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.layout.FlowPane?>
-
-
-<fx:root prefHeight="200.0" prefWidth="700.0" styleClass="SchemaDepartment" type="javafx.scene.layout.FlowPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-</fx:root>

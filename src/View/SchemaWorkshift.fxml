@@ -10,6 +10,7 @@
             <Label fx:id="start" layoutY="38.0" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="38.0" />
             <Label fx:id="end" layoutX="172.0" layoutY="38.0" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0" />
             <Label fx:id="name" layoutY="6.0" text="Label" />
+            <Label fx:id="departmentName" layoutX="172.0" layoutY="6.0" text="Label" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>
