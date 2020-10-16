@@ -179,6 +179,24 @@ public class WorkDay {
             }
         }
     }*/
+    public boolean isEmpty(){
+        updateDepartments();
+        for (Department d : departments){
+            if (departmentLinks.get(d).size()!=0)
+                return false;
+        }
+        return true;
+    }
+    public boolean isFilled(){
+        updateDepartments();
+        for (Department d : departments){
+            for (WorkShift w : departmentLinks.get(d)){
+                if (!w.isOccupied())
+                    return false;
+            }
+        }
+        return true;
+    }
 
     public List<WorkShift> getWorkShifts(Department d) {
         return departmentLinks.get(d);
