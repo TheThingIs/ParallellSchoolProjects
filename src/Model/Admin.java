@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Admin implements Observable {
     private final List<Employee> employees;
-    private long guaranteedFreeTime=8; //startvalue
+    private long guaranteedFreeTime=WeekHandler.plusHours(8); //startvalue
     private final List<Department> departments;
     private final CertificateHandler certificateHandler;
     private final OurCalendar calendar;
@@ -442,6 +442,10 @@ public class Admin implements Observable {
 
     public long getGuaranteedFreeTime(){
         return guaranteedFreeTime;
+    }
+
+    public long getHoursOfGuaranteedFreeTime(){
+        return (guaranteedFreeTime/WeekHandler.plusHours(1));
     }
     public boolean isLoginInformationCorrect(String name, String password) {
         return loginHandler.isLoginInformationCorrect(name, password);

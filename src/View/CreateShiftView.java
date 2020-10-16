@@ -147,7 +147,7 @@ public class CreateShiftView extends AnchorPane implements Observer {
             for(int i = 0; i<Integer.parseInt(numberPersonel.getEditor().getText());i++){
                 Admin.getInstance().createWorkshift(d,workStart,workStop,certificates,repeat);
             }
-        }
+    }
 
 
 

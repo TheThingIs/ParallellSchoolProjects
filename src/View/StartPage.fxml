@@ -9,7 +9,7 @@
     <children>
         <AnchorPane fx:id="startPage" prefHeight="800.0" prefWidth="1000.0">
             <children>
-                <TabPane prefHeight="800.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="tabPane" prefHeight="800.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab fx:id="tabSchedule" text="Schema">
                             <content>

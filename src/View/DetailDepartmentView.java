@@ -79,7 +79,6 @@ public class DetailDepartmentView extends AnchorPane implements Observer {
                 if (department == null) {
                     Admin.getInstance().createNewDepartment(name.getText(), Integer.parseInt(minPersonsOnShift.getEditor().getText()),colorPicker.getValue());
                     department= Admin.getInstance().getDepartmentByName(name.getText());
-                    System.out.println( Admin.getInstance().getDepartmentByName(name.getText()).getColor());
                 }
                 else{
                     Admin.getInstance().changeDepartmentName(department, name.getText());

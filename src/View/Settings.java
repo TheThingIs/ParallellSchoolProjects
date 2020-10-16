@@ -45,10 +45,14 @@ public class Settings extends AnchorPane implements Observer {
     }
 
     private void setDefaultValues(){
-        guarantedFreetime.setText(Long.toString(Admin.getInstance().getGuaranteedFreeTime()));
-        midBreak.setText(Long.toString(BreakHandler.getInstance().getMidBreakLength()));
-        minBreak.setText(Long.toString(BreakHandler.getInstance().getMinBreakLength()));
-        maxBreak.setText(Long.toString(BreakHandler.getInstance().getMaxBreakLength()));
+        guarantedFreetime.clear();
+        midBreak.clear();
+        maxBreak.clear();
+        minBreak.clear();
+        guarantedFreetime.setText(Long.toString(Admin.getInstance().getHoursOfGuaranteedFreeTime()));
+        midBreak.setText(Long.toString(BreakHandler.getInstance().getMinutesOfMidBreakLength()));
+        minBreak.setText(Long.toString(BreakHandler.getInstance().getMinutesOfMinBreakLength()));
+        maxBreak.setText(Long.toString(BreakHandler.getInstance().getMinutesOfMaxBreakLength()));
     }
 
 
@@ -60,7 +64,7 @@ public class Settings extends AnchorPane implements Observer {
              BreakHandler.getInstance().setMinBreakLength(Integer.parseInt(minBreak.getText()));
              BreakHandler.getInstance().setMidBreakLength(Integer.parseInt(midBreak.getText()));
              BreakHandler.getInstance().setMaxBreakLength(Integer.parseInt(maxBreak.getText()));
-             }
+         }
          });
     }
 
@@ -89,6 +93,6 @@ public class Settings extends AnchorPane implements Observer {
     }
     @Override
     public void update() {
-
+            setDefaultValues();
     }
 }
