@@ -50,7 +50,6 @@ public class EmployeeSorter implements Comparator<WorkShift> {
             }
         }
         if (!isAllOccupied) {
-            SendNotification sendNotification = new SendNotification("smtp.gmail.com", "clind0429@gmail.com", "alind9864@gmail.com", "trollolol", "Workshifts not filled", getEmptyWorkShifts());
             //TODO Send notification
             //TODO send list of workshifts
         }
