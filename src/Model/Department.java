@@ -1,7 +1,6 @@
 package Model;
 
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,13 +9,16 @@ import java.util.List;
 /**
  * Represents a department with a specified name and a list for work shifts where the department can be manned. It also has a minimum value of persons that has to work at the same time
  */
-public class Department {
+public class Department implements Observable {
 
-    private List<WorkShift> allShifts;
+    private final List<WorkShift> allShifts;
+    private final List<WorkShift> addedShifts;
+    private final List<WorkShift> removedShifts;
+    private final List<Observer> observers;
     private String name;
     private int minPersonsOnShift;
-    private BreakHandler breakHandler;
-    private Color paint=new Color(1, 1, 1, 1);
+    private final BreakHandler breakHandler;
+    private Color paint = new Color(1, 1, 1, 1);
 
     /**
      * Constructs a department with a list for the work shifts where the department can be manned and a specified name and a minimum value of persons that has to work at the same time
@@ -29,14 +31,20 @@ public class Department {
         this.name = name;
         this.minPersonsOnShift = minPersonsOnShift;
         this.breakHandler = BreakHandler.getInstance();
+        this.observers = new ArrayList();
+        this.addedShifts = new ArrayList();
+        this.removedShifts = new ArrayList();
+        for (int i = 0; i < OurCalendar.getInstance().getOurDateSize(); i++) {
+            addObserver(OurCalendar.getInstance().getWorkday(i));
+        }
     }
 
-    public Color getColor(){
+    public Color getColor() {
         return paint;
     }
 
-    public void setColor(Color c){
-        this.paint=c;
+    public void setColor(Color c) {
+        this.paint = c;
     }
 
     public String getName() {
@@ -55,7 +63,7 @@ public class Department {
         long breakLength = breakHandler.calculateLengthOfBreak(startForTheWorkShift, stopForTheWorkShift);
         long breakStart = (((stopForTheWorkShift + startForTheWorkShift) / 2) - (breakLength / 2));
         int numberOfBreakTogether = 0;
-        int numberOfWorkingPersonel=countPersonelOnDepartment(startForTheWorkShift, stopForTheWorkShift);
+        int numberOfWorkingPersonel = countPersonelOnDepartment(startForTheWorkShift, stopForTheWorkShift);
         if (minPersonsOnShift == 0) {
             return null;
         } //TODO exception?
@@ -65,23 +73,22 @@ public class Department {
                     numberOfBreakTogether++;
                 }
             }
-            if (numberOfWorkingPersonel >= minPersonsOnShift){
-                if ((numberOfWorkingPersonel==0)||((numberOfWorkingPersonel-numberOfBreakTogether)>=minPersonsOnShift)) {
+            if (numberOfWorkingPersonel >= minPersonsOnShift) {
+                if ((numberOfWorkingPersonel == 0) || ((numberOfWorkingPersonel - numberOfBreakTogether) >= minPersonsOnShift)) {
                     return new OccupiedTime(breakStart, breakStart + breakLength);
                 }
+            } else {//mindre schemalagda än vad som krävs
+                return new OccupiedTime((breakStart + 1 + breakLength * numberOfWorkingPersonel), ((breakStart + 1 + breakLength * numberOfWorkingPersonel) + breakLength));
             }
-            else{//mindre schemalagda än vad som krävs
-                 return new OccupiedTime((breakStart+1+breakLength*numberOfWorkingPersonel),( (breakStart+1+breakLength*numberOfWorkingPersonel) + breakLength));
-                }
             breakStart = breakStart + WeekHandler.plusMinutes(5);
             numberOfBreakTogether = 0;
         }
     }
 
     private int countPersonelOnDepartment(long startForTheWorkShift, long stopForTheWorkShift) {
-        int count=0;
-        for(WorkShift s : allShifts){
-            if(s.END>= startForTheWorkShift && stopForTheWorkShift>=s.START)
+        int count = 0;
+        for (WorkShift s : allShifts) {
+            if (s.END >= startForTheWorkShift && stopForTheWorkShift >= s.START)
                 count++;
         }
         return count;
@@ -93,57 +100,118 @@ public class Department {
      * @param start        start time of the shift
      * @param stop         end time of the shift
      * @param certificates list of which certificates are required at the shift
+     * @param repeat       boolean array for each day of the week if the workshift should be repeated where 0 = sunday, 1 = monday, 6 = saturday and so on
      */
     protected void createShift(long start, long stop, List<Certificate> certificates, boolean[] repeat) {
         WorkShift ws = new WorkShift(start, stop, certificates, createBreak(start, stop), true);
         if (setRepeat(ws, repeat)) {
-            allShifts.add(new WorkShift(start, stop, certificates, createBreak(start, stop), false));
+            WorkShift shift = new WorkShift(start, stop, certificates, createBreak(start, stop), false);
+            allShifts.add(shift);
+            addedShifts.add(shift);
         }
+        notifyObservers();
     }
 
+    /**
+     * Creates a work shift with a specified time span to the department where chosen certificates are required from the employee
+     *
+     * @param start       start time of the shift
+     * @param stop        end time of the shift
+     * @param certificate A certificate of which certificates are required at the shift
+     * @param repeat      boolean array for each day of the week if the workshift should be repeated where 0 = sunday, 1 = monday, 6 = saturday and so on
+     */
     protected void createShift(long start, long stop, Certificate certificate, boolean[] repeat) {
         WorkShift ws = new WorkShift(start, stop, certificate, createBreak(start, stop), true);
         if (setRepeat(ws, repeat)) {
-            allShifts.add(new WorkShift(start, stop, certificate, createBreak(start, stop), false));
+            WorkShift shift = new WorkShift(start, stop, certificate, createBreak(start, stop), false);
+            allShifts.add(shift);
+            addedShifts.add(shift);
         }
+        notifyObservers();
     }
 
+    /**
+     * @param start  start time of the shift
+     * @param stop   end time of the shift
+     * @param repeat boolean array for each day of the week if the workshift should be repeated where 0 = sunday, 1 = monday, 6 = saturday and so on
+     */
     protected void createShift(long start, long stop, boolean[] repeat) {
         WorkShift ws = new WorkShift(start, stop, createBreak(start, stop), true);
         if (setRepeat(ws, repeat)) {
-            allShifts.add(new WorkShift(start, stop, createBreak(start, stop), false));
+            WorkShift shift = new WorkShift(start, stop, createBreak(start, stop), false);
+            allShifts.add(shift);
+            addedShifts.add(shift);
         }
+        notifyObservers();
     }
 
-    protected void createShift(WorkShift ws) {
-        allShifts.add(new WorkShift(ws, 0));
+    /**
+     * Copies the details of another workshift
+     *
+     * @param workshift The workshift to copy from
+     */
+    protected void createShift(WorkShift workshift) {
+        allShifts.add(new WorkShift(workshift, 0));
     }
 
-    protected void createShift(WorkShift ws, int i) {
-        allShifts.add(new WorkShift(ws, i));
+    /**
+     * Copies the details of another workshift and places it plusDays forwars
+     *
+     * @param workshift The workshift to copy from
+     * @param plusDays  How many days forward this workshift should be placed
+     */
+    protected void createShift(WorkShift workshift, int plusDays) {
+        WorkShift shift = new WorkShift(workshift, createBreak(workshift.START + WeekHandler.plusDays(plusDays), workshift.END + WeekHandler.plusDays(plusDays)), plusDays);
+        allShifts.add(shift);
+        addedShifts.add(shift);
     }
 
-    private boolean setRepeat(WorkShift ws, boolean[] repeat) {
+    /**
+     * Copies the Workshift according to what days it should be repeated on
+     *
+     * @param workshift The workshift to copy from
+     * @param repeat    boolean array for each day of the week if the workshift should be repeated where 0 = sunday, 1 = monday, 6 = saturday and so on
+     * @return If this workshift is being repeated
+     */
+    private boolean setRepeat(WorkShift workshift, boolean[] repeat) {
         boolean single = true;
-        int c = new Date(ws.START).getDay();
+        int c = new Date(workshift.START).getDay();
         for (int i = 0; i < 7; i++) {
             if (repeat[(i + c) % 7]) {
-                createShift(ws, i);
+                createShift(workshift, i);
                 single = false;
             }
         }
         return single;
     }
 
-    protected void removeShift(WorkShift ws) {
-        allShifts.remove(ws);
+    /**
+     * Removes a specified workshift
+     *
+     * @param workshift The workshift to remove
+     */
+    protected void removeShift(WorkShift workshift) {
+        allShifts.remove(workshift);
+        removedShifts.add(workshift);
+        notifyObservers();
     }
 
-    public WorkShift getShift(int index){
+    /**
+     * Get a workshift at the specified index in the list of workshifts
+     *
+     * @param index The index the wanted workshift is at
+     * @return The workshift at the specified index
+     */
+    public WorkShift getShift(int index) {
         return allShifts.get(index);
     }
 
-    public int getSizeAllShifts(){
+    /**
+     * Returns how many workshifts exist
+     *
+     * @return How many workshifts there are
+     */
+    public int getSizeAllShifts() {
         return allShifts.size();
     }
 
@@ -175,4 +243,41 @@ public class Department {
     public void setName(String name) {
         this.name = name;
     }
+
+    public WorkShift getAddWorkShift(int index) {
+        return addedShifts.get(index);
+    }
+
+    public int getAddWorkShiftSize() {
+        return addedShifts.size();
+    }
+
+    public WorkShift getRemoveWorkShift(int index) {
+        return removedShifts.get(index);
+    }
+
+    public int getRemoveWorkShiftSize() {
+        return removedShifts.size();
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+        addedShifts.clear();
+        removedShifts.clear();
+    }
+
+
 }

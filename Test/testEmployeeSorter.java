@@ -86,7 +86,6 @@ public class testEmployeeSorter {
 
         for (int j = 0; j < 7; j++) {
             workDays.add(OurCalendar.getInstance().getWorkday(j));
-            OurCalendar.getInstance().getWorkday(j).setWorkDay();
         }
 
 
@@ -101,7 +100,6 @@ public class testEmployeeSorter {
         for (int i = 0; i < 5; i++) {
             wd.add(OurCalendar.getInstance().getWorkday(i));
         }
-
 
         assertEquals(4, arr1.get(wd.get(0).getWorkShifts(admin.getDepartmentByName("Kassa")).get(0)).size());
         assertEquals(5, arr1.get(wd.get(0).getWorkShifts(admin.getDepartmentByName("Frukt")).get(0)).size());
@@ -121,6 +119,29 @@ public class testEmployeeSorter {
         for (int i = 0; i < admin.getEmployeeSorter().workShifts.size(); i++) {
             assertTrue(admin.getEmployeeSorter().workShifts.get(i).isOccupied());
         }
+
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+        admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
+
 
 
     }

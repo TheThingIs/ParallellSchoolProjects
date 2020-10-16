@@ -15,6 +15,8 @@ public class WorkShift {
     private boolean occupied = false;
     final public boolean REPEAT;
     final public long START, END;
+    private static long idStart = 0;
+    final public long ID;
 
     /**
      * Creates a new workshift
@@ -29,6 +31,8 @@ public class WorkShift {
         this.certificates.add(certificate);
         this.breakTime = breakTime;
         this.REPEAT = repeat;
+        this.ID = idStart;
+        idStart++;
     }
 
     /**
@@ -44,6 +48,8 @@ public class WorkShift {
         this.certificates.addAll(certificates);
         this.breakTime = breakTime;
         this.REPEAT = repeat;
+        this.ID = idStart;
+        idStart++;
     }
 
     /**
@@ -57,6 +63,8 @@ public class WorkShift {
         this.END = end;
         this.breakTime = breakTime;
         this.REPEAT = repeat;
+        this.ID = idStart;
+        idStart++;
     }
 
     /**
@@ -66,7 +74,6 @@ public class WorkShift {
      * @param date      The date in a long format for Java.Date
      */
     protected WorkShift(WorkShift workShift, long date) {
-
         Date wsStart = new Date(workShift.START);
         Date wsEnd = new Date(workShift.END);
         this.START = date + WeekHandler.plusHours(wsStart.getHours()) + WeekHandler.plusMinutes(wsStart.getMinutes());
@@ -75,6 +82,7 @@ public class WorkShift {
         this.certificates = workShift.certificates;
         this.REPEAT = workShift.REPEAT;
         this.breakTime = workShift.breakTime;
+        this.ID = workShift.ID;
     }
 
     private long setEnd(long End) {
@@ -91,7 +99,7 @@ public class WorkShift {
      * @param workShift The Workshift you wish to copy and place on another day
      * @param date      The amount of days to add to worshift
      */
-    protected WorkShift(WorkShift workShift, int date) {
+    protected WorkShift(WorkShift workShift, OccupiedTime breakTime, int date) {
         if (date < 0) {
             date = -date;
         }
@@ -99,7 +107,9 @@ public class WorkShift {
         this.END = workShift.END + WeekHandler.plusDays(date);
         this.certificates = workShift.certificates;
         this.REPEAT = workShift.REPEAT;
-        this.breakTime = workShift.breakTime;
+        this.breakTime = breakTime;
+        this.ID = idStart;
+        idStart++;
     }
 
     /**

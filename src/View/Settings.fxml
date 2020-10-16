@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="73.0" layoutY="131.0" text="Garanterad ledighet efter arbetat pass:" />
+      <TextField fx:id="guarantedFreetime" layoutX="328.0" layoutY="127.0" prefHeight="25.0" prefWidth="63.0" />
+      <Label layoutX="415.0" layoutY="131.0" text="timmar" />
+      <Button fx:id="saveButton" layoutX="476.0" layoutY="318.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="75.0" text="Spara" />
+      <Label layoutX="73.0" layoutY="214.0" text="Garanterad rast efter:" />
+      <Label layoutX="73.0" layoutY="254.0" text="3 timmar:" />
+      <Label layoutX="74.0" layoutY="293.0" text="5 timmar" />
+      <Label layoutX="74.0" layoutY="333.0" text="8 timmar" />
+      <TextField fx:id="minBreak" layoutX="167.0" layoutY="250.0" prefHeight="25.0" prefWidth="63.0" />
+      <TextField fx:id="midBreak" layoutX="167.0" layoutY="289.0" prefHeight="25.0" prefWidth="63.0" />
+      <TextField fx:id="maxBreak" layoutX="167.0" layoutY="329.0" prefHeight="25.0" prefWidth="63.0" />
+      <Label layoutX="263.0" layoutY="254.0" text="min" />
+      <Label layoutX="263.0" layoutY="293.0" text="min" />
+      <Label layoutX="263.0" layoutY="333.0" text="min" />
+   </children>
+</fx:root>
