@@ -2,6 +2,7 @@ package View;
 
 import Controller.AdminController;
 import Model.*;
+import Model.Observer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -15,11 +16,13 @@ import javafx.scene.layout.AnchorPane;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
+/**
+ * @author Moa Berglund, Victor Cousin
+ * Creation of workshifts is done through this view
+ * @since 2020-10-07
+ */
 public class CreateShiftView extends AnchorPane implements Observer {
 
     @FXML ComboBox departmentComboBox;
@@ -30,6 +33,7 @@ public class CreateShiftView extends AnchorPane implements Observer {
     @FXML Button saveButton, addCertificate,discardCertificateButton,saveCertificateButton;
     @FXML AnchorPane ListOfCertificatesAnchorPane,StartPage;
     @FXML ListView<CertificateObject> listOfCertificates;
+    @FXML Label warningCreateWorkshift;
     private List<Certificate> certificates= new ArrayList<>();
     private List<CertificateObject>certificateObjects= new ArrayList<>();
     SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Admin.getInstance().getEmployeeListSize()+100,1,1);
