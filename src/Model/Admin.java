@@ -387,8 +387,7 @@ public class Admin implements Observable {
                 return d;
             }
         }
-        System.out.println("invalid name");
-        return null;//TODO exception?
+        throw new IllegalArgumentException("invalid name");
     }
 
     /**
@@ -448,15 +447,39 @@ public class Admin implements Observable {
     public long getHoursOfGuaranteedFreeTime(){
         return (guaranteedFreeTime/WeekHandler.plusHours(1));
     }
-    public boolean isLoginInformationCorrect(String name, String password) {
-        return loginHandler.isLoginInformationCorrect(name, password);
-    }
+  
+      /**
+     * Creates a new user with username and password
+     *
+     * @param name The username of the employee/admin
+     * @param password The password of the employee/admin
+     */
+    public void createNewUser(String name, String password) {
+        loginHandler.newUser(name, password);
 
+
+    /**
+     * Removes a user with the specified username and password
+     *
+     * @param name the username of the user to remove
+     * @param password the password of the user to remove
+     */
     public void removeUser(String name, String password) {
         loginHandler.removeUser(name, password);
     }
 
-    public void createNewUser(String name, String password) {
-        loginHandler.removeUser(name, password);
+    /**
+     * Checks if the provided username and password matches a user inside the list of all users
+     *
+     * @param name the username of the user
+     * @param password the password of the user
+     * @return If the username and password matches a current user
+     */
+    public boolean isLoginInformationCorrect(String name, String password) {
+        return loginHandler.isLoginInformationCorrect(name, password);
     }
+
+
+
+
 }
