@@ -146,24 +146,6 @@ public class WorkDay implements Observer {
     }
 
     /**
-     * Sets all possible shifts that can be added to the workday
-     */
-    public void setWorkDay() { //funkar inte
-        updateDepartments();
-        WorkShift ws;
-        for (Department d : departments) {
-            for (int i = 0; i < d.getSizeAllShifts(); i++) {
-                ws = d.getShift(i);
-                Date wsDate = new Date(ws.START);
-                Date thisDate = new Date(this.DATE);
-                if ((ws.REPEAT && (wsDate.getDay() == thisDate.getDay())) || (!ws.REPEAT && (wsDate.getDay() == thisDate.getDay()) && (wsDate.getDate() == thisDate.getDate()))) {
-                    this.departmentLinks.get(d).add(new WorkShift(ws, this.DATE));
-                }
-            }
-        }
-    }
-
-    /**
      * Makes sure all departments are properly linked in departmentLinks
      */
     public void updateDepartments() {

@@ -457,7 +457,7 @@ public class Admin implements Observable {
     public void createNewUser(String name, String password) {
         loginHandler.newUser(name, password);
 
-
+    }
     /**
      * Removes a user with the specified username and password
      *
