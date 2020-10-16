@@ -2,6 +2,7 @@ package Model;
 
 import javafx.scene.paint.Color;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -266,23 +267,6 @@ public class Admin implements Observable {
     }
 
     /**
-     * Creates a new WorkShift for a Department with multible required Certificates
-     *
-     * @param d            a Department
-     * @param start        a starting time
-     * @param end          an ending time
-     * @param certificates A list of Certificates
-     */
-    public void createWorkshift(Department d, long start, long end, List<Certificate> certificates, boolean[] repeat) {
-        if ((repeat.length == 7) && (validateTimeSpan(start, end) && validateStartTime(start))) {
-            d.createShift(start, end, certificates, repeat); //TODO weekly booleans and not just true
-        } else {
-            //TODO exception
-        }
-        notifyObservers();
-    }
-
-    /**
      * Creates a new department and adds it to  workday
      *
      * @param name              Name of the department
@@ -320,6 +304,23 @@ public class Admin implements Observable {
     }
 
     /**
+     * Creates a new WorkShift for a Department with multible required Certificates
+     *
+     * @param d            a Department
+     * @param start        a starting time
+     * @param end          an ending time
+     * @param certificates A list of Certificates
+     */
+    public void createWorkshift(Department d, long start, long end, List<Certificate> certificates, boolean[] repeat) {
+        if ((repeat.length == 7) && (validateTimeSpan(start, end) && validateStartTime(start))) {
+            d.createShift(start, end, certificates, repeat); //TODO weekly booleans and not just true
+        } else {
+            throw new IllegalArgumentException();
+        }
+        notifyObservers();
+    }
+
+    /**
      * Creates a new WorkShift for a Department with a required Certificate
      *
      * @param d           a Department
@@ -331,7 +332,7 @@ public class Admin implements Observable {
         if ((repeat.length == 7) && (validateTimeSpan(start, end) && validateStartTime(start))) {
             d.createShift(start, end, certificate, repeat);
         } else {
-            //TODO exception
+            throw new IllegalArgumentException();
         }
         notifyObservers();
     }
@@ -347,7 +348,7 @@ public class Admin implements Observable {
         if ((repeat.length == 7) && (validateTimeSpan(start, end) && validateStartTime(start))) {
             d.createShift(start, end, repeat);
         } else {
-            //TODO exception
+            throw new IllegalArgumentException();
         }
         notifyObservers();
     }
@@ -440,7 +441,7 @@ public class Admin implements Observable {
         this.guaranteedFreeTime = (WeekHandler.plusHours(hours));
     }
 
-    public long getGuaranteedFreeTime(){
+    public long getGuaranteedFreeTime() {
         return guaranteedFreeTime;
     }
 

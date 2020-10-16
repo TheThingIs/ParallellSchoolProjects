@@ -22,6 +22,6 @@
     <orderEntry type="library" name="junit:junit:4.12" level="project" />
     <orderEntry type="library" name="JavaFx" level="project" />
     <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="javax.mail" level="application" />
+    <orderEntry type="library" name="javax.mail" level="project" />
   </component>
 </module>
