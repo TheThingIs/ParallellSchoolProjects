@@ -18,7 +18,6 @@ public class testOccupiedTime {
 
         a.createWorkshift(a.getDepartmentByName("Kassa"), (today.getTime() + WeekHandler.plusDays(2)), (today.getTime() + WeekHandler.plusDaysAndHoursAndMinutes(2, 8, 0)), b);
         for (int i = today.getDate()+1 ; i - today.getDate() <= 14 ; i++){
-            OurCalendar.getInstance().getWorkday(i).setWorkDay();
             OurCalendar.getInstance().getWorkday(i).occupiesEmployee(OurCalendar.getInstance().getWorkday(i).getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByID("000000131324"));
         }
         assertEquals(14, a.getEmployeeByID("000000131324").getOccupiedTimesSize());
