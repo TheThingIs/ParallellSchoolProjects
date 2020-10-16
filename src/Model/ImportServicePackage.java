@@ -29,6 +29,8 @@ public class ImportServicePackage {
         admin.createCertificate("Fisk hantering");
         admin.createCertificate("Packetering");
 
+        admin.setGuaranteedFreeTime(8);
+
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Manager"), admin.getEmployeeByName("Moa Borg"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Manager"), admin.getEmployeeByName("Henrik Efson"));
 
