@@ -90,7 +90,7 @@ public class OurCalendar {
                 return workday;
             }
         }
-        return null; //TODO exception
+        throw new IllegalArgumentException("date must be between today and 365 days forward");
     }
 
     /**
@@ -106,6 +106,6 @@ public class OurCalendar {
                 return i;
             }
         }
-        return -1; //TODO exception
+        throw new IllegalArgumentException("date must be between today and 365 days forward");
     }
 }
