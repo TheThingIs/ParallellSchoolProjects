@@ -8,21 +8,26 @@ import java.util.Date;
 public class EmployeeCertificate {
 
     private Date expiryDate;
-    private Certificate certificate;
+    private final Certificate certificate;
 
     /**
      * Constructs an EmployeeCertificate with an expiry date and a certificate
      *
-     * @param c
-     * @param expiryDate
+     * @param certificate Assign a certificate to the new EmployeeCertificate
+     * @param expiryDate  The date this certificate should expire
      */
-    protected EmployeeCertificate(Certificate c, Date expiryDate) {
+    protected EmployeeCertificate(Certificate certificate, Date expiryDate) {
         this.expiryDate = expiryDate;
-        this.certificate = c;
+        this.certificate = certificate;
     }
 
-    protected EmployeeCertificate(Certificate c) {
-        this.certificate = c;
+    /**
+     * Constructs an EmployeeCertificate with a certificate
+     *
+     * @param certificate Assign a certificate to the new EmployeeCertificate
+     */
+    protected EmployeeCertificate(Certificate certificate) {
+        this.certificate = certificate;
     }
 
     /**

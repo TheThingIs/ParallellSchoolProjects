@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<fx:root prefHeight="600.0" prefWidth="800.0" styleClass="Schema" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="800.0" prefWidth="1000.0" styleClass="Schema" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane fx:id="workshiftPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -17,17 +17,17 @@
             <Button fx:id="saveButtonCreateNewShift" layoutX="417.0" layoutY="204.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="74.0" text="Spara" AnchorPane.bottomAnchor="318.0" AnchorPane.rightAnchor="189.0" />
          </children></AnchorPane>
       <ComboBox fx:id="viewSelector" layoutX="600.0" layoutY="14.0" prefWidth="150.0" promptText="Vy" visibleRowCount="3" />
-      <Label fx:id="currentFormatInfo" alignment="CENTER" layoutX="351.0" layoutY="18.0" text="Månad/Dag/vecka" textAlignment="CENTER" AnchorPane.bottomAnchor="565.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="18.0" />
-      <Button fx:id="previous" mnemonicParsing="false" prefHeight="560.0" prefWidth="50.0" text="Förra" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="40.0" />
-      <Button fx:id="next" layoutX="750.0" mnemonicParsing="false" prefHeight="560.0" prefWidth="50.0" text="Nästa" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="750.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <Label fx:id="currentFormatInfo" alignment="CENTER" layoutX="351.0" layoutY="18.0" text="Månad/Dag/vecka" textAlignment="CENTER" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="18.0" />
+      <Button fx:id="previous" mnemonicParsing="false" prefHeight="560.0" prefWidth="50.0" text="Förra" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <Button fx:id="next" layoutX="750.0" mnemonicParsing="false" prefHeight="560.0" prefWidth="50.0" text="Nästa" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
       <AnchorPane fx:id="dayView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
          <children>
             <ListView fx:id="listOfWorkshifts" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="weekView" layoutX="51.0" prefHeight="560.0" prefWidth="699.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane fx:id="weekView" layoutX="51.0" prefHeight="560.0" prefWidth="699.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
          <children>
-            <GridPane fx:id="weekGrid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0">
+            <GridPane fx:id="weekGrid" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -41,45 +41,43 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <Label layoutX="679.0" layoutY="6.0" text="Söndag" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="6.0" />
-            <Label layoutX="583.0" layoutY="6.0" text="Lördag" AnchorPane.rightAnchor="160.0" />
-            <Label layoutX="486.0" layoutY="6.0" text="Fredag" AnchorPane.rightAnchor="255.0" />
-            <Label layoutX="339.0" layoutY="6.0" text="Torsdag" AnchorPane.rightAnchor="338.0" />
-            <Label layoutX="249.0" layoutY="6.0" text="Onsdag" AnchorPane.rightAnchor="428.0" />
-            <Label layoutX="159.0" layoutY="6.0" text="Tisdag" AnchorPane.rightAnchor="524.0" />
-            <Label layoutX="69.0" layoutY="6.0" text="Måndag" AnchorPane.rightAnchor="600.0" />
+            <Label layoutX="679.0" layoutY="6.0" text="Söndag" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="583.0" layoutY="6.0" text="Lördag" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="486.0" layoutY="6.0" text="Fredag" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="339.0" layoutY="6.0" text="Torsdag" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="249.0" layoutY="6.0" text="Onsdag" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="159.0" layoutY="6.0" text="Tisdag" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="69.0" layoutY="6.0" text="Måndag" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="monthView" layoutX="50.0" prefHeight="560.0" prefWidth="719.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane fx:id="monthView" layoutX="50.0" prefHeight="560.0" prefWidth="719.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
          <children>
-            <GridPane fx:id="monthGrid" layoutX="50.0" layoutY="23.0" prefHeight="740.0" prefWidth="800.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="23.0">
+            <Label layoutX="605.0" layoutY="6.0" text="Söndag" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="533.0" text="Lördag" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="427.0" layoutY="6.0" text="Fredag" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="164.0" layoutY="6.0" text="Tisdag" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="75.0" layoutY="6.0" text="Måndag" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="249.0" layoutY="6.0" text="Onsdag" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="338.0" layoutY="6.0" text="Torsdag" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="0.0" />
+            <GridPane fx:id="monthGrid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <Label layoutX="605.0" layoutY="6.0" text="Söndag" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="6.0" />
-            <Label layoutX="518.0" layoutY="6.0" text="Lördag" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="6.0" />
-            <Label layoutX="427.0" layoutY="6.0" text="Fredag" AnchorPane.rightAnchor="255.0" AnchorPane.topAnchor="6.0" />
-            <Label layoutX="164.0" layoutY="6.0" text="Tisdag" AnchorPane.rightAnchor="524.0" AnchorPane.topAnchor="6.0" />
-            <Label layoutX="75.0" layoutY="6.0" text="Måndag" AnchorPane.rightAnchor="600.0" AnchorPane.topAnchor="6.0" />
-            <Label layoutX="249.0" layoutY="6.0" text="Onsdag" AnchorPane.rightAnchor="428.0" />
-            <Label layoutX="338.0" layoutY="6.0" text="Torsdag" AnchorPane.rightAnchor="338.0" />
          </children>
       </AnchorPane>
       <Button fx:id="createWorkshift" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Skapa Arbetspass" />

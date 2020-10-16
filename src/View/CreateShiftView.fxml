@@ -50,6 +50,7 @@
             <Button fx:id="addCertificate" layoutX="419.0" layoutY="228.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="146.0" text="Lägg till krävda certifikat" />
             <ComboBox fx:id="departmentComboBox" layoutX="299.0" layoutY="28.0" prefWidth="150.0" promptText="Avdelning" />
             <Label layoutX="42.0" layoutY="329.0" text="Upprepande dagar:" />
+            <Label fx:id="warningCreateWorkshift" layoutX="385.0" layoutY="351.0" text="Du måste fylla alla fält!" textFill="#dd0a0a" visible="false" />
          </children>
       </AnchorPane>
    </children>

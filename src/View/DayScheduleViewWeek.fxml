@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<fx:root maxHeight="110.0" maxWidth="118.0" prefHeight="400.0" prefWidth="600.0" styleClass="DayScheduleViewWeek" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dayLabel" alignment="CENTER" layoutX="32.0" layoutY="23.0" text="22" textAlignment="CENTER">
+            <font>
+                <Font name="Comic Sans MS Bold" size="45.0" />
+            </font></Label>
+    </children>
+</fx:root>

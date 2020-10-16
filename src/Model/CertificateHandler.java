@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class CertificateHandler {
     private static CertificateHandler single_instance = null;
-    private List<Certificate> allCertificates;
-    private HashMap<Certificate, List<Employee>> employeeLinkCertificate;
+    private final List<Certificate> allCertificates;
+    private final HashMap<Certificate, List<Employee>> employeeLinkCertificate;
 
 
     private CertificateHandler() {
