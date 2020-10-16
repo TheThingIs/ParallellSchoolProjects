@@ -25,6 +25,7 @@ public class Runnable extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
+        /*
         boolean repeat[] = {false, false, false, false, false, false, false};
         long tmp = OurCalendar.getInstance().getWorkday(16).DATE;
         Admin.getInstance().createNewDepartment("Disken", 2, new Color(1, 0.8, 0.4, 0.6));
@@ -39,8 +40,8 @@ public class Runnable extends Application {
         WorkDay tmpWorkDay = OurCalendar.getInstance().getWorkday(16);
         //tmpWorkDay.setWorkDay();
         WorkShift tmpWorkshift = tmpWorkDay.getWorkShifts(tmpDepartment).get(0);
-        tmpWorkDay.occupiesEmployee(tmpWorkshift, tmpEmployee);
-
+        tmpWorkDay.occupiesEmployee(tmpWorkshift, tmpEmployee);*/
+        ImportServicePackage.loadPackage();
         /*
         for (int index = 0; index<10; index++)
             Admin.getInstance().createNewEmployee("Oliver Andersson", Long.toString(200006010000L+index));
