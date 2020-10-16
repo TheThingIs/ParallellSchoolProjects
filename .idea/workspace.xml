@@ -32,7 +32,6 @@
   <component name="ProjectId" id="1hrIaZ2ADtJb0Z9IOIcQCy7d1VM" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -47,20 +46,11 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RunManager" selected="Application.Runnable">
+  <component name="RunManager" selected="JUnit.testEmployeeSorter.testAllWorkShiftNotFull">
     <configuration name="Runnable" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Runnable" />
       <module name="ParallellSchoolProjects" />
       <option name="VM_PARAMETERS" value="--module-path C:\javafx-sdk-14\lib --add-modules javafx.controls,javafx.fxml" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="testDepartment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ParallellSchoolProjects" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testDepartment" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -75,53 +65,54 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testWorkShift" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="testEmployeeSorter.testAllWorkShiftNotFull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ParallellSchoolProjects" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testWorkShift" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="testEmployeeSorter" />
+      <option name="METHOD_NAME" value="testAllWorkShiftNotFull" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testWorkday" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="testEmployeeSorter.testGetListOfPotentialPersons" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ParallellSchoolProjects" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testWorkday" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="testEmployeeSorter" />
+      <option name="METHOD_NAME" value="testGetListOfPotentialPersons" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testEmployeeSorter.testSortWorkShiftPotentialWorkShiftCandidate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ParallellSchoolProjects" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testEmployeeSorter" />
+      <option name="METHOD_NAME" value="testSortWorkShiftPotentialWorkShiftCandidate" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Runnable" />
-      <item itemvalue="JUnit.testWorkday" />
-      <item itemvalue="JUnit.testWorkShift" />
-      <item itemvalue="JUnit.testDepartment" />
       <item itemvalue="JUnit.testDepartment.testCreateBreak" />
+      <item itemvalue="JUnit.testEmployeeSorter.testGetListOfPotentialPersons" />
+      <item itemvalue="JUnit.testEmployeeSorter.testAllWorkShiftNotFull" />
+      <item itemvalue="JUnit.testEmployeeSorter.testSortWorkShiftPotentialWorkShiftCandidate" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.testEmployeeSorter.testAllWorkShiftNotFull" />
+        <item itemvalue="JUnit.testEmployeeSorter.testSortWorkShiftPotentialWorkShiftCandidate" />
+        <item itemvalue="JUnit.testEmployeeSorter.testGetListOfPotentialPersons" />
         <item itemvalue="Application.Runnable" />
         <item itemvalue="JUnit.testDepartment.testCreateBreak" />
-        <item itemvalue="JUnit.testDepartment" />
-        <item itemvalue="JUnit.testWorkShift" />
-        <item itemvalue="JUnit.testWorkday" />
       </list>
     </recent_temporary>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -159,30 +150,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="666" y="262" key="FileChooserDialogImpl/0.0.1920.1040/1920.-559.1920.1040@0.0.1920.1040" timestamp="1602773918622" />
-    <state width="1877" height="284" key="GridCell.Tab.0.bottom" timestamp="1602845524595">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1602849102821">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1458" height="256" key="GridCell.Tab.0.bottom/0.0.1500.960@0.0.1500.960" timestamp="1602248208555" />
     <state width="1877" height="284" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-559.1920.1040@0.0.1920.1040" timestamp="1602845524595" />
     <state width="1877" height="362" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1602771755117" />
-    <state width="1877" height="284" key="GridCell.Tab.0.center" timestamp="1602845524595">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1602849102821" />
+    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1602849102821">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1458" height="256" key="GridCell.Tab.0.center/0.0.1500.960@0.0.1500.960" timestamp="1602248208555" />
     <state width="1877" height="284" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-559.1920.1040@0.0.1920.1040" timestamp="1602845524595" />
     <state width="1877" height="362" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1602771755117" />
-    <state width="1877" height="284" key="GridCell.Tab.0.left" timestamp="1602845524594">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1602849102821" />
+    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1602849102821">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1458" height="256" key="GridCell.Tab.0.left/0.0.1500.960@0.0.1500.960" timestamp="1602248208554" />
     <state width="1877" height="284" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-559.1920.1040@0.0.1920.1040" timestamp="1602845524594" />
     <state width="1877" height="362" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1602771755117" />
-    <state width="1877" height="284" key="GridCell.Tab.0.right" timestamp="1602845524595">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1602849102821" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1602849102821">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1458" height="256" key="GridCell.Tab.0.right/0.0.1500.960@0.0.1500.960" timestamp="1602248208555" />
     <state width="1877" height="284" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-559.1920.1040@0.0.1920.1040" timestamp="1602845524595" />
     <state width="1877" height="362" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1602771755117" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1602849102821" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1602842559548">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
