@@ -79,7 +79,6 @@ public class SchemaWorkshift extends AnchorPane {
         tmp.setHours(0);
         tmp.setMinutes(0);
         tmp.setSeconds(0);
-        System.out.println(start-tmp.getTime());
         return ((start-tmp.getTime())/fullDay);
     }
 }

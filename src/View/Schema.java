@@ -128,7 +128,7 @@ public class Schema extends AnchorPane implements Observer {
                 updateWeek();
                 break;
             case "Månad":
-                this.dateIndex+= YearMonth.of(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear(), new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getMonth()).lengthOfMonth();
+                this.dateIndex+= YearMonth.of(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear()+1900, new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getMonth()+1).lengthOfMonth();
                 updateMonth();
                 break;
         }
@@ -144,7 +144,7 @@ public class Schema extends AnchorPane implements Observer {
                 updateWeek();
                 break;
             case "Månad":
-                this.dateIndex-= YearMonth.of(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear(), new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getMonth()).lengthOfMonth();
+                this.dateIndex-= YearMonth.of(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear()+1900, new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getMonth()+1).lengthOfMonth();
                 updateMonth();
                 break;
         }
@@ -170,8 +170,12 @@ public class Schema extends AnchorPane implements Observer {
         }
     }
     private void updateMonth(){
+        monthGrid.getChildren().clear();
         currentIndex = new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE);
-        int daysInMonth = YearMonth.of(currentIndex.getYear(), currentIndex.getMonth()).lengthOfMonth();
+        System.out.println(YearMonth.of(currentIndex.getYear()+1900, currentIndex.getMonth()+1).lengthOfMonth());
+        System.out.println(YearMonth.of(currentIndex.getYear()+1900, currentIndex.getMonth()+1).getYear());
+        System.out.println(YearMonth.of(currentIndex.getYear()+1900, currentIndex.getMonth()+1).getMonth());
+        int daysInMonth = YearMonth.of(currentIndex.getYear()+1900, currentIndex.getMonth()+1).lengthOfMonth();
         Calendar tmp = Calendar.getInstance();
         tmp.setTime(currentIndex);
         int startingDay;
@@ -196,6 +200,7 @@ public class Schema extends AnchorPane implements Observer {
     }
 
     private void updateWeek(){
+        weekGrid.getChildren().clear();
         for (int i = 0; i<7; i++){
             DayScheduleViewWeek tmpNode = new DayScheduleViewWeek(OurCalendar.getInstance().getWorkday(dateIndex+i));
             tmpNode.setOnMouseClicked(new EventHandler<MouseEvent>() {

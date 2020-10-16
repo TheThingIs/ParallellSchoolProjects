@@ -17,9 +17,9 @@
             <Button fx:id="saveButtonCreateNewShift" layoutX="417.0" layoutY="204.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="74.0" text="Spara" AnchorPane.bottomAnchor="318.0" AnchorPane.rightAnchor="189.0" />
          </children></AnchorPane>
       <ComboBox fx:id="viewSelector" layoutX="600.0" layoutY="14.0" prefWidth="150.0" promptText="Vy" visibleRowCount="3" />
-      <Label fx:id="currentFormatInfo" alignment="CENTER" layoutX="351.0" layoutY="18.0" text="Månad/Dag/vecka" textAlignment="CENTER" AnchorPane.bottomAnchor="565.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="18.0" />
-      <Button fx:id="previous" mnemonicParsing="false" prefHeight="560.0" prefWidth="50.0" text="Förra" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="40.0" />
-      <Button fx:id="next" layoutX="750.0" mnemonicParsing="false" prefHeight="560.0" prefWidth="50.0" text="Nästa" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="750.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <Label fx:id="currentFormatInfo" alignment="CENTER" layoutX="351.0" layoutY="18.0" text="Månad/Dag/vecka" textAlignment="CENTER" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="18.0" />
+      <Button fx:id="previous" mnemonicParsing="false" prefHeight="560.0" prefWidth="50.0" text="Förra" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <Button fx:id="next" layoutX="750.0" mnemonicParsing="false" prefHeight="560.0" prefWidth="50.0" text="Nästa" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
       <AnchorPane fx:id="dayView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
          <children>
             <ListView fx:id="listOfWorkshifts" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
