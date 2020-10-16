@@ -106,7 +106,12 @@ public class WorkDay implements Observer {
         }
     }
 
-    public boolean isEmpty() {
+
+    /**
+     * Checks if all departments have 0 shifts
+     * @return true if all departments have 0 shifts
+     */
+    public boolean isEmpty(){
         updateDepartments();
         for (Department d : departments) {
             if (departmentLinks.get(d).size() != 0)
@@ -115,7 +120,11 @@ public class WorkDay implements Observer {
         return true;
     }
 
-    public boolean isFilled() {
+    /**
+     * Checks if all shifts are filled
+     * @return true if all shifts are occupied
+     */
+    public boolean isFilled(){
         updateDepartments();
         for (Department d : departments) {
             for (WorkShift w : departmentLinks.get(d)) {
@@ -136,7 +145,10 @@ public class WorkDay implements Observer {
         return departmentLinks.get(department);
     }
 
-    public void setWorkDay() {
+    /**
+     * Sets all possible shifts that can be added to the workday
+     */
+    public void setWorkDay() { //funkar inte
         updateDepartments();
         WorkShift ws;
         for (Department d : departments) {
@@ -151,6 +163,9 @@ public class WorkDay implements Observer {
         }
     }
 
+    /**
+     * Makes sure all departments are properly linked in departmentLinks
+     */
     public void updateDepartments() {
         for (Department d : departments) {
             departmentLinks.computeIfAbsent(d, k -> new ArrayList<>());
@@ -202,6 +217,9 @@ public class WorkDay implements Observer {
         return DayOfWeek.getDay(calendar.get(Calendar.DAY_OF_WEEK)).offset;
     }
 
+    /**
+     * Updates the workDay with shifts to be added
+     */
     @Override
     public void update() {
         updateDepartments();

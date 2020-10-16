@@ -4,6 +4,8 @@ import Controller.AdminController;
 import Model.Admin;
 import Model.Employee;
 import Model.Observer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -36,7 +39,9 @@ public class StartPage implements Observer, Initializable {
     @FXML Tab tabCertificates;
     @FXML AnchorPane tabEmployeesPane;
     @FXML AnchorPane tabDepartmentsPane;
+    @FXML TabPane tabPane;
     private Admin admin;
+    private Settings s= new Settings();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -57,7 +62,7 @@ public class StartPage implements Observer, Initializable {
         tabCertificates.setContent(new CertificateList());
         tabDepartmentsPane.getChildren().clear();
         tabDepartmentsPane.getChildren().add(departmentList);
-        tabSettings.setContent(new Settings());
+        tabSettings.setContent(s);
     }
 
     private void setButtons(){
@@ -73,6 +78,15 @@ public class StartPage implements Observer, Initializable {
                 startNewFile();
             }
         });
+
+        tabPane.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Tab>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        s.update();
+                    }
+                }
+        );
     }
 
     private void startNewFile(){

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Admin implements Observable {
     private final List<Employee> employees;
-    private long guaranteedFreeTime = 8; //startvalue
+    private long guaranteedFreeTime=WeekHandler.plusHours(8); //startvalue
     private final List<Department> departments;
     private final CertificateHandler certificateHandler;
     private final OurCalendar calendar;
@@ -444,7 +444,11 @@ public class Admin implements Observable {
         return guaranteedFreeTime;
     }
 
-    /**
+    public long getHoursOfGuaranteedFreeTime(){
+        return (guaranteedFreeTime/WeekHandler.plusHours(1));
+    }
+  
+      /**
      * Creates a new user with username and password
      *
      * @param name The username of the employee/admin
@@ -452,7 +456,7 @@ public class Admin implements Observable {
      */
     public void createNewUser(String name, String password) {
         loginHandler.newUser(name, password);
-    }
+
 
     /**
      * Removes a user with the specified username and password
