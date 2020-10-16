@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.text.DateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -23,12 +24,12 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class Schema extends AnchorPane implements Observer {
-    @FXML Button next, previous, createWorkshift,discardButtonCreateNewShift,saveButtonCreateNewShift;
+    @FXML Button next, previous, createWorkshift,discardButtonCreateNewShift,saveButtonCreateNewShift, cancelButton;
     @FXML GridPane monthGrid, weekGrid;
     @FXML AnchorPane dayView, monthView, weekView, workshiftPane;
     @FXML ComboBox<String> viewSelector;
     @FXML Label currentFormatInfo;
-    @FXML ListView listOfWorkshifts;
+    @FXML ListView listOfWorkshifts, listOfAvailableEmployees;
 
     private int dateIndex;
     private Date currentIndex;
@@ -46,22 +47,53 @@ public class Schema extends AnchorPane implements Observer {
         }
         generateDate();
         generateComboBox();
-        generateLabels();
+        //generateLabels();
         generateButtons();
         Admin.getInstance().addObserver(this);
+    }
+
+    private void generateEmployeePicker(WorkShift workShift){
+        listOfAvailableEmployees.getItems().clear();
+        List<Employee> employees = new ArrayList<>();
+        for (int i = 0; i<Admin.getInstance().getEmployeeListSize(); i++)
+            employees.add(Admin.getInstance().getEmployee(i));
+        employees = Admin.getInstance().getEmployeeSorter().getAvailablePersons(workShift.START, workShift.END, employees);
+        employees = Admin.getInstance().getEmployeeSorter().getQualifiedPersons(workShift, employees);
+        for (Employee e : employees){
+            EmployeeView tmp = new EmployeeView(e);
+            tmp.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    assignEmployeeToWorkshift(workShift, e);
+                }
+            });
+            listOfAvailableEmployees.getItems().add(tmp);
+        }
+        listOfAvailableEmployees.toFront();
+        listOfAvailableEmployees.setVisible(true);
+        listOfWorkshifts.toBack();
+    }
+
+    private void assignEmployeeToWorkshift(WorkShift workShift, Employee employee){
+        OurCalendar calendar = OurCalendar.getInstance();
+        calendar.getWorkday(calendar.getDateIndex(new Date(workShift.START))).occupiesEmployee(workShift, employee);
+        listOfAvailableEmployees.toBack();
+        listOfAvailableEmployees.setVisible(false);
+        listOfWorkshifts.toFront();
+        updateDay();
     }
 
     private void generateLabels(){
         switch (mode){
             case "Dag":
-                currentFormatInfo.setText(currentIndex.toString());
+                currentFormatInfo.setText(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).toString());
                 break;
             case "Vecka":
-                Calendar.getInstance().setTime(currentIndex);
-                currentFormatInfo.setText("Vecka " + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+                currentFormatInfo.setText("Vecka " +  YearMonth.of((new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear()+1900),(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getMonth())+1));
                 break;
             case "Månad":
-                currentFormatInfo.setText(currentIndex.getYear() + "/" + currentIndex.getMonth());
+                currentFormatInfo.setText((new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear()+1900) + "/" + (new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getMonth()+1));
+                break;
         }
     }
 
@@ -85,6 +117,7 @@ public class Schema extends AnchorPane implements Observer {
 
     private void viewSelection(String mode){
         this.mode = mode;
+        generateLabels();
         Calendar instance = Calendar.getInstance();
         instance.setTime(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE));
         switch (mode) {
@@ -132,6 +165,7 @@ public class Schema extends AnchorPane implements Observer {
                 updateMonth();
                 break;
         }
+        generateLabels();
     }
     private void previous(){
         switch (mode){
@@ -148,6 +182,7 @@ public class Schema extends AnchorPane implements Observer {
                 updateMonth();
                 break;
         }
+        generateLabels();
     }
 
     private int dayConverter(int dayOfWeek){
@@ -172,9 +207,6 @@ public class Schema extends AnchorPane implements Observer {
     private void updateMonth(){
         monthGrid.getChildren().clear();
         currentIndex = new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE);
-        System.out.println(YearMonth.of(currentIndex.getYear()+1900, currentIndex.getMonth()+1).lengthOfMonth());
-        System.out.println(YearMonth.of(currentIndex.getYear()+1900, currentIndex.getMonth()+1).getYear());
-        System.out.println(YearMonth.of(currentIndex.getYear()+1900, currentIndex.getMonth()+1).getMonth());
         int daysInMonth = YearMonth.of(currentIndex.getYear()+1900, currentIndex.getMonth()+1).lengthOfMonth();
         Calendar tmp = Calendar.getInstance();
         tmp.setTime(currentIndex);
@@ -218,8 +250,16 @@ public class Schema extends AnchorPane implements Observer {
         //OurCalendar.getInstance().getWorkday(dateIndex).setWorkDay();
         listOfWorkshifts.getItems().clear();
         for (Department d : Admin.getInstance().getDepartments()){
-            for (WorkShift w : OurCalendar.getInstance().getWorkday(dateIndex).getWorkShifts(d))
-                listOfWorkshifts.getItems().add(new SchemaWorkshift(w, d.getColor(), d.getName()));
+            for (WorkShift w : OurCalendar.getInstance().getWorkday(dateIndex).getWorkShifts(d)) {
+                SchemaWorkshift tmp = new SchemaWorkshift(w, d.getColor(), d.getName());
+                tmp.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        generateEmployeePicker(w);
+                    }
+                });
+                listOfWorkshifts.getItems().add(tmp);
+            }
         }
     }
 
@@ -272,23 +312,16 @@ public class Schema extends AnchorPane implements Observer {
                 saveButtonCreateNewShift.toFront();
             }
         });
+        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                listOfAvailableEmployees.toBack();
+                listOfAvailableEmployees.setVisible(false);
+                listOfWorkshifts.toFront();
+            }
+        });
     }
 
-    private void sortEmployeesAlphabetically(List<Employee> employees){
-        employees.sort(Comparator.comparing(Employee::getName));
-    }
-
-    private void generateMonth(){
-
-    }
-
-    private void generateWeek(){
-
-    }
-
-    private void generateDay(){
-
-    }
     @Override
     public void update() {
         switch (mode){
