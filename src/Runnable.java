@@ -37,7 +37,7 @@ public class Runnable extends Application {
         Department tmpDepartment = Admin.getInstance().getDepartmentByName("Disken");
         Employee tmpEmployee = Admin.getInstance().getEmployee(0);
         WorkDay tmpWorkDay = OurCalendar.getInstance().getWorkday(16);
-        tmpWorkDay.setWorkDay();
+        //tmpWorkDay.setWorkDay();
         WorkShift tmpWorkshift = tmpWorkDay.getWorkShifts(tmpDepartment).get(0);
         tmpWorkDay.occupiesEmployee(tmpWorkshift, tmpEmployee);
 
