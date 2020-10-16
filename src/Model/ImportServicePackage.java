@@ -12,12 +12,12 @@ public class ImportServicePackage {
         Date date = new Date();
         date.setTime(OurCalendar.getInstance().getDate(date).DATE + WeekHandler.plusDays(1));
 
-        admin.createNewEmployee("Moa Borg", "0005174938", "Moa@gmail.com");
-        admin.createNewEmployee("Henrik Efson", "7902238120", "Henrik.Ef@gmail.com");
-        admin.createNewEmployee("Crazy Jim", "6512247027", "Not.Crazy@gmail.com");
-        admin.createNewEmployee("Fredrik Johanson", "8511097928", "Fredrik-Johanson13@hotmail.com");
-        admin.createNewEmployee("Sara Samson", "8806015472", "samsonsara@gmail.com");
-        admin.createNewEmployee("Elsa Frost", "9010311276", "Elsa.Frost@email.com");
+        admin.createNewEmployee("Moa Borg", "200005174938", "Moa@gmail.com");
+        admin.createNewEmployee("Henrik Efson", "197902238120", "Henrik.Ef@gmail.com");
+        admin.createNewEmployee("Crazy Jim", "196512247027", "Not.Crazy@gmail.com");
+        admin.createNewEmployee("Fredrik Johanson", "198511097928", "Fredrik-Johanson13@hotmail.com");
+        admin.createNewEmployee("Sara Samson", "198806015472", "samsonsara@gmail.com");
+        admin.createNewEmployee("Elsa Frost", "199010311276", "Elsa.Frost@email.com");
 
         admin.createNewDepartment("Kassa", 2, Color.BLUE);
         admin.createNewDepartment("Chark", 2, Color.RED);
@@ -28,8 +28,6 @@ public class ImportServicePackage {
         admin.createCertificate("Kött hantering");
         admin.createCertificate("Fisk hantering");
         admin.createCertificate("Packetering");
-
-
 
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Manager"), admin.getEmployeeByName("Moa Borg"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Manager"), admin.getEmployeeByName("Henrik Efson"));
@@ -93,13 +91,16 @@ public class ImportServicePackage {
 
         ArrayList<Employee> employees = new ArrayList<>();
         for (int i = 0 ; i < admin.getEmployeeListSize() ; i++){
+
             employees.add(admin.getEmployee(i));
         }
         ArrayList<WorkDay> workDays = new ArrayList<>();
-        for (int i = 0 ; i < admin.getEmployeeListSize() ; i++){
-            //TODO 
+        for (int i = date.getDate() ; i < 14 + date.getDate() ; i++){
+            //System.out.println("dagar");
+            workDays.add(OurCalendar.getInstance().getWorkday(i));
         }
         admin.getEmployeeSorter().sortPotentialWorkShiftCandidate(employees, workDays);
+        admin.getEmployeeSorter().delegateEmployeeToWorkshift();
     }
 
 }

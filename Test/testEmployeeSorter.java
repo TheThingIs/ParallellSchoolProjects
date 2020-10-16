@@ -77,6 +77,7 @@ public class testEmployeeSorter {
         admin.createWorkshift(admin.getDepartmentByName("Soffliggare"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), repeat);
         admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
 
+
         ArrayList<Employee> employees = new ArrayList<>();
         ArrayList<WorkDay> workDays = new ArrayList<>();
 
@@ -141,9 +142,6 @@ public class testEmployeeSorter {
         admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
         admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
         admin.createWorkshift(admin.getDepartmentByName("Bilmekaniker"), d.getTime() + 1000, d.getTime() + WeekHandler.plusHours(3), allcert, repeat);
-
-
-
     }
 
 }
