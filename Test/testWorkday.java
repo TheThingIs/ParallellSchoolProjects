@@ -135,14 +135,8 @@ public class testWorkday {
         a.createWorkshift(a.getDepartmentByName("Kassa"), d.getTime(), (d.getTime() + WeekHandler.plusHours(8)), repeat);
         a.createWorkshift(a.getDepartmentByName("Kassa"), d.getTime() + WeekHandler.plusDays(1), (d.getTime() + (WeekHandler.plusHours(8)) + WeekHandler.plusDays(1)), allcert, repeat);
         a.createWorkshift(a.getDepartmentByName("Kassa"), d.getTime() + WeekHandler.plusDays(1), (d.getTime() + (WeekHandler.plusHours(8)) + WeekHandler.plusDays(1)), repeat);
-        //WorkShift w1= new WorkShift(d.getTime(),(d.getTime()+(1000 * 60 * 60 * 8)),new OccupiedTime(2,2), false);
-        //WorkShift w2= new WorkShift(d.getTime(),(d.getTime()+(1000 * 60 * 60 * 8)),new OccupiedTime(2,2), false);
-        //WorkShift w3= new WorkShift(d.getTime() + 1000*60*60*24*1,(d.getTime()+(1000 * 60 * 60 * 8) + 1000*60*60*24*1),allcert,new OccupiedTime(2,2), false);
-        //WorkShift w4= new WorkShift(d.getTime() + 1000*60*60*24*1,(d.getTime()+(1000 * 60 * 60 * 8) + 1000*60*60*24*1),new OccupiedTime(2,2), false);
         WorkDay workday = OurCalendar.getInstance().getWorkday(d.getDate() - 1);
         WorkDay workday2 = OurCalendar.getInstance().getWorkday(d.getDate());
-        //workday.setWorkDay();
-        //workday2.setWorkDay();
         a.setGuaranteedFreeTime(10);
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByName("moa")); //w1
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(1), a.getEmployeeByName("mas")); //w2
@@ -155,6 +149,29 @@ public class testWorkday {
         assertTrue(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0).getEmployee() == a.getEmployeeByName("mas"));
         workday.swapOccupation(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(1), workday2.getWorkShifts(a.getDepartmentByName("Kassa")).get(0));
         assertTrue(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(1).getEmployee() == a.getEmployeeByName("sam"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void GetInvalidDepartmentName() {
+        Admin a = Admin.getInstance();
+        a.createNewDepartment("Kassa", 1);
+        a.getDepartmentByName("kassa");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void GetInvalidDate() {
+        Date d = new Date();
+        d.setYear(2010);
+        OurCalendar calendar = OurCalendar.getInstance();
+        calendar.getDate(d);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void GetInvalidDateIndex() {
+        Date d = new Date();
+        d.setYear(2010);
+        OurCalendar calendar = OurCalendar.getInstance();
+        calendar.getDate(d);
     }
 
 

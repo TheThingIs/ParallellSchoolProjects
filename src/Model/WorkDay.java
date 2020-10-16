@@ -37,20 +37,20 @@ public class WorkDay implements Observer {
      * Registers an Employee for a Workshift and ensures they get their free time
      *
      * @param workShift A WorkShift
-     * @param e         An Employee
+     * @param employee         An Employee
      */
-    public void occupiesEmployee(WorkShift workShift, Employee e) {
+    public void occupiesEmployee(WorkShift workShift, Employee employee) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         for (int i = 0; i < workShift.getCertificatesSize(); i++) {
             certificates.add(workShift.getCertificate(i));
         }
-        if (!e.isOccupied(workShift.START, workShift.END) && e.hasCertifices(certificates)) {
+        if (!employee.isOccupied(workShift.START, workShift.END) && employee.hasCertifices(certificates)) {
             long endOccupiedTime = (workShift.END) + Admin.getInstance().getGuaranteedFreeTime();
             OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
-            e.registerOccupation(ot);
-            workShift.registerOccupation(e, ot);
+            employee.registerOccupation(ot);
+            workShift.registerOccupation(employee, ot);
         } else {
-            //TODO
+            throw new IllegalArgumentException("The employee cannot occupy the shift");
         }
     }
 
@@ -58,21 +58,21 @@ public class WorkDay implements Observer {
      * Swaps out an Employee for another one on that WorkShift
      *
      * @param workShift a WorkShift
-     * @param e         an Employee
+     * @param employee         an Employee
      */
-    public void reOccupieEmployee(WorkShift workShift, Employee e) {
+    public void reOccupieEmployee(WorkShift workShift, Employee employee) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         for (int i = 0; i < workShift.getCertificatesSize(); i++) {
             certificates.add(workShift.getCertificate(i));
         }
-        if (!e.isOccupied(workShift.START, workShift.END) && e.hasCertifices(certificates)) {
+        if (!employee.isOccupied(workShift.START, workShift.END) && employee.hasCertifices(certificates)) {
             workShift.clearWorkShiftOccupation();
             long endOccupiedTime = (workShift.END) + Admin.getInstance().getGuaranteedFreeTime();
             OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
-            e.registerOccupation(ot);
-            workShift.registerOccupation(e, ot);
+            employee.registerOccupation(ot);
+            workShift.registerOccupation(employee, ot);
         } else {
-            //TODO
+            throw new IllegalArgumentException("The employees cannot be reoccupied");
         }
     }
 
@@ -129,14 +129,14 @@ public class WorkDay implements Observer {
     /**
      * Returns all workshifts in the specified department
      *
-     * @param d The department to get the workshift from
+     * @param department The department to get the workshift from
      * @return a list of workshift in the department
      */
-    public List<WorkShift> getWorkShifts(Department d) {
-        return departmentLinks.get(d);
+    public List<WorkShift> getWorkShifts(Department department) {
+        return departmentLinks.get(department);
     }
 
-    public void setWorkDay() { //funkar inte
+    public void setWorkDay() {
         updateDepartments();
         WorkShift ws;
         for (Department d : departments) {
@@ -153,7 +153,7 @@ public class WorkDay implements Observer {
 
     public void updateDepartments() {
         for (Department d : departments) {
-            departmentLinks.computeIfAbsent(d, k -> new ArrayList<WorkShift>());
+            departmentLinks.computeIfAbsent(d, k -> new ArrayList<>());
         }
     }
 
@@ -225,11 +225,7 @@ public class WorkDay implements Observer {
                     removeShifts.add(d.getRemoveWorkShift(i));
                 }
                 for (WorkShift removeShift : removeShifts) {
-                    for (WorkShift checkShift : departmentLinks.get(d)) {
-                        if (removeShift.ID == checkShift.ID) {
-                            departmentLinks.get(d).remove(checkShift);
-                        }
-                    }
+                    departmentLinks.get(d).removeIf(checkShift -> removeShift.ID == checkShift.ID);
                 }
             }
         }

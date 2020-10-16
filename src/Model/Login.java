@@ -26,7 +26,7 @@ public class Login {
      * @param userName The username of the employee/admin
      * @param password The password of the employee/admin
      */
-    public void newUser(String userName, String password) {
+    protected void newUser(String userName, String password) {
         userNames.add(userName);
         passwords.put(userName, encrypt(password));
     }
@@ -37,7 +37,7 @@ public class Login {
      * @param userName the username of the user to remove
      * @param password the password of the user to remove
      */
-    public void removeUser(String userName, String password) {
+    protected void removeUser(String userName, String password) {
         if (userNames.contains(userName)) {
             if (decrypt(passwords.get(userName)).equals(password)) {
                 passwords.remove(userName);

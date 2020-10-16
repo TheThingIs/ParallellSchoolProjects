@@ -4,9 +4,9 @@ package Model;
  * Represents a handler for the breaks of the work shifts, has information of how long a break should be
  */
 public class BreakHandler {
-    private long minBreakLength=15;
-    private long midBreakLength=30;
-    private long maxBreakLength=45;
+    private long minBreakLength = 15;
+    private long midBreakLength = 30;
+    private long maxBreakLength = 45;
     private static BreakHandler instance = null;
 
 
