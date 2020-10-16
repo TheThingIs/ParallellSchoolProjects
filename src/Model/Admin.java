@@ -17,7 +17,7 @@ public class Admin implements Observable {
     private final CertificateHandler certificateHandler;
     private final OurCalendar calendar;
     private final EmployeeSorter employeeSorter;
-    public final Login loginHandler; //TODO private
+    private final Login loginHandler; //TODO private
     private List<Observer> observers, toBeAdded, toBeRemoved;
     private Exporter export;
     private static Admin instance = null;
@@ -45,40 +45,6 @@ public class Admin implements Observable {
         this.toBeAdded = new ArrayList<>();
         this.toBeRemoved = new ArrayList<>();
     }
-
-    /*
-     * creates an employee based on input from the keyboard
-     *
-    public void consoleCommandCreateEmployee() {
-        Scanner sc = new Scanner(System.in);
-        String name;
-        String personalId;
-        System.out.println("Information om den nya anställda");
-        System.out.println("Namn: ");
-        name = sc.nextLine();
-        System.out.println("Personnummer: ");
-        personalId = sc.next();
-        //createNewEmployee(name, personalId);
-        sc.nextLine();
-        System.out.println("Do you want to give this person A Certificate? (y/n)");
-        if (sc.nextLine().contains("y")) {
-            boolean running = true;
-            while (running) {
-                System.out.println("Vad heter certifikatet?");
-                String tmp = sc.nextLine();
-                certificateHandler.createNewCertificate(tmp);
-                System.out.println("Vill du lägga till ett till certifikat? (y/n)");
-                if (sc.nextLine().contains("n"))
-                    running = false;
-            }
-        }
-        for (Employee e : employees) {
-            System.out.println("____________________");
-            System.out.println(e.getName());
-            System.out.println(e.PERSONAL_ID);
-            System.out.println(e.getAllCertificates());
-        }
-    } */
 
     /**
      * Returns an employee at the specified index
@@ -225,6 +191,16 @@ public class Admin implements Observable {
     }
 
     /**
+     * calls the certificatehandler and notifies the observers
+     *
+     * @param name The name of the new certificate
+     */
+    public void createCertificate(String name) {
+        certificateHandler.createNewCertificate(name);
+        notifyObservers();
+    }
+
+    /**
      * creates an employeecertificate with a chosen expire date to a chosen employee
      *
      * @param certificate the certificate that should be assigned to the employee
@@ -234,16 +210,6 @@ public class Admin implements Observable {
     public void createEmployeeCertificate(Certificate certificate, Employee e, Date expiryDate) {
         e.assignCertificate(new EmployeeCertificate(certificate, expiryDate));
         certificateHandler.linkEmployeeToCertificate(certificate, e);
-        notifyObservers();
-    }
-
-    /**
-     * calls the certificatehandler and notifies the observers
-     *
-     * @param name The name of the new certificate
-     */
-    public void createCertificate(String name) {
-        certificateHandler.createNewCertificate(name);
         notifyObservers();
     }
 
@@ -315,14 +281,16 @@ public class Admin implements Observable {
         }
         notifyObservers();
     }
+
     /**
      * Creates a new department and adds it to  workday
-     * @param name Name of the department
+     *
+     * @param name              Name of the department
      * @param minPersonsOnShift
      * @param color
      */
     public void createNewDepartment(String name, int minPersonsOnShift, Color color) {
-        Department d = new Department(name,minPersonsOnShift);
+        Department d = new Department(name, minPersonsOnShift);
         d.setColor(color);
         WorkDay.addDepartment(d);
         departments.add(d);
@@ -331,8 +299,9 @@ public class Admin implements Observable {
 
     /**
      * Creates a new department and adds it to  workday
-     * @param name Name of the department
-     * @param minPersonsOnShift Max amount of people aloud to have a break at the same time
+     *
+     * @param name              Name of the department
+     * @param minPersonsOnShift
      */
     public void createNewDepartment(String name, int minPersonsOnShift) {
         Department d = new Department(name, minPersonsOnShift);
@@ -342,6 +311,7 @@ public class Admin implements Observable {
 
     /**
      * Removes the specified department
+     *
      * @param department the department to remove
      */
     public void removeDepartment(Department department) {
@@ -359,7 +329,7 @@ public class Admin implements Observable {
      */
     public void createWorkshift(Department d, long start, long end, Certificate certificate, boolean[] repeat) {
         if ((repeat.length == 7) && (validateTimeSpan(start, end) && validateStartTime(start))) {
-            d.createShift(start, end, certificate, repeat); //TODO weekly booleans and not just true
+            d.createShift(start, end, certificate, repeat);
         } else {
             //TODO exception
         }
@@ -375,7 +345,7 @@ public class Admin implements Observable {
      */
     public void createWorkshift(Department d, long start, long end, boolean[] repeat) {
         if ((repeat.length == 7) && (validateTimeSpan(start, end) && validateStartTime(start))) {
-            d.createShift(start, end, repeat); //TODO weekly booleans and not just true
+            d.createShift(start, end, repeat);
         } else {
             //TODO exception
         }
@@ -441,11 +411,11 @@ public class Admin implements Observable {
         return new Date().getTime() <= start;
     }
 
-    public List<Department> getDepartments(){
+    public List<Department> getDepartments() {
         return departments;
     }
 
-    public void changeDepartmentName(Department department, String name){
+    public void changeDepartmentName(Department department, String name) {
         department.setName(name);
     }
 
@@ -472,5 +442,16 @@ public class Admin implements Observable {
 
     public long getGuaranteedFreeTime(){
         return guaranteedFreeTime;
+    }
+    public boolean isLoginInformationCorrect(String name, String password) {
+        return loginHandler.isLoginInformationCorrect(name, password);
+    }
+
+    public void removeUser(String name, String password) {
+        loginHandler.removeUser(name, password);
+    }
+
+    public void createNewUser(String name, String password) {
+        loginHandler.removeUser(name, password);
     }
 }

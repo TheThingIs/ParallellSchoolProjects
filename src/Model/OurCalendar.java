@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class OurCalendar {
     private Calendar calendar;
-    private List<WorkDay> workDays;
+    private final List<WorkDay> workDays;
     private static OurCalendar instance = null;
 
     /**

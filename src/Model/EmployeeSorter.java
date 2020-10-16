@@ -7,18 +7,18 @@ import java.util.*;
  */
 public class EmployeeSorter implements Comparator<WorkShift> {
     public ArrayList<WorkShift> workShifts = new ArrayList<>();
-    public HashMap<WorkShift, List<Employee>> potentialWorkShiftCandidate = new HashMap<>(); //TODO sort List<Employees> after who has the least amount of workshifts
+    public HashMap<WorkShift, List<Employee>> potentialWorkShiftCandidate = new HashMap<>();
 
     @Override
     public int compare(WorkShift a, WorkShift b) {
-        return potentialWorkShiftCandidate.get(a).size() < potentialWorkShiftCandidate.get(b).size() ? -1 : potentialWorkShiftCandidate.get(a).size() == potentialWorkShiftCandidate.get(b).size() ? 0 : 1;
+        return Integer.compare(potentialWorkShiftCandidate.get(a).size(), potentialWorkShiftCandidate.get(b).size());
     }
 
     public void sortPotentialWorkShiftCandidate(ArrayList<Employee> employees, List<WorkDay> workDays) {
         ArrayList<Certificate> certificates = new ArrayList<>();
-        for (int i = 0; i < workDays.size(); i++) {
-            for (int j = 0; j < workDays.get(i).getDepartmentSize(); j++) {
-                for (WorkShift ws : workDays.get(i).getWorkShifts(workDays.get(i).getDepartment(j))) {
+        for (WorkDay workDay : workDays) {
+            for (int j = 0; j < workDay.getDepartmentSize(); j++) {
+                for (WorkShift ws : workDay.getWorkShifts(workDay.getDepartment(j))) {
                     certificates.clear();
                     for (int k1 = 0; k1 < ws.getCertificatesSize(); k1++) {
                         certificates.add(ws.getCertificate(k1));
@@ -35,21 +35,36 @@ public class EmployeeSorter implements Comparator<WorkShift> {
         boolean isAllOccupied = true;
         for (WorkShift workShift : workShifts) {
             d.setTime(workShift.START);
-            WorkDay workday = OurCalendar.getInstance().getDate(d); //TODO sort employees after occupation, least to most
+            WorkDay workday = OurCalendar.getInstance().getDate(d);
+            potentialWorkShiftCandidate.get(workShift).sort(Comparator.comparing(Employee::getOccupiedTimesSize));
             for (Employee employee : potentialWorkShiftCandidate.get(workShift)) {
+                //System.out.println(employee.getName());
                 if (!employee.isOccupied(workShift.START, workShift.END) && !workShift.isOccupied()) {
+                    //System.out.println(workShift.getEmployee().getName());
                     workday.occupiesEmployee(workShift, employee);
                 }
             }
             if (!workShift.isOccupied()) {
                 isAllOccupied = false;
+
             }
         }
         if (!isAllOccupied) {
+            SendNotification sendNotification = new SendNotification("smtp.gmail.com", "clind0429@gmail.com", "alind9864@gmail.com", "trollolol", "Workshifts not filled", getEmptyWorkShifts());
             //TODO Send notification
             //TODO send list of workshifts
         }
 
+    }
+
+    private List<WorkShift> getEmptyWorkShifts() {
+        ArrayList<WorkShift> notFilled = new ArrayList<>();
+        for (WorkShift workShift : workShifts) {
+            if (!workShift.isOccupied()) {
+                notFilled.add(workShift);
+            }
+        }
+        return notFilled;
     }
 
     public HashMap<WorkShift, List<Employee>> getPotentialEmployees() {
