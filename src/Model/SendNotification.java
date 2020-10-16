@@ -20,7 +20,7 @@ public class SendNotification {
         sendMessage(session, from, to, subject, text);
     }
 
-    public SendNotification(String host, String to, String from, String username, String password, String subject, String text, List<WorkShift> workshiftsNotFilled) {
+    public SendNotification(String host, String to, String from, String password, String subject, List<WorkShift> workshiftsNotFilled) {
 
         // Assuming you are sending email from through gmails smtp
         //String host = "smtp.gmail.com";
@@ -29,7 +29,16 @@ public class SendNotification {
 
         Session session = createSession(properties, from, password);
 
-        sendMessage(session, from, to, subject, text);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("There are " + workshiftsNotFilled.size() + " Workshifts not filled with ids");
+
+        for (WorkShift ws : workshiftsNotFilled) {
+            sb.append(ws.ID + "\n");
+        }
+
+        sb.append("Sincerly EmployeeSorter");
+        sendMessage(session, from, to, subject, sb.toString());
     }
 
     private Session createSession(Properties properties, String from, String password) {

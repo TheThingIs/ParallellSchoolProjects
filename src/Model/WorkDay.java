@@ -5,10 +5,10 @@ import java.util.*;
 /**
  * Represents a work day with a specified date, a hash map(with departments, work shifts and employees),and a list of departments
  */
-public class WorkDay implements Observer{
+public class WorkDay implements Observer {
     public final long DATE;
-    private static List<Department> departments = new ArrayList<>();
-    private HashMap<Department, List<WorkShift>> departmentLinks;
+    private static final List<Department> departments = new ArrayList<>();
+    private final HashMap<Department, List<WorkShift>> departmentLinks;
     private long guaranteedFreeTime;
 
     /**
@@ -19,16 +19,16 @@ public class WorkDay implements Observer{
     protected WorkDay(long date) {
         this.DATE = date;
         this.departmentLinks = new HashMap<>();
-        for (Department d : departments){
+        for (Department d : departments) {
             d.addObserver(this);
         }
     }
 
-    public int getDepartmentSize(){
+    public int getDepartmentSize() {
         return departments.size();
     }
 
-    public Department getDepartment( int index){
+    public Department getDepartment(int index) {
         return departments.get(index);
     }
 
@@ -36,71 +36,6 @@ public class WorkDay implements Observer{
         this.guaranteedFreeTime = (WeekHandler.plusHours(hours));
     }
 
-    /*
-     * Checks if all departments are filled
-     * @return true if all the departments are filled and otherwise false
-     */
-    /*
-    boolean allDepartmentsFilled() {
-        for (Department d : departments) {
-            for (WorkShift w : d.getAllShifts()) {
-                if (w.requiredPersonnel > departmentListHashMap.get(d).get(w).size())
-                    return false;
-            }
-        }
-        return true;
-    }*/
-
-    /**
-     * Gets the employees that are working in a specified department
-     *
-     * @param department A department
-     * @return the list of employees that are working in the department
-     */
-    List<Employee> getWorkingPersonnel(Department department) {
-        return null;
-    }
-
-    /**
-     * Gets all the departments
-     *
-     * @return a list of all the departments
-     */
-    List<Department> getAllDepartments() {
-        return null;
-    }
-
-    /*
-     * A method that schedules an employee on a work shift in a department
-     * @param employee The employee that will be scheduled
-     * @param department The department where the employee will be scheduled
-     * @param workShift The work shift the employee will be scheduled on
-     */
-    /*
-    public void scheduleEmployee(Employee employee, Department department, WorkShift workShift) {
-        departmentListHashMap.computeIfAbsent(department, k -> new HashMap<>());
-        departmentListHashMap.get(department).computeIfAbsent(workShift, k -> new ArrayList<>());
-        departmentListHashMap.get(department).get(workShift).add(employee);
-        employee.occupiedTimes.add(workShift);
-    }*/
-
-    /*
-     * A method that schedules employees on a work shift in a department
-     * @param employees The list of employees that will be scheduled
-     * @param department The department where the employees will be scheduled
-     * @param workShift The work shift the employees will be scheduled on
-     */
-    /*
-    public void scheduleEmployees(List<Employee> employees, Department department, WorkShift workShift) {
-        departmentListHashMap.computeIfAbsent(department, k -> new HashMap<>());
-        departmentListHashMap.get(department).computeIfAbsent(workShift, k -> new ArrayList<>());
-        departmentListHashMap.get(department).get(workShift).addAll(employees);
-        for (Employee employee : employees)
-            employee.occupiedTimes.add(workShift);
-    }*/
-
-    private void ScheduleEmployees(Collection<? extends Employee> employees, Department department) {
-    }
 
     /**
      * Registers an Employee for a Workshift and ensures they get their free time
@@ -145,6 +80,12 @@ public class WorkDay implements Observer{
         }
     }
 
+    /**
+     * Swaps the Employee of ws1 and ws2 if both are qualified
+     *
+     * @param ws1 Workshift to swap Employee
+     * @param ws2 Workshift to swap Employee
+     */
     public void swapOccupation(WorkShift ws1, WorkShift ws2) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         for (int i = 0; i < ws1.getCertificatesSize(); i++) {
@@ -169,20 +110,12 @@ public class WorkDay implements Observer{
         }
     }
 
-    /*
-    public void setWorkShifts(ArrayList<WorkShift> wss) {
-        for (Department d : departments) {
-            for (WorkShift ws1 : d.getAllShifts()) {
-                for (WorkShift ws2 : wss) {
-                    if (ws1 == ws2) {
-                        departmentLinks.computeIfAbsent(d, k -> new ArrayList<WorkShift>());
-                        departmentLinks.get(d).add(new WorkShift(ws2));
-                    }
-                }
-            }
-        }
-    }*/
-
+    /**
+     * Returns all workshifts in the specified department
+     *
+     * @param d The department to get the workshift from
+     * @return a list of workshift in the department
+     */
     public List<WorkShift> getWorkShifts(Department d) {
         return departmentLinks.get(d);
     }
@@ -208,36 +141,49 @@ public class WorkDay implements Observer{
         }
     }
 
-    protected static void addDepartment(Department d) {
-        departments.add(d);
+    /**
+     * Adds a department
+     *
+     * @param department department to add
+     */
+    protected static void addDepartment(Department department) {
+        departments.add(department);
     }
 
-    protected static void removeDepartment(Department d) {
-        departments.remove(d);
+    /**
+     * removes a department
+     *
+     * @param department department to remove
+     */
+    protected static void removeDepartment(Department department) {
+        departments.remove(department);
     }
 
-    public void unRegisterOccupations(Employee e, long start, long end) {
+    /**
+     * Unregister an employee from a specified time
+     *
+     * @param employee the employee
+     * @param start    time to remove from
+     * @param end      time to remove to
+     */
+    public void unRegisterOccupations(Employee employee, long start, long end) {
         for (Department d : departments) {
-            if(!(departmentLinks.isEmpty())){
-            for (WorkShift ws : departmentLinks.get(d)) {
-                if(ws.isOccupied()){
-                    if (ws.getOccupation().inBetween(start, end) && ws.getEmployee() == e) {
-                    ws.clearWorkShiftOccupation();
+            if (!(departmentLinks.isEmpty())) {
+                for (WorkShift ws : departmentLinks.get(d)) {
+                    if (ws.isOccupied()) {
+                        if (ws.getOccupation().inBetween(start, end) && ws.getEmployee() == employee) {
+                            ws.clearWorkShiftOccupation();
+                        }
                     }
                 }
-                }
-        }}
+            }
+        }
     }
 
-    public int getDayOfWeekOffset(){
+    public int getDayOfWeekOffset() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(DATE));
         return DayOfWeek.getDay(calendar.get(Calendar.DAY_OF_WEEK)).offset;
-    }
-
-    protected void clearDay() {
-        departmentLinks = new HashMap<>();
-        updateDepartments();
     }
 
     @Override
@@ -246,7 +192,7 @@ public class WorkDay implements Observer{
         for (Department d : departments) {
             if (d.getAddWorkShiftSize() > 0) {
                 ArrayList<WorkShift> addShifts = new ArrayList<>();
-                for (int i = 0 ; i < d.getAddWorkShiftSize() ; i++){
+                for (int i = 0; i < d.getAddWorkShiftSize(); i++) {
                     addShifts.add(d.getAddWorkShift(i));
                 }
                 for (WorkShift addWorkShift : addShifts) {
@@ -256,14 +202,15 @@ public class WorkDay implements Observer{
                         this.departmentLinks.get(d).add(new WorkShift(addWorkShift, this.DATE));
                     }
                 }
-            } if (d.getRemoveWorkShiftSize() > 0){
+            }
+            if (d.getRemoveWorkShiftSize() > 0) {
                 ArrayList<WorkShift> removeShifts = new ArrayList<>();
-                for (int i = 0 ; i < d.getRemoveWorkShiftSize() ; i++){
+                for (int i = 0; i < d.getRemoveWorkShiftSize(); i++) {
                     removeShifts.add(d.getRemoveWorkShift(i));
                 }
-                for (WorkShift removeShift : removeShifts){
-                    for (WorkShift checkShift : departmentLinks.get(d)){
-                        if (removeShift.ID == checkShift.ID){
+                for (WorkShift removeShift : removeShifts) {
+                    for (WorkShift checkShift : departmentLinks.get(d)) {
+                        if (removeShift.ID == checkShift.ID) {
                             departmentLinks.get(d).remove(checkShift);
                         }
                     }

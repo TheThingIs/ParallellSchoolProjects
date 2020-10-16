@@ -75,7 +75,6 @@ public class testAdmin {
         a.createWorkshift(a.getDepartmentByName("Kassa"), d.getTime() + (WeekHandler.plusHours(1)), d.getTime() + (WeekHandler.plusHours(5)), repeat);
         assertEquals(1, a.getDepartmentListSize());
         a.removeDepartment(a.getDepartmentByName("Kassa"));
-        OurCalendar.getInstance().getWorkday(d.getDate()).setWorkDay();
         assertEquals(0, a.getDepartmentListSize());
         boolean didItNotWork = false;
         try {

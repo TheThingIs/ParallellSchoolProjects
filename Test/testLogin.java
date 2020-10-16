@@ -9,10 +9,10 @@ public class testLogin {
     @Test
     public void testCreateUser() {
         Admin admin = Admin.getInstance();
-        admin.loginHandler.newUser("Markus", "Hemligt!");
-        assertTrue(admin.loginHandler.isLoginInformationCorrect("Markus", "Hemligt!"));
-        admin.loginHandler.removeUser("Markus", "Hemligt!");
-        assertTrue(admin.loginHandler.isLoginInformationCorrect("Markus", "Hemligt!") == false);
+        admin.createNewUser("Markus", "Hemligt!");
+        assertTrue(admin.isLoginInformationCorrect("Markus", "Hemligt!"));
+        admin.removeUser("Markus", "Hemligt!");
+        assertTrue(admin.isLoginInformationCorrect("Markus", "Hemligt!") == false);
     }
 
 }
