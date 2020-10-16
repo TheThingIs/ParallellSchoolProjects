@@ -9,7 +9,7 @@ public class WorkDay implements Observer {
     public final long DATE;
     private static final List<Department> departments = new ArrayList<>();
     private final HashMap<Department, List<WorkShift>> departmentLinks;
-  
+
 
     /**
      * Constructs a work day with a specified date and with hash map
@@ -31,8 +31,6 @@ public class WorkDay implements Observer {
     public Department getDepartment(int index) {
         return departments.get(index);
     }
-
-
 
 
     /**
@@ -108,19 +106,6 @@ public class WorkDay implements Observer {
         }
     }
 
-    /*
-    public void setWorkShifts(ArrayList<WorkShift> wss) {
-        for (Department d : departments) {
-            for (WorkShift ws1 : d.getAllShifts()) {
-                for (WorkShift ws2 : wss) {
-                    if (ws1 == ws2) {
-                        departmentLinks.computeIfAbsent(d, k -> new ArrayList<WorkShift>());
-                        departmentLinks.get(d).add(new WorkShift(ws2));
-                    }
-                }
-            }
-        }
-    }*/
 
     /**
      * Checks if all departments have 0 shifts
@@ -128,8 +113,8 @@ public class WorkDay implements Observer {
      */
     public boolean isEmpty(){
         updateDepartments();
-        for (Department d : departments){
-            if (departmentLinks.get(d).size()!=0)
+        for (Department d : departments) {
+            if (departmentLinks.get(d).size() != 0)
                 return false;
         }
         return true;
@@ -141,8 +126,8 @@ public class WorkDay implements Observer {
      */
     public boolean isFilled(){
         updateDepartments();
-        for (Department d : departments){
-            for (WorkShift w : departmentLinks.get(d)){
+        for (Department d : departments) {
+            for (WorkShift w : departmentLinks.get(d)) {
                 if (!w.isOccupied())
                     return false;
             }

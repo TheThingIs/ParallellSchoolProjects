@@ -38,10 +38,8 @@ public class EmployeeSorter implements Comparator<WorkShift> {
             WorkDay workday = OurCalendar.getInstance().getDate(d);
             potentialWorkShiftCandidate.get(workShift).sort(Comparator.comparing(Employee::getOccupiedTimesSize));
             for (Employee employee : potentialWorkShiftCandidate.get(workShift)) {
-                //System.out.println(employee.getName());
                 if (!employee.isOccupied(workShift.START, workShift.END) && !workShift.isOccupied()) {
                     workday.occupiesEmployee(workShift, employee);
-                    //System.out.println(workShift.getEmployee().getName());
                 }
             }
             if (!workShift.isOccupied()) {
@@ -50,9 +48,7 @@ public class EmployeeSorter implements Comparator<WorkShift> {
             }
         }
         if (!isAllOccupied) {
-            //System.out.print("inte occuperat! " + getEmptyWorkShifts().size());
-            //TODO Send notification
-            //TODO send list of workshifts
+            new SendNotification("smtp.gmail.com", "random@gmail.com", "random@gmail.com", "*****", "Workshifts not filled", getEmptyWorkShifts());
         }
 
     }
@@ -124,7 +120,4 @@ public class EmployeeSorter implements Comparator<WorkShift> {
                 qualifiedList.add(e);
         return qualifiedList;
     }
-
-
-    //här vill vi kolla om employee har workshift i occupied time för att kolla så de får tillräcklig ledighet mellan passen
 }

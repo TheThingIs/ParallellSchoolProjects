@@ -2,6 +2,7 @@ package Model;
 
 import javafx.scene.paint.Color;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,8 +66,8 @@ public class Department implements Observable {
         int numberOfBreakTogether = 0;
         int numberOfWorkingPersonel = countPersonelOnDepartment(startForTheWorkShift, stopForTheWorkShift);
         if (minPersonsOnShift == 0) {
-            return null;
-        } //TODO exception?
+            throw new IllegalArgumentException("minPersonsOnShift cannot be 0");
+        }
         while (true) {
             for (WorkShift s : allShifts) {
                 if (s.getBreakTime().inBetween(breakStart, breakStart + breakLength)) {

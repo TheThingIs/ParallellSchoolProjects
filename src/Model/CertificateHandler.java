@@ -1,5 +1,6 @@
 package Model;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -123,8 +124,7 @@ public class CertificateHandler {
             if (c.ID == ID)
                 return c;
         }
-        System.out.println("invalid ID");
-        return null;
+        throw new InvalidParameterException("invalid ID");
     }
 
     /**
