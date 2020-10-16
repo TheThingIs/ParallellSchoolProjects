@@ -139,8 +139,42 @@ public class Schema extends AnchorPane implements Observer {
     }
 
     private void updateMonth(){
-        for (int i = 0; i < YearMonth.of(currentIndex.getYear(), currentIndex.getMonth() + 1).lengthOfMonth(); i++){
-
+        currentIndex = new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE);
+        int daysInMonth = YearMonth.of(currentIndex.getYear(), currentIndex.getMonth()).lengthOfMonth();
+        Calendar tmp = Calendar.getInstance();
+        tmp.setTime(currentIndex);
+        int startingDay;
+        switch (tmp.get(Calendar.DAY_OF_WEEK)){
+            case 1:
+                startingDay = 6;
+                break;
+            case 2:
+                startingDay = 0;
+                break;
+            case 3:
+                startingDay = 1;
+                break;
+            case 4:
+                startingDay = 2;
+                break;
+            case 5:
+                startingDay = 3;
+                break;
+            case 6:
+                startingDay = 4;
+                break;
+            case 7:
+                startingDay = 5;
+                break;
+            default: startingDay = 0;
+        }
+        OurCalendar tmpCalendar = OurCalendar.getInstance();
+        int anotherIndex = 0, thirdIndex = 0;
+        for (int i=startingDay; i<daysInMonth+startingDay; i++){
+            if (i%7 == 0)
+                thirdIndex++;
+            monthGrid.add(new DayScheduleView(OurCalendar.getInstance().getWorkday(dateIndex+anotherIndex)), i%7, thirdIndex);
+            anotherIndex++;
         }
     }
     private void updateWeek(){
