@@ -4,9 +4,9 @@ package Model;
  * Represents a handler for the breaks of the work shifts, has information of how long a break should be
  */
 public class BreakHandler {
-    private long minBreakLength=15;
-    private long midBreakLength=30;
-    private long maxBreakLength=45;
+    private long minBreakLength=WeekHandler.plusMinutes(15);
+    private long midBreakLength=WeekHandler.plusMinutes(30);
+    private long maxBreakLength=WeekHandler.plusMinutes(45);
     private static BreakHandler instance = null;
 
 
@@ -30,7 +30,7 @@ public class BreakHandler {
         if ((stop - start >= WeekHandler.plusHours(3)) && (stop - start <= WeekHandler.plusHours(5))) {
             return minBreakLength;
         }
-        if (stop - start <= WeekHandler.plusHours(8)) {
+        if (((stop - start) >= (WeekHandler.plusHours(5))) && ((stop-start)<= WeekHandler.plusHours(8))) {
             return midBreakLength;
         }
         if (stop - start > WeekHandler.plusHours(8)) {
@@ -41,19 +41,30 @@ public class BreakHandler {
     }
 
     public void setMinBreakLength(long minBreakLength) {
-        this.minBreakLength = minBreakLength;
+        this.minBreakLength = WeekHandler.plusMinutes((int) minBreakLength);
     }
 
     public void setMidBreakLength(long midBreakLength) {
-        this.midBreakLength = midBreakLength;
+        this.midBreakLength = WeekHandler.plusMinutes((int) midBreakLength);
     }
 
     public void setMaxBreakLength(long maxBreakLength) {
-        this.maxBreakLength = maxBreakLength;
+        this.maxBreakLength = WeekHandler.plusMinutes((int) maxBreakLength);
     }
 
     public long getMinBreakLength() {
         return minBreakLength;
+    }
+
+    public long getMinutesOfMinBreakLength(){
+        return minBreakLength/WeekHandler.plusMinutes(1);
+    }
+
+    public long getMinutesOfMaxBreakLength(){
+        return maxBreakLength/WeekHandler.plusMinutes(1);
+    }
+    public long getMinutesOfMidBreakLength(){
+        return midBreakLength/WeekHandler.plusMinutes(1);
     }
 
     public long getMidBreakLength() {
