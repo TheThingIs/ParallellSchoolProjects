@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class ImportServicePackage {
 
-    public static void loadPackage(){
+    public static void loadPackage() {
         Admin admin = Admin.getInstance();
         Date date = new Date();
         date.setTime(OurCalendar.getInstance().getDate(date).DATE + WeekHandler.plusDays(1));
@@ -90,12 +90,12 @@ public class ImportServicePackage {
         admin.createWorkshift(admin.getDepartmentByName("Kassa"), date.getTime() + WeekHandler.plusHours(8), date.getTime() + WeekHandler.plusHours(12), admin.getCertificatehandler().getCertificate("Packetering"), arr);
 
         ArrayList<Employee> employees = new ArrayList<>();
-        for (int i = 0 ; i < admin.getEmployeeListSize() ; i++){
+        for (int i = 0; i < admin.getEmployeeListSize(); i++) {
 
             employees.add(admin.getEmployee(i));
         }
         ArrayList<WorkDay> workDays = new ArrayList<>();
-        for (int i = date.getDate() ; i < 14 + date.getDate() ; i++){
+        for (int i = date.getDate(); i < 14 + date.getDate(); i++) {
             //System.out.println("dagar");
             workDays.add(OurCalendar.getInstance().getWorkday(i));
         }
