@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Admin implements Observable {
     private final List<Employee> employees;
+    private long guaranteedFreeTime=8; //startvalue
     private final List<Department> departments;
     private final CertificateHandler certificateHandler;
     private final OurCalendar calendar;
@@ -463,5 +464,13 @@ public class Admin implements Observable {
         for (int i = calendar.getDateIndex(startDate); i <= stop + 4; i++) {
             calendar.getWorkday(i).unRegisterOccupations(employee, start, end);
         }
+    }
+
+    public void setGuaranteedFreeTime(int hours) {
+        this.guaranteedFreeTime = (WeekHandler.plusHours(hours));
+    }
+
+    public long getGuaranteedFreeTime(){
+        return guaranteedFreeTime;
     }
 }

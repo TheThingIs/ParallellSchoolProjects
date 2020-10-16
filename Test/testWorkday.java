@@ -26,7 +26,7 @@ public class testWorkday {
         //WorkShift w= new WorkShift(d.getTime(),(d.getTime()+(1000 * 60 * 60 * 8)),allcert,new OccupiedTime(2,2), true);
         WorkDay workday = OurCalendar.getInstance().getWorkday(d.getDate() - 1);
         //workday.setWorkDay();
-        workday.setGuaranteedFreeTime(10);
+        a.setGuaranteedFreeTime(10);
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByName("moa"));
         assertTrue(a.getEmployeeByName("moa").isOccupied((d.getTime() + WeekHandler.plusHours(17)), (d.getTime() + WeekHandler.plusHours(31))));
     }
@@ -85,7 +85,7 @@ public class testWorkday {
         a.createWorkshift(a.getDepartmentByName("Kassa"), d.getTime() - 1000, (d.getTime() - 1000 + WeekHandler.plusHours(8)), allcert, repeat);
         WorkDay workday = OurCalendar.getInstance().getWorkday(d.getDate() - 1);
         //workday.setWorkDay();
-        workday.setGuaranteedFreeTime(10);
+        a.setGuaranteedFreeTime(10);
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByName("moa"));
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(1), a.getEmployeeByName("moa"));
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(2), a.getEmployeeByName("moa"));
@@ -109,7 +109,7 @@ public class testWorkday {
         a.createWorkshift(a.getDepartmentByName("Kassa"), d.getTime(), (d.getTime() + WeekHandler.plusHours(8)), allcert, repeat);
         a.createEmployeeCertificate(ch.getCertificate("Kassa"), a.getEmployeeByName("moa"));
         WorkDay workday = OurCalendar.getInstance().getWorkday(d.getDate());
-        workday.setGuaranteedFreeTime(10);
+        a.setGuaranteedFreeTime(10);
         //workday.setWorkDay();
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByName("moa"));
         assertTrue(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0).getEmployee() != a.getEmployeeByName("moa"));
@@ -143,7 +143,7 @@ public class testWorkday {
         WorkDay workday2 = OurCalendar.getInstance().getWorkday(d.getDate());
         //workday.setWorkDay();
         //workday2.setWorkDay();
-        workday.setGuaranteedFreeTime(10);
+        a.setGuaranteedFreeTime(10);
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByName("moa")); //w1
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(1), a.getEmployeeByName("mas")); //w2
         workday.occupiesEmployee(workday2.getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByName("sam")); //w3

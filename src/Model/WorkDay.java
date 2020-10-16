@@ -9,7 +9,6 @@ public class WorkDay implements Observer{
     public final long DATE;
     private static List<Department> departments = new ArrayList<>();
     private HashMap<Department, List<WorkShift>> departmentLinks;
-    private long guaranteedFreeTime;
 
     /**
      * Constructs a work day with a specified date and with hash map
@@ -32,9 +31,7 @@ public class WorkDay implements Observer{
         return departments.get(index);
     }
 
-    public void setGuaranteedFreeTime(int hours) {
-        this.guaranteedFreeTime = (WeekHandler.plusHours(hours));
-    }
+
 
     /*
      * Checks if all departments are filled
@@ -114,7 +111,7 @@ public class WorkDay implements Observer{
             certificates.add(workShift.getCertificate(i));
         }
         if (!e.isOccupied(workShift.START, workShift.END) && e.hasCertifices(certificates)) {
-            long endOccupiedTime = (workShift.END) + guaranteedFreeTime;
+            long endOccupiedTime = (workShift.END) + Admin.getInstance().getGuaranteedFreeTime();
             OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
             e.registerOccupation(ot);
             workShift.registerOccupation(e, ot);
@@ -136,7 +133,7 @@ public class WorkDay implements Observer{
         }
         if (!e.isOccupied(workShift.START, workShift.END) && e.hasCertifices(certificates)) {
             workShift.clearWorkShiftOccupation();
-            long endOccupiedTime = (workShift.END) + guaranteedFreeTime;
+            long endOccupiedTime = (workShift.END) + Admin.getInstance().getGuaranteedFreeTime();
             OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
             e.registerOccupation(ot);
             workShift.registerOccupation(e, ot);
