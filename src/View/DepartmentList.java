@@ -4,7 +4,6 @@ package View;
 
 import Model.Admin;
 import Model.Department;
-import Model.Employee;
 import Model.Observer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 
 import java.util.*;
 /**

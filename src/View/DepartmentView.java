@@ -14,15 +14,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 /**
- * @author Oliver Andersson
- * Information on an employee. Is viewed in a ListView
- * @since 2020-10-07
+ * @author Victor Cousin and Moa Berglund
+ * Displays all departments with their name and choosen color
+ * @since 2020-10-09
  */
 public class DepartmentView extends AnchorPane implements Observer {
-    public void addCertificate(){};
     Department department;
     @FXML Label name;
-    boolean selected;
     @FXML Pane departmentColor;
 
     public DepartmentView(Department department) {
@@ -37,7 +35,7 @@ public class DepartmentView extends AnchorPane implements Observer {
             }
             this.department = department;
             name.setText(department.getName());
-            Color color=department.getColor(); //här är den vit FEL
+            Color color=department.getColor();
             BackgroundFill backgroundFill=new BackgroundFill(color,new CornerRadii(5.0), new Insets(-5));
             departmentColor.setBackground(new Background(backgroundFill));
             Admin.getInstance().addObserver(this);
@@ -46,7 +44,6 @@ public class DepartmentView extends AnchorPane implements Observer {
     @Override
     public void update() {
         name.setText(department.getName());
-        Color color=department.getColor();
         BackgroundFill backgroundFill= new BackgroundFill(department.getColor(), new CornerRadii(5.0), new Insets(-5));
         this.departmentColor.setBackground(new Background(backgroundFill));
     }

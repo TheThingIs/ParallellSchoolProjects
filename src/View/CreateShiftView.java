@@ -1,6 +1,5 @@
 package View;
 
-import Controller.AdminController;
 import Model.*;
 import Model.Observer;
 import javafx.beans.value.ChangeListener;
@@ -10,7 +9,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.time.Instant;
@@ -21,7 +19,7 @@ import java.util.*;
 /**
  * @author Moa Berglund, Victor Cousin
  * Creation of workshifts is done through this view
- * @since 2020-10-07
+ * @since 2020-10-13
  */
 public class CreateShiftView extends AnchorPane implements Observer {
 

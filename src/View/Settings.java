@@ -3,7 +3,6 @@ package View;
 import Model.Admin;
 import Model.BreakHandler;
 import Model.Observer;
-import Model.OurCalendar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -13,11 +12,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import javafx.scene.transform.Affine;
 
-import java.awt.*;
-import java.util.Calendar;
+/**
+ * @author Moa Berglund, Victor Cousin
+ * Settings view for the application
+ * @since 2020-10-16
+ */
 
 public class Settings extends AnchorPane implements Observer {
 

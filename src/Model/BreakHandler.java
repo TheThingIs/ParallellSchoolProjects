@@ -7,9 +7,7 @@ public class BreakHandler {
     private long minBreakLength=WeekHandler.plusMinutes(15);
     private long midBreakLength=WeekHandler.plusMinutes(30);
     private long maxBreakLength=WeekHandler.plusMinutes(45);
-
     private static BreakHandler instance = null;
-
 
     private BreakHandler() {
     }
