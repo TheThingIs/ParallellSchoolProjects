@@ -31,6 +31,7 @@ public class StartPage implements Observer, Initializable {
     @FXML Button buttonLoadFile; //TODO Implement load and save functionality
     @FXML Tab tabSchedule;
     @FXML Tab tabEmployees;
+    @FXML Tab tabSettings;
     @FXML Tab tabDepartments;
     @FXML Tab tabCertificates;
     @FXML AnchorPane tabEmployeesPane;
@@ -56,7 +57,7 @@ public class StartPage implements Observer, Initializable {
         tabCertificates.setContent(new CertificateList());
         tabDepartmentsPane.getChildren().clear();
         tabDepartmentsPane.getChildren().add(departmentList);
-
+        tabSettings.setContent(new Settings());
     }
 
     private void setButtons(){
