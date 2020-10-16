@@ -154,7 +154,7 @@ public class Schema extends AnchorPane implements Observer {
         }
     }
     private void updateDay(){
-        OurCalendar.getInstance().getWorkday(dateIndex).setWorkDay();
+        //OurCalendar.getInstance().getWorkday(dateIndex).setWorkDay();
         listOfWorkshifts.getItems().clear();
         for (Department d : Admin.getInstance().getDepartments()){
             for (WorkShift w : OurCalendar.getInstance().getWorkday(dateIndex).getWorkShifts(d))
@@ -178,18 +178,27 @@ public class Schema extends AnchorPane implements Observer {
         discardButtonCreateNewShift.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                CreateShiftView createShiftView = (CreateShiftView) workshiftPane.getChildren().get(0);
+                createShiftView.warningCreateWorkshift.setVisible(false);
                 workshiftPane.setVisible(false);
                 workshiftPane.toBack();
+                workshiftPane.getChildren().remove(0);
             }
         });
         saveButtonCreateNewShift.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-               CreateShiftView createShiftView= (CreateShiftView) workshiftPane.getChildren().get(0);
-               createShiftView.save();
-                workshiftPane.setVisible(false);
-               workshiftPane.toBack();
-
+                CreateShiftView createShiftView = (CreateShiftView) workshiftPane.getChildren().get(0);
+                if ((createShiftView.departmentComboBox.getValue()==null) || (createShiftView.min1.getText().isEmpty())|| (createShiftView.min2.getText().isEmpty())|| (createShiftView.hour1.getText().isEmpty())|| (createShiftView.hour2.getText().isEmpty()) || (createShiftView.datePicker.getValue()==null)){
+                    createShiftView.warningCreateWorkshift.setVisible(true);
+                }
+                else {
+                    createShiftView.warningCreateWorkshift.setVisible(false);
+                    createShiftView.save();
+                    workshiftPane.setVisible(false);
+                    workshiftPane.toBack();
+                    workshiftPane.getChildren().remove(0);
+                }
             }
         });
         createWorkshift.setOnAction(new EventHandler<ActionEvent>() {
