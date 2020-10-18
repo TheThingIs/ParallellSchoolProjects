@@ -10,6 +10,8 @@ public class ImportServicePackage {
     public static void loadPackage() {
         Admin admin = Admin.getInstance();
         Date date = new Date();
+
+        admin.createNewUser("Moa","Hemligt");
         date.setTime(OurCalendar.getInstance().getDate(date).DATE + WeekHandler.plusDays(1));
 
         admin.createNewEmployee("Moa Borg", "200005174938", "Moa@gmail.com");

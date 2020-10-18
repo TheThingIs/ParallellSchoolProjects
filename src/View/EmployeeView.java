@@ -5,18 +5,21 @@ import Model.Employee;
 import Model.Observer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
 /**
  * @author Oliver Andersson
  * Information on an employee. Is viewed in a ListView
  * @since 2020-10-07
  */
 public class EmployeeView extends AnchorPane implements Observer {
-    public void addCertificate(){};
+    public void addCertificate() {
+    }
+
     Employee employee;
-    @FXML Label name, personalID;
+    @FXML
+    Label name, personalID;
     boolean selected;
 
     public EmployeeView(Employee employee) {
@@ -25,8 +28,7 @@ public class EmployeeView extends AnchorPane implements Observer {
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         this.employee = employee;
