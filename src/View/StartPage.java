@@ -1,23 +1,14 @@
 package View;
 
-import Controller.AdminController;
 import Model.Admin;
-import Model.Employee;
 import Model.Observer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-import javax.swing.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -27,45 +18,45 @@ import java.util.ResourceBundle;
  */
 public class StartPage implements Observer, Initializable {
     @FXML
-    AnchorPane backGround;
+    private AnchorPane backGround;
     @FXML
-    AnchorPane startPage;
+    private AnchorPane startPage;
     @FXML
-    AnchorPane defaultPage;
+    private AnchorPane defaultPage;
     @FXML
-    AnchorPane loginPage;
+    private AnchorPane loginPage;
     @FXML
-    TextField userNameField;
+    private TextField userNameField;
     @FXML
-    PasswordField passwordField;
+    private PasswordField passwordField;
     @FXML
-    Button loginButton;
+    private Button loginButton;
     @FXML
-    Text falseDetails;
+    private Text falseDetails;
     @FXML
-    Button buttonNewFile;
+    private Button buttonNewFile;
     @FXML
-    Button buttonSaveAndExit; //TODO Implement load and save functionality
+    private Button buttonSaveAndExit; //TODO Implement load and save functionality
     @FXML
-    Button buttonLoadFile; //TODO Implement load and save functionality
+    private Button buttonLoadFile; //TODO Implement load and save functionality
     @FXML
-    Tab tabSchedule;
+    private Tab tabSchedule;
     @FXML
-    Tab tabEmployees;
+    private Tab tabEmployees;
     @FXML
-    Tab tabSettings;
+    private Tab tabSettings;
     @FXML
-    Tab tabDepartments;
+    private Tab tabDepartments;
     @FXML
-    Tab tabCertificates;
+    private Tab tabCertificates;
     @FXML
-    AnchorPane tabEmployeesPane;
+    private AnchorPane tabEmployeesPane;
     @FXML
-    AnchorPane tabDepartmentsPane;
+    private AnchorPane tabDepartmentsPane;
     @FXML
-    TabPane tabPane;
+    private TabPane tabPane;
     private Admin admin;
-    private Settings s = new Settings();
+    private final Settings settings = new Settings();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,36 +77,16 @@ public class StartPage implements Observer, Initializable {
         tabCertificates.setContent(new CertificateList());
         tabDepartmentsPane.getChildren().clear();
         tabDepartmentsPane.getChildren().add(departmentList);
-        tabSettings.setContent(s);
+        tabSettings.setContent(settings);
     }
 
     private void setButtons() {
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                checklogin();
-            }
-        });
-        buttonSaveAndExit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                saveAndExit();
-            }
-        });
-        buttonNewFile.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                startNewFile();
-            }
-        });
+        loginButton.setOnAction(actionEvent -> checklogin());
+        buttonSaveAndExit.setOnAction(actionEvent -> saveAndExit());
+        buttonNewFile.setOnAction(actionEvent -> startNewFile());
 
         tabPane.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Tab>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        s.update();
-                    }
-                }
+                (ov, t, t1) -> settings.update()
         );
     }
 
