@@ -25,6 +25,7 @@ public class Runnable extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
+        System.getProperties();
         /*
         boolean repeat[] = {false, false, false, false, false, false, false};
         long tmp = OurCalendar.getInstance().getWorkday(16).DATE;

@@ -11,11 +11,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -26,22 +26,46 @@ import java.util.ResourceBundle;
  * @since 2020-10-07
  */
 public class StartPage implements Observer, Initializable {
-    @FXML AnchorPane backGround;
-    @FXML AnchorPane startPage;
-    @FXML AnchorPane defaultPage;
-    @FXML Button buttonNewFile;
-    @FXML Button buttonSaveAndExit; //TODO Implement load and save functionality
-    @FXML Button buttonLoadFile; //TODO Implement load and save functionality
-    @FXML Tab tabSchedule;
-    @FXML Tab tabEmployees;
-    @FXML Tab tabSettings;
-    @FXML Tab tabDepartments;
-    @FXML Tab tabCertificates;
-    @FXML AnchorPane tabEmployeesPane;
-    @FXML AnchorPane tabDepartmentsPane;
-    @FXML TabPane tabPane;
+    @FXML
+    AnchorPane backGround;
+    @FXML
+    AnchorPane startPage;
+    @FXML
+    AnchorPane defaultPage;
+    @FXML
+    AnchorPane loginPage;
+    @FXML
+    TextField userNameField;
+    @FXML
+    PasswordField passwordField;
+    @FXML
+    Button loginButton;
+    @FXML
+    Text falseDetails;
+    @FXML
+    Button buttonNewFile;
+    @FXML
+    Button buttonSaveAndExit; //TODO Implement load and save functionality
+    @FXML
+    Button buttonLoadFile; //TODO Implement load and save functionality
+    @FXML
+    Tab tabSchedule;
+    @FXML
+    Tab tabEmployees;
+    @FXML
+    Tab tabSettings;
+    @FXML
+    Tab tabDepartments;
+    @FXML
+    Tab tabCertificates;
+    @FXML
+    AnchorPane tabEmployeesPane;
+    @FXML
+    AnchorPane tabDepartmentsPane;
+    @FXML
+    TabPane tabPane;
     private Admin admin;
-    private Settings s= new Settings();
+    private Settings s = new Settings();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,7 +75,7 @@ public class StartPage implements Observer, Initializable {
         startPage.setVisible(false);
     }
 
-    private void setTabs(){
+    private void setTabs() {
         Schema schema = new Schema();
         tabSchedule.setContent(schema);
         PersonList personList = new PersonList();
@@ -65,7 +89,13 @@ public class StartPage implements Observer, Initializable {
         tabSettings.setContent(s);
     }
 
-    private void setButtons(){
+    private void setButtons() {
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                checklogin();
+            }
+        });
         buttonSaveAndExit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -89,22 +119,34 @@ public class StartPage implements Observer, Initializable {
         );
     }
 
-    private void startNewFile(){
+    private void checklogin() {
+        if(admin.isLoginInformationCorrect(userNameField.getText(), passwordField.getText())){
+            loginPage.setDisable(true);
+            loginPage.setVisible(false);
+            loginPage.toBack();
+        } else {
+            falseDetails.setText("Username or password not correct");
+            passwordField.setText("");
+            userNameField.setText("");
+        }
+    }
+
+    private void startNewFile() {
         startPage.toFront();
         defaultPage.toBack();
         defaultPage.setVisible(false);
         startPage.setVisible(true);
     }
 
-    private void exit(){
+    private void exit() {
         System.exit(0);
     }
 
-    private void save(){
+    private void save() {
         //TODO implement
     }
 
-    private void saveAndExit(){
+    private void saveAndExit() {
         save();
         exit();
     }
