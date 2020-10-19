@@ -5,8 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * @author Markus Grahn and Christian Lind
  * Represents a WorkShift in which an employee can work in if the have the specified certificates required
+ * @since ?
  */
+
 public class WorkShift {
     private List<Certificate> certificates = new ArrayList<>();
     private Employee employee;

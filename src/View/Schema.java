@@ -187,7 +187,6 @@ public class Schema extends AnchorPane implements Observer {
         tmp.setTime(currentIndex);
         int startingDay;
         startingDay = dayConverter(tmp.get(Calendar.DAY_OF_WEEK));
-        OurCalendar tmpCalendar = OurCalendar.getInstance();
         int anotherIndex = 0, thirdIndex = 0;
         for (int i = startingDay; i < daysInMonth + startingDay; i++) {
             if (i % 7 == 0)

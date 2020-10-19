@@ -5,6 +5,11 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * @author Markus Grahn
+ * Represents an static admin for the project with is the heart of the application
+ * @since 2020-10-16
+ */
 public class ImportServicePackage {
 
     public static void loadPackage() {
