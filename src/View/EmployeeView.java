@@ -20,7 +20,6 @@ public class EmployeeView extends AnchorPane implements Observer {
     Employee employee;
     @FXML
     Label name, personalID;
-    boolean selected;
 
     public EmployeeView(Employee employee) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EmployeeView.fxml"));

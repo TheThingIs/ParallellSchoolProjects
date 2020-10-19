@@ -63,8 +63,8 @@ public class EmployeeSorter implements Comparator<WorkShift> {
         return notFilled;
     }
 
-    public HashMap<WorkShift, List<Employee>> getPotentialEmployees() {
-        return potentialWorkShiftCandidate;
+    public List<Employee> getPotentialEmployees(WorkShift workShift) {
+        return potentialWorkShiftCandidate.get(workShift);
     }
 
     /**

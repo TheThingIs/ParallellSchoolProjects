@@ -1,7 +1,9 @@
 package Model;
 
 /**
+ * @author Oliver Andersson
  * Represents a time span when someone is not available, has a start and an end value
+ * @since ?
  */
 public class OccupiedTime {
     public final long START, END;

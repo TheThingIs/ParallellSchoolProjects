@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @author Oliver Andersson
+ * @author Oliver Andersson, Christian Lind
  * Root node in the view, everything is build upon this
  * @since 2020-10-07
  */
@@ -91,7 +91,7 @@ public class StartPage implements Observer, Initializable {
     }
 
     private void checklogin() {
-        if(admin.isLoginInformationCorrect(userNameField.getText(), passwordField.getText())){
+        if (admin.isLoginInformationCorrect(userNameField.getText(), passwordField.getText())) {
             loginPage.setDisable(true);
             loginPage.setVisible(false);
             loginPage.toBack();

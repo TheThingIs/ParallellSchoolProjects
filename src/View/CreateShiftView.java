@@ -119,10 +119,6 @@ public class CreateShiftView extends AnchorPane implements Observer {
     }
 
 
-    public List<Certificate> getCertificates() {
-        return certificates;
-    }
-
     public void save() {
 
         LocalDate localDate = datePicker.getValue();

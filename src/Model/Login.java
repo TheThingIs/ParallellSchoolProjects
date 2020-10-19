@@ -10,6 +10,11 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 
+/**
+ * @author Christian Lind
+ * Handles the login and encryption on passwords
+ * @since 2020-10-18
+ */
 public class Login {
     private final ArrayList<String> userNames = new ArrayList<>();
     private final HashMap<String, String> passwords = new HashMap<>();

@@ -3,7 +3,9 @@ package Model;
 import java.util.*;
 
 /**
+ * @author Markus Grahnand Christian Lind
  * Represents a work day with a specified date, a hash map(with departments, work shifts and employees),and a list of departments
+ * @since ?
  */
 public class WorkDay implements Observer {
     public final long DATE;
@@ -37,7 +39,7 @@ public class WorkDay implements Observer {
      * Registers an Employee for a Workshift and ensures they get their free time
      *
      * @param workShift A WorkShift
-     * @param employee         An Employee
+     * @param employee  An Employee
      */
     public void occupiesEmployee(WorkShift workShift, Employee employee) {
         ArrayList<Certificate> certificates = new ArrayList<>();
@@ -57,8 +59,8 @@ public class WorkDay implements Observer {
     /**
      * Swaps out an Employee for another one on that WorkShift
      *
-     * @param workShift a WorkShift
-     * @param employee         an Employee
+     * @param workShift A WorkShift
+     * @param employee  An Employee
      */
     public void reOccupieEmployee(WorkShift workShift, Employee employee) {
         ArrayList<Certificate> certificates = new ArrayList<>();
@@ -109,9 +111,10 @@ public class WorkDay implements Observer {
 
     /**
      * Checks if all departments have 0 shifts
+     *
      * @return true if all departments have 0 shifts
      */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         updateDepartments();
         for (Department d : departments) {
             if (departmentLinks.get(d).size() != 0)
@@ -122,9 +125,10 @@ public class WorkDay implements Observer {
 
     /**
      * Checks if all shifts are filled
+     *
      * @return true if all shifts are occupied
      */
-    public boolean isFilled(){
+    public boolean isFilled() {
         updateDepartments();
         for (Department d : departments) {
             for (WorkShift w : departmentLinks.get(d)) {

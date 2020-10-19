@@ -1,12 +1,14 @@
 package Model;
 
 /**
+ * @author Victor Cousin and Moa Berglund
  * Represents a handler for the breaks of the work shifts, has information of how long a break should be
+ * @since ?
  */
 public class BreakHandler {
-    private long minBreakLength=WeekHandler.plusMinutes(15);
-    private long midBreakLength=WeekHandler.plusMinutes(30);
-    private long maxBreakLength=WeekHandler.plusMinutes(45);
+    private long minBreakLength = WeekHandler.plusMinutes(15);
+    private long midBreakLength = WeekHandler.plusMinutes(30);
+    private long maxBreakLength = WeekHandler.plusMinutes(45);
     private static BreakHandler instance = null;
 
     private BreakHandler() {
@@ -29,7 +31,7 @@ public class BreakHandler {
         if ((stop - start >= WeekHandler.plusHours(3)) && (stop - start <= WeekHandler.plusHours(5))) {
             return minBreakLength;
         }
-        if (((stop - start) >= (WeekHandler.plusHours(5))) && ((stop-start)<= WeekHandler.plusHours(8))) {
+        if (((stop - start) >= (WeekHandler.plusHours(5))) && ((stop - start) <= WeekHandler.plusHours(8))) {
             return midBreakLength;
         }
         if (stop - start > WeekHandler.plusHours(8)) {
@@ -55,15 +57,16 @@ public class BreakHandler {
         return minBreakLength;
     }
 
-    public long getMinutesOfMinBreakLength(){
-        return minBreakLength/WeekHandler.plusMinutes(1);
+    public long getMinutesOfMinBreakLength() {
+        return minBreakLength / WeekHandler.plusMinutes(1);
     }
 
-    public long getMinutesOfMaxBreakLength(){
-        return maxBreakLength/WeekHandler.plusMinutes(1);
+    public long getMinutesOfMaxBreakLength() {
+        return maxBreakLength / WeekHandler.plusMinutes(1);
     }
-    public long getMinutesOfMidBreakLength(){
-        return midBreakLength/WeekHandler.plusMinutes(1);
+
+    public long getMinutesOfMidBreakLength() {
+        return midBreakLength / WeekHandler.plusMinutes(1);
     }
 
     public long getMidBreakLength() {
