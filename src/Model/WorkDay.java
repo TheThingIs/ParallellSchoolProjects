@@ -3,13 +3,15 @@ package Model;
 import java.util.*;
 
 /**
+ * @author Markus Grahnand Christian Lind
  * Represents a work day with a specified date, a hash map(with departments, work shifts and employees),and a list of departments
+ * @since ?
  */
 public class WorkDay implements Observer {
     public final long DATE;
     private static final List<Department> departments = new ArrayList<>();
     private final HashMap<Department, List<WorkShift>> departmentLinks;
-  
+
 
     /**
      * Constructs a work day with a specified date and with hash map
@@ -33,48 +35,46 @@ public class WorkDay implements Observer {
     }
 
 
-
-
     /**
      * Registers an Employee for a Workshift and ensures they get their free time
      *
      * @param workShift A WorkShift
-     * @param e         An Employee
+     * @param employee  An Employee
      */
-    public void occupiesEmployee(WorkShift workShift, Employee e) {
+    public void occupiesEmployee(WorkShift workShift, Employee employee) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         for (int i = 0; i < workShift.getCertificatesSize(); i++) {
             certificates.add(workShift.getCertificate(i));
         }
-        if (!e.isOccupied(workShift.START, workShift.END) && e.hasCertifices(certificates)) {
+        if (!employee.isOccupied(workShift.START, workShift.END) && employee.hasCertifices(certificates) && !workShift.isOccupied()) {
             long endOccupiedTime = (workShift.END) + Admin.getInstance().getGuaranteedFreeTime();
             OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
-            e.registerOccupation(ot);
-            workShift.registerOccupation(e, ot);
+            employee.registerOccupation(ot);
+            workShift.registerOccupation(employee, ot);
         } else {
-            //TODO
+            throw new IllegalArgumentException("The employee cannot occupy the shift");
         }
     }
 
     /**
      * Swaps out an Employee for another one on that WorkShift
      *
-     * @param workShift a WorkShift
-     * @param e         an Employee
+     * @param workShift A WorkShift
+     * @param employee  An Employee
      */
-    public void reOccupieEmployee(WorkShift workShift, Employee e) {
+    public void reOccupieEmployee(WorkShift workShift, Employee employee) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         for (int i = 0; i < workShift.getCertificatesSize(); i++) {
             certificates.add(workShift.getCertificate(i));
         }
-        if (!e.isOccupied(workShift.START, workShift.END) && e.hasCertifices(certificates)) {
+        if (!employee.isOccupied(workShift.START, workShift.END) && employee.hasCertifices(certificates)) {
             workShift.clearWorkShiftOccupation();
             long endOccupiedTime = (workShift.END) + Admin.getInstance().getGuaranteedFreeTime();
             OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
-            e.registerOccupation(ot);
-            workShift.registerOccupation(e, ot);
+            employee.registerOccupation(ot);
+            workShift.registerOccupation(employee, ot);
         } else {
-            //TODO
+            throw new IllegalArgumentException("The employees cannot be reoccupied");
         }
     }
 
@@ -108,31 +108,30 @@ public class WorkDay implements Observer {
         }
     }
 
-    /*
-    public void setWorkShifts(ArrayList<WorkShift> wss) {
-        for (Department d : departments) {
-            for (WorkShift ws1 : d.getAllShifts()) {
-                for (WorkShift ws2 : wss) {
-                    if (ws1 == ws2) {
-                        departmentLinks.computeIfAbsent(d, k -> new ArrayList<WorkShift>());
-                        departmentLinks.get(d).add(new WorkShift(ws2));
-                    }
-                }
-            }
-        }
-    }*/
-    public boolean isEmpty(){
+
+    /**
+     * Checks if all departments have 0 shifts
+     *
+     * @return true if all departments have 0 shifts
+     */
+    public boolean isEmpty() {
         updateDepartments();
-        for (Department d : departments){
-            if (departmentLinks.get(d).size()!=0)
+        for (Department d : departments) {
+            if (departmentLinks.get(d).size() != 0)
                 return false;
         }
         return true;
     }
-    public boolean isFilled(){
+
+    /**
+     * Checks if all shifts are filled
+     *
+     * @return true if all shifts are occupied
+     */
+    public boolean isFilled() {
         updateDepartments();
-        for (Department d : departments){
-            for (WorkShift w : departmentLinks.get(d)){
+        for (Department d : departments) {
+            for (WorkShift w : departmentLinks.get(d)) {
                 if (!w.isOccupied())
                     return false;
             }
@@ -143,31 +142,19 @@ public class WorkDay implements Observer {
     /**
      * Returns all workshifts in the specified department
      *
-     * @param d The department to get the workshift from
+     * @param department The department to get the workshift from
      * @return a list of workshift in the department
      */
-    public List<WorkShift> getWorkShifts(Department d) {
-        return departmentLinks.get(d);
+    public List<WorkShift> getWorkShifts(Department department) {
+        return departmentLinks.get(department);
     }
 
-    public void setWorkDay() { //funkar inte
-        updateDepartments();
-        WorkShift ws;
-        for (Department d : departments) {
-            for (int i = 0; i < d.getSizeAllShifts(); i++) {
-                ws = d.getShift(i);
-                Date wsDate = new Date(ws.START);
-                Date thisDate = new Date(this.DATE);
-                if ((ws.REPEAT && (wsDate.getDay() == thisDate.getDay())) || (!ws.REPEAT && (wsDate.getDay() == thisDate.getDay()) && (wsDate.getDate() == thisDate.getDate()))) {
-                    this.departmentLinks.get(d).add(new WorkShift(ws, this.DATE));
-                }
-            }
-        }
-    }
-
+    /**
+     * Makes sure all departments are properly linked in departmentLinks
+     */
     public void updateDepartments() {
         for (Department d : departments) {
-            departmentLinks.computeIfAbsent(d, k -> new ArrayList<WorkShift>());
+            departmentLinks.computeIfAbsent(d, k -> new ArrayList<>());
         }
     }
 
@@ -216,6 +203,9 @@ public class WorkDay implements Observer {
         return DayOfWeek.getDay(calendar.get(Calendar.DAY_OF_WEEK)).offset;
     }
 
+    /**
+     * Updates the workDay with shifts to be added
+     */
     @Override
     public void update() {
         updateDepartments();
@@ -239,11 +229,7 @@ public class WorkDay implements Observer {
                     removeShifts.add(d.getRemoveWorkShift(i));
                 }
                 for (WorkShift removeShift : removeShifts) {
-                    for (WorkShift checkShift : departmentLinks.get(d)) {
-                        if (removeShift.ID == checkShift.ID) {
-                            departmentLinks.get(d).remove(checkShift);
-                        }
-                    }
+                    departmentLinks.get(d).removeIf(checkShift -> removeShift.ID == checkShift.ID);
                 }
             }
         }

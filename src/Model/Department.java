@@ -2,6 +2,7 @@ package Model;
 
 import javafx.scene.paint.Color;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,8 +66,8 @@ public class Department implements Observable {
         int numberOfBreakTogether = 0;
         int numberOfWorkingPersonel = countPersonelOnDepartment(startForTheWorkShift, stopForTheWorkShift);
         if (minPersonsOnShift == 0) {
-            return null;
-        } //TODO exception?
+            throw new IllegalArgumentException("minPersonsOnShift cannot be 0");
+        }
         while (true) {
             for (WorkShift s : allShifts) {
                 if (s.getBreakTime().inBetween(breakStart, breakStart + breakLength)) {
@@ -244,32 +245,61 @@ public class Department implements Observable {
         this.name = name;
     }
 
+    /**
+     * Gets a workshift that needs to be added
+     * @param index index of workshift to add
+     * @return an workshift to add
+     */
     public WorkShift getAddWorkShift(int index) {
         return addedShifts.get(index);
     }
 
+    /**
+     * Checks how many workshifts that needs to be added
+     * @return how many workshifts that needs to be added
+     */
     public int getAddWorkShiftSize() {
         return addedShifts.size();
     }
 
+    /**
+     * Gets one workshift to be removed
+     * @param index index of workshift
+     * @return a workshift to be removed
+     */
     public WorkShift getRemoveWorkShift(int index) {
         return removedShifts.get(index);
     }
 
+    /**
+     * Checks how many workshifts that should be removed
+     * @return How many workshifts that needs to be removed
+     */
     public int getRemoveWorkShiftSize() {
         return removedShifts.size();
     }
 
+    /**
+     * Adds an observer to the department
+     * @param observer a workDay that will observe the department
+     */
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
     }
 
+    /**
+     * Removes an observer
+     * @param observer a workDay that will stop observing the department
+     */
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 
+    /**
+     * Notifies all observers to update
+     */
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {

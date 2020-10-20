@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * @author Oliver Andersson and Christian Lind
  * Represents a calendar filled with work days
+ * @since 2020-09-08
  */
 public class OurCalendar {
     private Calendar calendar;
@@ -90,7 +92,7 @@ public class OurCalendar {
                 return workday;
             }
         }
-        return null; //TODO exception
+        throw new IllegalArgumentException("date must be between today and 365 days forward");
     }
 
     /**
@@ -106,6 +108,6 @@ public class OurCalendar {
                 return i;
             }
         }
-        return -1; //TODO exception
+        throw new IllegalArgumentException("date must be between today and 365 days forward");
     }
 }

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="backGround" prefHeight="800.0" prefWidth="1000" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.StartPage">
     <children>
         <AnchorPane fx:id="startPage" prefHeight="800.0" prefWidth="1000.0">
             <children>
-                <TabPane prefHeight="800.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="tabPane" prefHeight="800.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab fx:id="tabSchedule" text="Schema">
                             <content>
@@ -40,12 +44,33 @@
                 </TabPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="defaultPage" prefHeight="700.0" prefWidth="800.0">
+        <AnchorPane fx:id="defaultPage" prefHeight="800.0" prefWidth="1000.0">
             <children>
                 <Button fx:id="buttonNewFile" layoutX="139.0" layoutY="288.0" mnemonicParsing="false" text="New File" />
                 <Button fx:id="buttonLoadFile" layoutX="368.0" layoutY="288.0" mnemonicParsing="false" text="Load File" />
                 <Button fx:id="buttonSaveAndExit" layoutX="575.0" layoutY="288.0" mnemonicParsing="false" text="Save &amp; Exit" />
             </children>
         </AnchorPane>
+      <AnchorPane fx:id="loginPage" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: white;">
+         <children>
+            <TextField fx:id="userNameField" layoutX="474.0" layoutY="303.0" />
+            <PasswordField fx:id="passwordField" layoutX="474.0" layoutY="346.0" />
+            <Button fx:id="loginButton" layoutX="577.0" layoutY="386.0" mnemonicParsing="false" text="Login" />
+            <Text layoutX="379.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="384.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="falseDetails" fill="#b21010" layoutX="299.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
     </children>
 </AnchorPane>

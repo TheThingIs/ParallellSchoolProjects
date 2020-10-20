@@ -1,9 +1,11 @@
 package Model;
 
-
 /**
+ * @author Christian Lind
  * Represents a static WeekHandler which is used to add time to the Java.Date object
+ * @since 2020-10-11
  */
+
 public class WeekHandler {
 
     private WeekHandler() {

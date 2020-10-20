@@ -5,11 +5,18 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * @author Markus Grahn
+ * Represents an static admin for the project with is the heart of the application
+ * @since 2020-10-16
+ */
 public class ImportServicePackage {
 
-    public static void loadPackage(){
+    public static void loadPackage() {
         Admin admin = Admin.getInstance();
         Date date = new Date();
+
+        admin.createNewUser("Moa","Hemligt");
         date.setTime(OurCalendar.getInstance().getDate(date).DATE + WeekHandler.plusDays(1));
 
         admin.createNewEmployee("Moa Borg", "200005174938", "Moa@gmail.com");
@@ -28,6 +35,8 @@ public class ImportServicePackage {
         admin.createCertificate("Kött hantering");
         admin.createCertificate("Fisk hantering");
         admin.createCertificate("Packetering");
+
+        admin.setGuaranteedFreeTime(8);
 
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Manager"), admin.getEmployeeByName("Moa Borg"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Manager"), admin.getEmployeeByName("Henrik Efson"));
@@ -90,12 +99,12 @@ public class ImportServicePackage {
         admin.createWorkshift(admin.getDepartmentByName("Kassa"), date.getTime() + WeekHandler.plusHours(8), date.getTime() + WeekHandler.plusHours(12), admin.getCertificatehandler().getCertificate("Packetering"), arr);
 
         ArrayList<Employee> employees = new ArrayList<>();
-        for (int i = 0 ; i < admin.getEmployeeListSize() ; i++){
+        for (int i = 0; i < admin.getEmployeeListSize(); i++) {
 
             employees.add(admin.getEmployee(i));
         }
         ArrayList<WorkDay> workDays = new ArrayList<>();
-        for (int i = date.getDate() ; i < 14 + date.getDate() ; i++){
+        for (int i = date.getDate(); i < 14 + date.getDate(); i++) {
             //System.out.println("dagar");
             workDays.add(OurCalendar.getInstance().getWorkday(i));
         }

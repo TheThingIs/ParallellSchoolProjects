@@ -1,5 +1,10 @@
 package Model;
 
+/**
+ * @author Oliver Andersson
+ * ?
+ * @since ?
+ */
 public enum DayOfWeek {
     monday(0),
     tuesday(1),

@@ -20,8 +20,7 @@ public class testWorkShift {
         ch.createNewCertificate("Frukt");
         allcert.add(ch.getCertificate("Frukt"));
         a.createNewDepartment("Frukt", 1);
-        a.createWorkshift(a.getDepartmentByName("Frukt"), d.getTime(), (d.getTime() + WeekHandler.plusHours(8)), allcert, repeat);
-        //WorkShift ws = new WorkShift(d.getTime(),(d.getTime()+(1000 * 60 * 60 * 8)), allcert,new OccupiedTime(2,2), true);
+        a.createWorkshift(a.getDepartmentByName("Frukt"), d.getTime()+1000, (d.getTime() + WeekHandler.plusHours(8)), allcert, repeat);
         ch.createNewCertificate("Kassa");
         a.getDepartmentByName("Frukt").getShift(0).addCertificate(ch.getCertificate("Kassa"));
         assertTrue(a.getDepartmentByName("Frukt").getShift(0).getCertificatesSize() == 2);
@@ -38,8 +37,7 @@ public class testWorkShift {
         List<Certificate> allcert = new ArrayList<>();
         allcert.add(ch.getCertificate("Kassa"));
         a.createNewDepartment("Frukt", 1);
-        a.createWorkshift(a.getDepartmentByName("Frukt"), d.getTime(), (d.getTime() + WeekHandler.plusHours(8)), allcert, repeat);
-        //WorkShift ws = new WorkShift(d.getTime(),(d.getTime()+(1000 * 60 * 60 * 8)), allcert,new OccupiedTime(2,2), true);
+        a.createWorkshift(a.getDepartmentByName("Frukt"), d.getTime()+1000, (d.getTime() + WeekHandler.plusHours(8)), allcert, repeat);
         a.getDepartmentByName("Frukt").getShift(0).removeCertificate(ch.getCertificate("Kassa"));
         assertTrue(a.getDepartmentByName("Frukt").getShift(0).getCertificatesSize() == 0);
     }
@@ -54,7 +52,6 @@ public class testWorkShift {
         a.createWorkshift(a.getDepartmentByName("Kassa"), d.getTime() + 1111, d.getTime() + 11111, repeat);
         a.removeWorkshift(a.getDepartmentByName("Kassa"), a.getDepartmentByName("Kassa").getShift(0));
         assertEquals(1, a.getDepartmentByName("Kassa").getSizeAllShifts());
-        //assertTrue(a.getDepartmentByName("Kassa").getAllShifts().size() == 2);
     }
 
     @Test
@@ -71,5 +68,14 @@ public class testWorkShift {
         a.createNewEmployee("Markus passar bättre här", "694201337420", "bättre@gmail.com");
         OurCalendar.getInstance().getWorkday(1).reOccupieEmployee(a.getDepartmentByName("Kassa").getShift(0), a.getEmployeeByID("694201337420"));
         assertTrue(a.getDepartmentByName("Kassa").getShift(0).getEmployee().getPersonalId().equals("694201337420"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateWorkShiftExeptions() {
+        Admin a = Admin.getInstance();
+        Date d = new Date();
+        boolean repeat[] = {true, true, true, true, true, true, true};
+        a.createNewDepartment("Kassa", 1);
+        a.createWorkshift(a.getDepartmentByName("Kassa"), d.getTime(), d.getTime() + 11111, repeat);
     }
 }
