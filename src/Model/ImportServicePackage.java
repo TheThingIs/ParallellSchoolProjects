@@ -25,6 +25,9 @@ public class ImportServicePackage {
         admin.createNewEmployee("Fredrik Johanson", "198511097928", "Fredrik-Johanson13@hotmail.com");
         admin.createNewEmployee("Sara Samson", "198806015472", "samsonsara@gmail.com");
         admin.createNewEmployee("Elsa Frost", "199010311276", "Elsa.Frost@email.com");
+        admin.createNewEmployee("Dwight Schrute", "197001201337", "Dwight@Schrutefarms.com");
+        admin.createNewEmployee("Marvin Lost", "197905279746", "Marvin@find.com");
+        admin.createNewEmployee("Toph Beifong", "196804284928", "Toph@gaang.com");
 
         admin.createNewDepartment("Kassa", 2, Color.BLUE);
         admin.createNewDepartment("Chark", 2, Color.RED);
@@ -40,19 +43,24 @@ public class ImportServicePackage {
 
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Manager"), admin.getEmployeeByName("Moa Borg"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Manager"), admin.getEmployeeByName("Henrik Efson"));
+        admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Manager"), admin.getEmployeeByName("Marvin Lost"));
 
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Behörig"), admin.getEmployeeByName("Henrik Efson"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Behörig"), admin.getEmployeeByName("Fredrik Johanson"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Behörig"), admin.getEmployeeByName("Sara Samson"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Behörig"), admin.getEmployeeByName("Elsa Frost"));
+        admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Behörig"), admin.getEmployeeByName("Dwight Schrute"));
+        admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kassa Behörig"), admin.getEmployeeByName("Toph Beifong"));
 
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kött hantering"), admin.getEmployeeByName("Moa Borg"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kött hantering"), admin.getEmployeeByName("Crazy Jim"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kött hantering"), admin.getEmployeeByName("Fredrik Johanson"));
+        admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Kött hantering"), admin.getEmployeeByName("Dwight Schrute"));
 
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Fisk hantering"), admin.getEmployeeByName("Moa Borg"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Fisk hantering"), admin.getEmployeeByName("Crazy Jim"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Fisk hantering"), admin.getEmployeeByName("Sara Samson"));
+        admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Fisk hantering"), admin.getEmployeeByName("Dwight Schrute"));
 
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Packetering"), admin.getEmployeeByName("Moa Borg"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Packetering"), admin.getEmployeeByName("Fredrik Johanson"));
@@ -60,6 +68,8 @@ public class ImportServicePackage {
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Packetering"), admin.getEmployeeByName("Fredrik Johanson"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Packetering"), admin.getEmployeeByName("Sara Samson"));
         admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Packetering"), admin.getEmployeeByName("Elsa Frost"));
+        admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Packetering"), admin.getEmployeeByName("Marvin Lost"));
+        admin.createEmployeeCertificate(admin.getCertificatehandler().getCertificate("Packetering"), admin.getEmployeeByName("Toph Beifong"));
 
         ArrayList<Certificate> certificates = new ArrayList<>();
         certificates.add(admin.getCertificatehandler().getCertificate("Kassa Manager"));
