@@ -3,7 +3,8 @@ package Model;
 /**
  * @author Victor Cousin and Moa Berglund
  * Represents a handler for the breaks of the work shifts, has information of how long a break should be
- * @since ?
+ * Used by Department, Uses Weekhandler
+ * @since 2020-09-28
  */
 public class BreakHandler {
     private long minBreakLength = WeekHandler.plusMinutes(15);

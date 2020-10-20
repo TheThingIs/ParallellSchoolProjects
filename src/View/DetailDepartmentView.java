@@ -1,6 +1,8 @@
 package View;
 
 import Model.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -59,15 +61,28 @@ public class DetailDepartmentView extends AnchorPane implements Observer {
     }
 
 
-    private void generateButtons() {
-        saveChanges.setOnAction(actionEvent -> {
-            if (department == null) {
-                Admin.getInstance().createNewDepartment(name.getText(), Integer.parseInt(minPersonsOnShift.getEditor().getText()), colorPicker.getValue());
-                department = Admin.getInstance().getDepartmentByName(name.getText());
-            } else {
-                Admin.getInstance().changeDepartmentName(department, name.getText());
-                Admin.getInstance().getDepartmentByName(name.getText()).setColor(colorPicker.getValue());
-                Admin.getInstance().getDepartmentByName(name.getText()).setMinPersonsOnShift(Integer.parseInt(minPersonsOnShift.getEditor().getText()));//TODO change maxPersonsOnBreak
+
+
+    private void generateButtons(){
+        saveChanges.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (department == null) {
+                    Admin.getInstance().createNewDepartment(name.getText(), Integer.parseInt(minPersonsOnShift.getEditor().getText()),colorPicker.getValue());
+                    department= Admin.getInstance().getDepartmentByName(name.getText());
+                }
+                else{
+                    Admin.getInstance().changeDepartmentName(department, name.getText());
+                    Admin.getInstance().getDepartmentByName(name.getText()).setColor(colorPicker.getValue());
+                    Admin.getInstance().getDepartmentByName(name.getText()).setMinPersonsOnShift(Integer.parseInt(minPersonsOnShift.getEditor().getText()));//TODO change maxPersonsOnBreak
+                    Admin.getInstance().notifyObservers();
+                }
+            }
+        });
+        deleteDepartment.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                deleteAction();
             }
         });
         deleteDepartment.setOnAction(actionEvent -> deleteAction());

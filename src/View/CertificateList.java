@@ -1,8 +1,6 @@
 package View;
 
-import Model.Admin;
-import Model.Certificate;
-import Model.Observer;
+import Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -11,7 +9,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Oliver Andersson
@@ -28,6 +28,8 @@ public class CertificateList extends AnchorPane implements Observer {
     private TextField name;
     @FXML
     private Label iD;
+    @FXML
+    private ListView<String> listNames;
     private CertificateObject selected;
 
     /**
@@ -55,6 +57,7 @@ public class CertificateList extends AnchorPane implements Observer {
 
     private void setButtons() {
         create.setOnAction(actionEvent -> {
+            listNames.getItems().clear();
             name.setEditable(true);
             name.setText("");
             save.setDisable(false);
@@ -67,10 +70,22 @@ public class CertificateList extends AnchorPane implements Observer {
         save.setDisable(true);
         delete.setDisable(true);
         delete.setOnAction(actionEvent -> {
-            for (CertificateObject certificateObject : listOfCertificates.getItems()) {
-                if (certificateObject.checked.isSelected())
-                    Admin.getInstance().deleteCertificate(certificateObject.certificate);
+            boolean[] arr = new boolean[listOfCertificates.getItems().size()];
+            for (int index = listOfCertificates.getItems().size() - 1; index >= 0; index--) {
+                if (listOfCertificates.getItems().get(index).checked.isSelected()) {
+                    arr[index] = true;
+
+                } else {
+                    arr[index] = false;
+                }
             }
+            for (int index = listOfCertificates.getItems().size() - 1; index >= 0; index--) {
+                if (arr[index]) {
+                    Admin.getInstance().deleteCertificate(listOfCertificates.getItems().get(index).certificate);
+
+                }
+            }
+
             delete.setDisable(true);
         });
     }
@@ -90,6 +105,23 @@ public class CertificateList extends AnchorPane implements Observer {
         this.selected = certificateObject;
         name.setText(selected.certificate.getName());
         iD.setText(Long.toString(selected.certificate.ID));
+        listNames.getItems().clear();
+        listNames.getItems().addAll(getEmployeesWithCertificate(selected.certificate));
+    }
+
+    private List<String> getEmployeesWithCertificate(Certificate certificate) {
+        List<String> allNames = new ArrayList<>();
+
+        Iterator<Employee> names = CertificateHandler.getInstance().getEmployeeWithCertificate(certificate);
+        while (names.hasNext()) {
+            Employee employee = names.next();
+            allNames.add(employee.getName());
+        }
+        if (allNames.size() == 0) {
+            allNames.add("Det finns inga anställda");
+            allNames.add("med detta certifikatet");
+        }
+        return allNames;
     }
 
     @Override

@@ -14,7 +14,7 @@ public class EmployeeSorter implements Comparator<WorkShift> {
         return Integer.compare(potentialWorkShiftCandidate.get(a).size(), potentialWorkShiftCandidate.get(b).size());
     }
 
-    public void sortPotentialWorkShiftCandidate(ArrayList<Employee> employees, List<WorkDay> workDays) {
+    public void sortPotentialWorkShiftCandidate(List<Employee> employees, List<WorkDay> workDays) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         for (WorkDay workDay : workDays) {
             for (int j = 0; j < workDay.getDepartmentSize(); j++) {
