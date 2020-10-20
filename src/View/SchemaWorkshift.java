@@ -54,7 +54,7 @@ public class SchemaWorkshift extends AnchorPane {
 
     private double percentageOfDayFilled(long start, long end) {
         long difference = end - start;
-        return difference / WeekHandler.plusDays(1);
+        return ((double)difference) / ((double)WeekHandler.plusDays(1));
     }
 
     private double getOffset(long start) {
@@ -62,6 +62,6 @@ public class SchemaWorkshift extends AnchorPane {
         tmp.setHours(0);
         tmp.setMinutes(0);
         tmp.setSeconds(0);
-        return ((start - tmp.getTime()) / WeekHandler.plusDays(1));
+        return ((double)(start - tmp.getTime()) / ((double)WeekHandler.plusDays(1)));
     }
 }
