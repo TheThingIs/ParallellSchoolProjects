@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 /**
- * @author Oliver Andersson
+ * @author Oliver Andersson, Moa Berglund, Victor Cousin
  * Interface for editing and viewing information about an employee
  * @since 2020-10-07
  */
