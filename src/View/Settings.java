@@ -3,26 +3,22 @@ package View;
 import Model.Admin;
 import Model.BreakHandler;
 import Model.Observer;
-import Model.OurCalendar;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import javafx.scene.transform.Affine;
 
-import java.awt.*;
-import java.util.Calendar;
+/**
+ * @author Moa Berglund, Victor Cousin
+ * Settings view for the application
+ * @since 2020-10-16
+ */
 
 public class Settings extends AnchorPane implements Observer {
 
-    @FXML TextField guarantedFreetime, minBreak, midBreak, maxBreak;
-   @FXML Button saveButton;
+    @FXML private TextField guarantedFreetime, minBreak, midBreak, maxBreak;
+   @FXML private Button saveButton;
 
 
     public Settings(){
@@ -57,38 +53,28 @@ public class Settings extends AnchorPane implements Observer {
 
 
    private void generateSave(){
-     saveButton.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent actionEvent) {
-             Admin.getInstance().setGuaranteedFreeTime(Integer.parseInt(guarantedFreetime.getText()));
-             BreakHandler.getInstance().setMinBreakLength(Integer.parseInt(minBreak.getText()));
-             BreakHandler.getInstance().setMidBreakLength(Integer.parseInt(midBreak.getText()));
-             BreakHandler.getInstance().setMaxBreakLength(Integer.parseInt(maxBreak.getText()));
-         }
-         });
+     saveButton.setOnAction(actionEvent -> {
+         Admin.getInstance().setGuaranteedFreeTime(Integer.parseInt(guarantedFreetime.getText()));
+         BreakHandler.getInstance().setMinBreakLength(Integer.parseInt(minBreak.getText()));
+         BreakHandler.getInstance().setMidBreakLength(Integer.parseInt(midBreak.getText()));
+         BreakHandler.getInstance().setMaxBreakLength(Integer.parseInt(maxBreak.getText()));
+     });
     }
 
-    private  void generateTextFields(javafx.scene.control.TextField tf){
+    private  void generateTextFields(TextField tf){
 
-        tf.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if (tf.getText().length() > 2) {
-                    String s = tf.getText().substring(0, 2);
-                    tf.setText(s);
-                }
+        tf.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (tf.getText().length() > 2) {
+                String s = tf.getText().substring(0, 2);
+                tf.setText(s);
             }
         });
 
-        tf.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    tf.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                tf.setText(newValue.replaceAll("[^\\d]", ""));
             }
+
         });
     }
     @Override

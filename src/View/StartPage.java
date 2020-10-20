@@ -1,47 +1,62 @@
 package View;
 
-import Controller.AdminController;
 import Model.Admin;
-import Model.Employee;
 import Model.Observer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * @author Oliver Andersson
+ * @author Oliver Andersson, Christian Lind
  * Root node in the view, everything is build upon this
  * @since 2020-10-07
  */
 public class StartPage implements Observer, Initializable {
-    @FXML AnchorPane backGround;
-    @FXML AnchorPane startPage;
-    @FXML AnchorPane defaultPage;
-    @FXML Button buttonNewFile;
-    @FXML Button buttonSaveAndExit; //TODO Implement load and save functionality
-    @FXML Button buttonLoadFile; //TODO Implement load and save functionality
-    @FXML Tab tabSchedule;
-    @FXML Tab tabEmployees;
-    @FXML Tab tabSettings;
-    @FXML Tab tabDepartments;
-    @FXML Tab tabCertificates;
-    @FXML AnchorPane tabEmployeesPane;
-    @FXML AnchorPane tabDepartmentsPane;
-    @FXML TabPane tabPane;
+    @FXML
+    private AnchorPane backGround;
+    @FXML
+    private AnchorPane startPage;
+    @FXML
+    private AnchorPane defaultPage;
+    @FXML
+    private AnchorPane loginPage;
+    @FXML
+    private TextField userNameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private Text falseDetails;
+    @FXML
+    private Button buttonNewFile;
+    @FXML
+    private Button buttonSaveAndExit; //TODO Implement load and save functionality
+    @FXML
+    private Button buttonLoadFile; //TODO Implement load and save functionality
+    @FXML
+    private Tab tabSchedule;
+    @FXML
+    private Tab tabEmployees;
+    @FXML
+    private Tab tabSettings;
+    @FXML
+    private Tab tabDepartments;
+    @FXML
+    private Tab tabCertificates;
+    @FXML
+    private AnchorPane tabEmployeesPane;
+    @FXML
+    private AnchorPane tabDepartmentsPane;
+    @FXML
+    private TabPane tabPane;
     private Admin admin;
-    private Settings s= new Settings();
+    private final Settings settings = new Settings();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,7 +66,7 @@ public class StartPage implements Observer, Initializable {
         startPage.setVisible(false);
     }
 
-    private void setTabs(){
+    private void setTabs() {
         Schema schema = new Schema();
         tabSchedule.setContent(schema);
         PersonList personList = new PersonList();
@@ -62,49 +77,47 @@ public class StartPage implements Observer, Initializable {
         tabCertificates.setContent(new CertificateList());
         tabDepartmentsPane.getChildren().clear();
         tabDepartmentsPane.getChildren().add(departmentList);
-        tabSettings.setContent(s);
+        tabSettings.setContent(settings);
     }
 
-    private void setButtons(){
-        buttonSaveAndExit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                saveAndExit();
-            }
-        });
-        buttonNewFile.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                startNewFile();
-            }
-        });
+    private void setButtons() {
+        loginButton.setOnAction(actionEvent -> checklogin());
+        buttonSaveAndExit.setOnAction(actionEvent -> saveAndExit());
+        buttonNewFile.setOnAction(actionEvent -> startNewFile());
 
         tabPane.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Tab>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        s.update();
-                    }
-                }
+                (ov, t, t1) -> settings.update()
         );
     }
 
-    private void startNewFile(){
+    private void checklogin() {
+        if (admin.isLoginInformationCorrect(userNameField.getText(), passwordField.getText())) {
+            loginPage.setDisable(true);
+            loginPage.setVisible(false);
+            loginPage.toBack();
+        } else {
+            falseDetails.setText("Username or password not correct");
+            passwordField.setText("");
+            userNameField.setText("");
+        }
+    }
+
+    private void startNewFile() {
         startPage.toFront();
         defaultPage.toBack();
         defaultPage.setVisible(false);
         startPage.setVisible(true);
     }
 
-    private void exit(){
+    private void exit() {
         System.exit(0);
     }
 
-    private void save(){
+    private void save() {
         //TODO implement
     }
 
-    private void saveAndExit(){
+    private void saveAndExit() {
         save();
         exit();
     }

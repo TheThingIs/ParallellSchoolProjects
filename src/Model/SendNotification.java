@@ -6,6 +6,12 @@ import javax.mail.internet.MimeMessage;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * @author Christian Lind
+ * Sends an email with provided information
+ * @since 2020-10-15
+ */
+
 public class SendNotification {
 
     public SendNotification(String host, String to, String from, String username, String password, String subject, String text) {

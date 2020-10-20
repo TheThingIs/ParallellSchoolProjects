@@ -2,25 +2,25 @@ package Model;
 
 import javafx.scene.paint.Color;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Represents an static admin for the project with a list for all employees, a certificatehandler, a calendar and a employeesorter
+ * @author Victor Cousin, Moa Berglund, Markus Grahn, Oliver Andersson and Christian Lind
+ * Represents an static admin for the project with is the heart of the application
+ * @since ?
  */
 
 public class Admin implements Observable {
     private final List<Employee> employees;
-    private long guaranteedFreeTime=WeekHandler.plusHours(8); //startvalue
+    private long guaranteedFreeTime = WeekHandler.plusHours(8); //startvalue
     private final List<Department> departments;
     private final CertificateHandler certificateHandler;
     private final OurCalendar calendar;
     private final EmployeeSorter employeeSorter;
     private final Login loginHandler; //TODO private
     private List<Observer> observers, toBeAdded, toBeRemoved;
-    private Exporter export;
     private static Admin instance = null;
 
     /**
@@ -35,7 +35,6 @@ public class Admin implements Observable {
     }
 
     private Admin() {
-        this.export = new Exporter();
         this.loginHandler = new Login();
         this.certificateHandler = CertificateHandler.getInstance();
         this.employees = new ArrayList<>();
@@ -130,8 +129,7 @@ public class Admin implements Observable {
         if (count == 1) {
             return tmp;
         }
-        System.out.println("invalid name");
-        return null;//TODO exception?
+        throw new IllegalArgumentException("Invalid ID");
     }
 
 
@@ -145,8 +143,7 @@ public class Admin implements Observable {
         for (Employee e : employees)
             if (e.getPersonalId().equals(ID))
                 return e;
-        System.out.println("invalid name");
-        return null;
+        throw new IllegalArgumentException("Invalid ID");
     }
 
     public CertificateHandler getCertificatehandler() {
@@ -313,7 +310,7 @@ public class Admin implements Observable {
      */
     public void createWorkshift(Department d, long start, long end, List<Certificate> certificates, boolean[] repeat) {
         if ((repeat.length == 7) && (validateTimeSpan(start, end) && validateStartTime(start))) {
-            d.createShift(start, end, certificates, repeat); //TODO weekly booleans and not just true
+            d.createShift(start, end, certificates, repeat);
         } else {
             throw new IllegalArgumentException();
         }
@@ -387,8 +384,7 @@ public class Admin implements Observable {
                 return d;
             }
         }
-        System.out.println("invalid name");
-        return null;//TODO exception?
+        throw new IllegalArgumentException("invalid name");
     }
 
     /**
@@ -445,18 +441,41 @@ public class Admin implements Observable {
         return guaranteedFreeTime;
     }
 
-    public long getHoursOfGuaranteedFreeTime(){
-        return (guaranteedFreeTime/WeekHandler.plusHours(1));
-    }
-    public boolean isLoginInformationCorrect(String name, String password) {
-        return loginHandler.isLoginInformationCorrect(name, password);
+    public long getHoursOfGuaranteedFreeTime() {
+        return (guaranteedFreeTime / WeekHandler.plusHours(1));
     }
 
+    /**
+     * Creates a new user with username and password
+     *
+     * @param name     The username of the employee/admin
+     * @param password The password of the employee/admin
+     */
+    public void createNewUser(String name, String password) {
+        loginHandler.newUser(name, password);
+
+    }
+
+    /**
+     * Removes a user with the specified username and password
+     *
+     * @param name     the username of the user to remove
+     * @param password the password of the user to remove
+     */
     public void removeUser(String name, String password) {
         loginHandler.removeUser(name, password);
     }
 
-    public void createNewUser(String name, String password) {
-        loginHandler.removeUser(name, password);
+    /**
+     * Checks if the provided username and password matches a user inside the list of all users
+     *
+     * @param name     the username of the user
+     * @param password the password of the user
+     * @return If the username and password matches a current user
+     */
+    public boolean isLoginInformationCorrect(String name, String password) {
+        return loginHandler.isLoginInformationCorrect(name, password);
     }
+
+
 }

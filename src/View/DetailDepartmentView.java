@@ -1,39 +1,29 @@
 package View;
 
 import Model.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.Iterator;
 
 /**
- * @author
- *
- *
+ * @author Moa och Victor
+ * View for creating and editing a department
+ * @since 2020-10-09
  */
 
 public class DetailDepartmentView extends AnchorPane implements Observer {
-    Department department;
+    private Department department;
 
-    @FXML javafx.scene.control.TextField name;
-    @FXML Spinner minPersonsOnShift;
-    @FXML Button saveChanges, deleteDepartment;
-    @FXML ColorPicker colorPicker;
-    SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,Admin.getInstance().getEmployeeListSize()+100,1,1);
-
-
+    @FXML
+    private TextField name;
+    @FXML
+    private Spinner minPersonsOnShift;
+    @FXML
+    private Button saveChanges, deleteDepartment;
+    @FXML
+    private ColorPicker colorPicker;
+    private SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Admin.getInstance().getEmployeeListSize() + 100, 1, 1);
 
 
     public DetailDepartmentView(Department department) {
@@ -43,8 +33,7 @@ public class DetailDepartmentView extends AnchorPane implements Observer {
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         minPersonsOnShift.setValueFactory(valueFactory);
@@ -59,8 +48,7 @@ public class DetailDepartmentView extends AnchorPane implements Observer {
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         minPersonsOnShift.setValueFactory(valueFactory);
@@ -71,43 +59,32 @@ public class DetailDepartmentView extends AnchorPane implements Observer {
     }
 
 
-
-    private void generateButtons(){
-        saveChanges.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if (department == null) {
-                    Admin.getInstance().createNewDepartment(name.getText(), Integer.parseInt(minPersonsOnShift.getEditor().getText()),colorPicker.getValue());
-                    department= Admin.getInstance().getDepartmentByName(name.getText());
-                }
-                else{
-                    Admin.getInstance().changeDepartmentName(department, name.getText());
-                    Admin.getInstance().getDepartmentByName(name.getText()).setColor(colorPicker.getValue());
-                    Admin.getInstance().getDepartmentByName(name.getText()).setMinPersonsOnShift(Integer.parseInt(minPersonsOnShift.getEditor().getText()));//TODO change maxPersonsOnBreak
-                }
+    private void generateButtons() {
+        saveChanges.setOnAction(actionEvent -> {
+            if (department == null) {
+                Admin.getInstance().createNewDepartment(name.getText(), Integer.parseInt(minPersonsOnShift.getEditor().getText()), colorPicker.getValue());
+                department = Admin.getInstance().getDepartmentByName(name.getText());
+            } else {
+                Admin.getInstance().changeDepartmentName(department, name.getText());
+                Admin.getInstance().getDepartmentByName(name.getText()).setColor(colorPicker.getValue());
+                Admin.getInstance().getDepartmentByName(name.getText()).setMinPersonsOnShift(Integer.parseInt(minPersonsOnShift.getEditor().getText()));//TODO change maxPersonsOnBreak
             }
         });
-        deleteDepartment.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                deleteAction();
-            }
-        });
+        deleteDepartment.setOnAction(actionEvent -> deleteAction());
 
     }
 
-    private void deleteAction(){
+    private void deleteAction() {
         if (department == null) {
             name.setText("");
             minPersonsOnShift.getEditor().setText("");
-        }
-        else
+        } else
             Admin.getInstance().removeDepartment(department);
         Admin.getInstance().removeObserver(this);
     }
 
-    private void generateFXMLObjects(){
-        if (department != null){
+    private void generateFXMLObjects() {
+        if (department != null) {
             this.name.setText(department.getName().split(" ")[0]);
             this.minPersonsOnShift.getEditor().setText(String.valueOf(department.getMinPersonsOnShift()));
             this.colorPicker.setValue(department.getColor());

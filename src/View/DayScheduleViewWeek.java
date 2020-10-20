@@ -15,18 +15,18 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DayScheduleViewWeek extends AnchorPane {
-    WorkDay thisDay;
+    private WorkDay thisDay;
     @FXML
-    Label dayLabel;
+    private Label dayLabel;
     private int dayOfMonth, dayOfWeek;
+
     public DayScheduleViewWeek(WorkDay day) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DayScheduleViewMonth.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         thisDay = day;
@@ -46,14 +46,14 @@ public class DayScheduleViewWeek extends AnchorPane {
         return dayOfWeek;
     }
 
-    void setColor(){
+    void setColor() {
         Color color;
         if (thisDay.isEmpty())
-            color = new Color(0.5,0.5,0.5,1);
+            color = new Color(0.5, 0.5, 0.5, 1);
         else if (thisDay.isFilled())
             color = new Color(0, 0.5, 0, 1);
         else
-            color = new Color(0.5,0,0,1);
+            color = new Color(0.5, 0, 0, 1);
         BackgroundFill tmp = new BackgroundFill(color, new CornerRadii(5), new Insets(-5));
         this.setBackground(new Background(tmp));
     }

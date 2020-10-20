@@ -91,8 +91,6 @@ public class testEmployeeSorter {
 
         admin.getEmployeeSorter().sortPotentialWorkShiftCandidate(employees, workDays);
 
-        HashMap<WorkShift, List<Employee>> arr1 = admin.getEmployeeSorter().getPotentialEmployees();
-
         ArrayList<WorkDay> wd = new ArrayList<>();
 
         ArrayList<WorkShift> workShifts = new ArrayList<>();
@@ -101,10 +99,10 @@ public class testEmployeeSorter {
             wd.add(OurCalendar.getInstance().getWorkday(i));
         }
 
-        assertEquals(4, arr1.get(wd.get(0).getWorkShifts(admin.getDepartmentByName("Kassa")).get(0)).size());
-        assertEquals(5, arr1.get(wd.get(0).getWorkShifts(admin.getDepartmentByName("Frukt")).get(0)).size());
-        assertEquals(8, arr1.get(wd.get(0).getWorkShifts(admin.getDepartmentByName("Soffliggare")).get(0)).size());
-        assertEquals(2, arr1.get(wd.get(0).getWorkShifts(admin.getDepartmentByName("Bilmekaniker")).get(0)).size());
+        assertEquals(4, admin.getEmployeeSorter().getPotentialEmployees(wd.get(0).getWorkShifts(admin.getDepartmentByName("Kassa")).get(0)).size());
+        assertEquals(5, admin.getEmployeeSorter().getPotentialEmployees(wd.get(0).getWorkShifts(admin.getDepartmentByName("Frukt")).get(0)).size());
+        assertEquals(8, admin.getEmployeeSorter().getPotentialEmployees(wd.get(0).getWorkShifts(admin.getDepartmentByName("Soffliggare")).get(0)).size());
+        assertEquals(2, admin.getEmployeeSorter().getPotentialEmployees(wd.get(0).getWorkShifts(admin.getDepartmentByName("Bilmekaniker")).get(0)).size());
 
 
     }
@@ -174,8 +172,6 @@ public class testEmployeeSorter {
 
         admin.getEmployeeSorter().sortPotentialWorkShiftCandidate(employees, workDays);
 
-        HashMap<WorkShift, List<Employee>> arr1 = admin.getEmployeeSorter().getPotentialEmployees();
-
         ArrayList<WorkDay> wd = new ArrayList<>();
 
         ArrayList<WorkShift> workShifts = new ArrayList<>();
@@ -234,7 +230,6 @@ public class testEmployeeSorter {
 
         admin.getEmployeeSorter().sortPotentialWorkShiftCandidate(employees, workDays);
         admin.getEmployeeSorter().delegateEmployeeToWorkshift();
-
 
 
     }

@@ -5,11 +5,18 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * @author Markus Grahn
+ * Represents an static admin for the project with is the heart of the application
+ * @since 2020-10-16
+ */
 public class ImportServicePackage {
 
     public static void loadPackage() {
         Admin admin = Admin.getInstance();
         Date date = new Date();
+
+        admin.createNewUser("Moa","Hemligt");
         date.setTime(OurCalendar.getInstance().getDate(date).DATE + WeekHandler.plusDays(1));
 
         admin.createNewEmployee("Moa Borg", "200005174938", "Moa@gmail.com");

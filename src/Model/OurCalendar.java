@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * @author Oliver Andersson and Christian Lind
  * Represents a calendar filled with work days
+ * @since 2020-09-08
  */
 public class OurCalendar {
     private Calendar calendar;
