@@ -10,6 +10,7 @@ public class Employee {
     private final List<OccupiedTime> occupiedTimes; //TODO should vacation be seperate?
     private String name;
     private String email;
+    private String phoneNumber;
     public final String PERSONAL_ID;
     private List<EmployeeCertificate> certificates;
 
@@ -26,6 +27,7 @@ public class Employee {
         this.certificates = new ArrayList<>();
         this.email = email;
     }
+
 
 
     /**
@@ -105,7 +107,10 @@ public class Employee {
         }
         return count == workShift.getCertificatesSize();
     }
-
+    public void setPhoneNumber(String phoneNumber){this.phoneNumber=phoneNumber;}
+    public void setEmail(String email){this.email=email;}
+    public String getPhoneNumber(){return phoneNumber;}
+    public String getEmail(){return email;}
     /**
      * Returns the personal id
      *
