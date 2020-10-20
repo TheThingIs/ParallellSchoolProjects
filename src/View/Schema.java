@@ -302,11 +302,13 @@ public class Schema extends AnchorPane implements Observer {
         for (int i = 0; i<Admin.getInstance().getEmployeeListSize(); i++)
             employees.add(Admin.getInstance().getEmployee(i));
         for (int i = 0; i<daysAhead; i++){
-            tmpList.add(calendar.getWorkday(calendar.getDateIndex(new Date()) + i + offset));
+            tmpList.add(calendar.getWorkday( + i + offset));
         }
         tmp.sortPotentialWorkShiftCandidate(employees, tmpList);
         tmp.delegateEmployeeToWorkshift();
+        updateWeek();
         updateMonth();
+        updateDay();
     }
 
     @Override
