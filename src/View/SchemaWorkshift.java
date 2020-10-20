@@ -5,8 +5,12 @@ import Model.WeekHandler;
 import Model.WorkShift;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 import java.util.Date;
@@ -38,40 +42,19 @@ public class SchemaWorkshift extends AnchorPane {
         this.timeBar.setPrefWidth(sizeX * percentageOfDayFilled(workShift.START, workShift.END));
         this.timeBar.setTranslateX(getOffset(workShift.START) * sizeX);
         if (workShift.getEmployee() == null) {
-            this.timeBar.setStyle("-fx-background-color: #BBBBBB");
+            BackgroundFill tmp = new BackgroundFill(new Color(0.7,0.7,0.7,1), new CornerRadii(0), new Insets(0));
+            this.timeBar.setBackground(new Background(tmp));
             this.name.setText("Ledig!");
         } else {
-            StringBuilder red = new StringBuilder(), blue = new StringBuilder(), green = new StringBuilder();
-            if (color.getRed() < 1 / 16.0)
-                red.append("0");
-            if (color.getRed() == 0)
-                red.append("0");
-            red.append(Integer.toHexString((int) (color.getRed() * 255)));
-            if (color.getGreen() < 1 / 16.0)
-                green.append("0");
-            if (color.getGreen() == 0)
-                green.append("0");
-            green.append(Integer.toHexString((int) (color.getGreen() * 255)));
-            if (color.getBlue() < 1 / 16.0) {
-                blue.append("0");
-            }
-            if (color.getBlue() == 0) {
-                blue.append("0");
-            }
-            blue.append(Integer.toHexString((int) (color.getBlue() * 255)));
-            /*
-            System.out.println(Integer.toHexString((int)(color.getRed()*255)));
-            System.out.println(Integer.toHexString((int)(color.getGreen()*255)));
-            System.out.println(Integer.toHexString((int)(color.getBlue()*255)));
-            */
-            this.timeBar.setStyle("-fx-background-color: #" + red.toString() + green.toString() + blue.toString());
+            BackgroundFill tmp = new BackgroundFill(color, new CornerRadii(0), new Insets(0));
+            this.timeBar.setBackground(new Background(tmp));
             this.name.setText(workShift.getEmployee().getPersonalId());
         }
     }
 
     private double percentageOfDayFilled(long start, long end) {
         long difference = end - start;
-        return difference / WeekHandler.plusDays(1);
+        return ((double)difference) / ((double)WeekHandler.plusDays(1));
     }
 
     private double getOffset(long start) {
@@ -79,6 +62,6 @@ public class SchemaWorkshift extends AnchorPane {
         tmp.setHours(0);
         tmp.setMinutes(0);
         tmp.setSeconds(0);
-        return ((start - tmp.getTime()) / WeekHandler.plusDays(1));
+        return ((double)(start - tmp.getTime()) / ((double)WeekHandler.plusDays(1)));
     }
 }
