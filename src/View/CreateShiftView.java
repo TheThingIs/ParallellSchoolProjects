@@ -125,7 +125,7 @@ public class CreateShiftView extends AnchorPane implements Observer {
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
         long workStart = date.getTime() + WeekHandler.plusMinutes(Integer.parseInt(min1.getText())) + WeekHandler.plusHours(Integer.parseInt(hour1.getText()));//TODO kolla om fungerar
-        long workStop = date.getTime() + WeekHandler.plusMinutes(Integer.parseInt(min1.getText())) + WeekHandler.plusHours(Integer.parseInt(hour1.getText()));
+        long workStop = date.getTime() + WeekHandler.plusMinutes(Integer.parseInt(min2.getText())) + WeekHandler.plusHours(Integer.parseInt(hour2.getText()));
         //long workStart = date.getTime() + ((Long.parseLong(min1.getText())) * 1000 * 60) + ((Long.parseLong(hour1.getText())) * 1000 * 60 * 60);
         //long workStop = date.getTime() + ((Long.parseLong(min2.getText())) * 1000 * 60) + ((Long.parseLong(hour2.getText())) * 1000 * 60 * 60);
         Department d = Admin.getInstance().getDepartmentByName(departmentComboBox.getValue().toString());

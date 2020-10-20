@@ -1,6 +1,10 @@
 package View;
 
 import Model.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -19,26 +23,20 @@ import java.util.Iterator;
  */
 
 public class DetailEmployeeView extends AnchorPane implements Observer {
-    private Employee employee;
 
-    @FXML
-    private DatePicker datePicker, date1, date2;
-    @FXML
-    private TextField firstName, lastName, personalID;
-    @FXML
-    private Button saveChanges, deleteEmployee, addCertificate, removeCertificate, createCertificate, discardCertificate, addVacation, registerVacationButton, discardVacationButton;
-    @FXML
-    private ListView<EmployeeCertificateObject> certificateList;
-    @FXML
-    private ListView<CertificateObject> availableCertificates;
-    @FXML
-    private AnchorPane certificatePicker, information, registerVacation;
-    @FXML
-    private TextField hour1, hour2, min1, min2;
-    @FXML
-    private Label confirmVacText;
+    Employee employee;
 
-    private Certificate selected;
+    @FXML DatePicker datePicker, date1, date2;
+    @FXML javafx.scene.control.TextField firstName, lastName, personalID, phoneNumber,email;
+    @FXML Button saveChanges, deleteEmployee, addCertificate, removeCertificate, createCertificate, discardCertificate, addVacation, registerVacationButton, discardVacationButton;
+    @FXML ListView<EmployeeCertificateObject> certificateList;
+    @FXML ListView<CertificateObject> availableCertificates;
+    @FXML AnchorPane certificatePicker, information, registerVacation;
+    @FXML TextField hour1, hour2, min1, min2;
+    @FXML Label confirmVacText;
+
+    Certificate selected;
+
 
     public DetailEmployeeView(Employee employee) {
         this.employee = employee;
@@ -56,6 +54,7 @@ public class DetailEmployeeView extends AnchorPane implements Observer {
         generateTextFields(hour2);
         generateTextFields(min1);
         generateTextFields(min2);
+        generatephoneNumber(phoneNumber);
         generateCertificates();
         Admin.getInstance().addObserver(this);
     }
@@ -74,6 +73,7 @@ public class DetailEmployeeView extends AnchorPane implements Observer {
         generateTextFields(hour2);
         generateTextFields(min1);
         generateTextFields(min2);
+        generatephoneNumber(phoneNumber);
         generateCertificates();
         Admin.getInstance().addObserver(this);
     }
@@ -99,19 +99,37 @@ public class DetailEmployeeView extends AnchorPane implements Observer {
             }
         });
 
-        tf.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                tf.setText(newValue.replaceAll("[^\\d]", ""));
-            }
+        tf.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tf.setText(newValue.replaceAll("[^\\d]", ""));
+                }
 
+            }
         });
     }
+    private void generatephoneNumber(TextField tf){
+        tf.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tf.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+
+            }
+        });
+    }
+    
+
 
     private void generateButtons() {
 
         saveChanges.setOnAction(actionEvent -> {
             if (employee == null) {
-                Admin.getInstance().createNewEmployee(firstName.getText() + " " + lastName.getText(), personalID.getText(), "email@com"); //TODO add emails
+                Admin.getInstance().createNewEmployee(firstName.getText() + " " + lastName.getText(), personalID.getText(), email.getText(),phoneNumber.getText());
             } else {
                 Admin.getInstance().changeEmployeeName(employee, firstName.getText() + " " + lastName.getText());
             }
@@ -179,7 +197,9 @@ public class DetailEmployeeView extends AnchorPane implements Observer {
             this.lastName.setText(employee.getName().split(" ")[1]);
             this.personalID.setText(employee.getPersonalId());
             this.certificateList.getItems().clear();
-            for (int i = 0; i < employee.getCertificatesSize(); i++) {
+            this.email.setText(employee.getEmail());
+            this.phoneNumber.setText(employee.getPhoneNumber());
+            for (int i = 0 ; i < employee.getCertificatesSize() ; i++){
                 EmployeeCertificate employeeCertificate = employee.getCertificate(i);
                 this.certificateList.getItems().add(new EmployeeCertificateObject(employeeCertificate));
             }
