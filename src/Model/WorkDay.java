@@ -44,7 +44,7 @@ public class WorkDay implements Observer {
         for (int i = 0; i < workShift.getCertificatesSize(); i++) {
             certificates.add(workShift.getCertificate(i));
         }
-        if (!e.isOccupied(workShift.START, workShift.END) && e.hasCertifices(certificates)) {
+        if (!e.isOccupied(workShift.START, workShift.END) && e.hasCertifices(certificates) && !workShift.isOccupied()) {
             long endOccupiedTime = (workShift.END) + Admin.getInstance().getGuaranteedFreeTime();
             OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
             e.registerOccupation(ot);
