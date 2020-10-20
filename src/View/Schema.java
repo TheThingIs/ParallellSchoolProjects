@@ -16,7 +16,8 @@ import java.util.*;
 
 public class Schema extends AnchorPane implements Observer {
     @FXML
-    private Button next, previous, createWorkshift, discardButtonCreateNewShift, saveButtonCreateNewShift, cancelButton, switchButton, removeShiftButton;
+    private Button next, previous, createWorkshift, discardButtonCreateNewShift,
+            saveButtonCreateNewShift, cancelButton, switchButton, removeShiftButton, autoFillButton;
     @FXML
     private GridPane monthGrid, weekGrid;
     @FXML
@@ -290,11 +291,22 @@ public class Schema extends AnchorPane implements Observer {
             listOfWorkshifts.toFront();
             listOfWorkshifts.setVisible(true);
         });
-        /*removeShiftButton.setOnAction(actionEvent -> {
-            //listOfAvailableEmployees.toBack();
-            listOfAvailableEmployees.setVisible(false);
-            listOfWorkshifts.toFront();
-        });*/
+        autoFillButton.setOnAction(actionEvent -> autoFill(7, dateIndex));
+    }
+
+    private void autoFill(int daysAhead, int offset){
+        EmployeeSorter tmp = Admin.getInstance().getEmployeeSorter();
+        OurCalendar calendar = OurCalendar.getInstance();
+        List<WorkDay> tmpList = new ArrayList<>();
+        List<Employee> employees = new ArrayList<>();
+        for (int i = 0; i<Admin.getInstance().getEmployeeListSize(); i++)
+            employees.add(Admin.getInstance().getEmployee(i));
+        for (int i = 0; i<daysAhead; i++){
+            tmpList.add(calendar.getWorkday(calendar.getDateIndex(new Date()) + i + offset));
+        }
+        tmp.sortPotentialWorkShiftCandidate(employees, tmpList);
+        tmp.delegateEmployeeToWorkshift();
+        updateMonth();
     }
 
     @Override
