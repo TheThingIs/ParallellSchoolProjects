@@ -162,6 +162,14 @@ public class Admin implements Observable {
             notifyObservers();
         }
     }
+    public void createNewEmployee(String name, String personalId, String email,String phoneNumber) {
+        if (checkLengthEmployeeId(personalId) && checkIfExistsEmployeeId(personalId)) {
+            Employee employee = new Employee(name,personalId,email);
+            employee.setPhoneNumber(phoneNumber);
+            employees.add(employee);
+            notifyObservers();
+        }
+    }
 
     /**
      * checks if an chosen personal ID belongs to an employee
@@ -298,6 +306,7 @@ public class Admin implements Observable {
     public void removeDepartment(Department department) {
         WorkDay.removeDepartment(department);
         departments.remove(department);
+        notifyObservers();
     }
 
     /**
@@ -455,7 +464,6 @@ public class Admin implements Observable {
         loginHandler.newUser(name, password);
 
     }
-
     /**
      * Removes a user with the specified username and password
      *

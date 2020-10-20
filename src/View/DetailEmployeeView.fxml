@@ -39,7 +39,7 @@
       </AnchorPane>
           <AnchorPane fx:id="information" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="406.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0">
               <children>
-                  <ListView fx:id="certificateList" layoutY="132.0" prefHeight="328.0" prefWidth="396.0" />
+                  <ListView fx:id="certificateList" layoutY="210.0" prefHeight="250.0" prefWidth="396.0" />
                   <TextField fx:id="firstName" layoutX="14.0" layoutY="29.0" prefHeight="25.0" prefWidth="266.0" promptText="Förnamn" AnchorPane.topAnchor="20.0" />
                   <TextField fx:id="lastName" layoutX="14.0" layoutY="66.0" prefHeight="25.0" prefWidth="266.0" promptText="Efternamn" AnchorPane.topAnchor="60.0" />
                   <TextField fx:id="personalID" layoutX="14.0" layoutY="98.0" prefHeight="25.0" prefWidth="266.0" promptText="Personnummer" AnchorPane.topAnchor="100.0" />
@@ -49,6 +49,8 @@
                   <Button fx:id="deleteEmployee" layoutX="198.0" layoutY="524.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="206.0" style="-fx-background-color: #FF0000; -fx-border-color: #000000;" text="Ta Bort Anställd" AnchorPane.bottomAnchor="22.0" />
             <Button fx:id="addVacation" layoutY="396.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="198.0" style="-fx-background-color: #00FF00; -fx-border-color: #000000;" text="Registrera ledighet" visible="false" />
             <Label fx:id="confirmVacText" layoutX="44.0" layoutY="378.0" text="Ledighet registrerad!" textFill="#15a933" visible="false" />
+            <TextField fx:id="phoneNumber" layoutX="14.0" layoutY="138.0" prefHeight="25.0" prefWidth="266.0" promptText="Telefonnummer" />
+            <TextField fx:id="email" layoutX="14.0" layoutY="177.0" prefHeight="25.0" prefWidth="266.0" promptText="E-mail" />
               </children>
           </AnchorPane>
     </children>

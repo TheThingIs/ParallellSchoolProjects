@@ -16,7 +16,7 @@ import java.util.*;
 
 public class Schema extends AnchorPane implements Observer {
     @FXML
-    private Button next, previous, createWorkshift, discardButtonCreateNewShift, saveButtonCreateNewShift, cancelButton;
+    private Button next, previous, createWorkshift, discardButtonCreateNewShift, saveButtonCreateNewShift, cancelButton, switchButton, removeShiftButton;
     @FXML
     private GridPane monthGrid, weekGrid;
     @FXML
@@ -31,6 +31,7 @@ public class Schema extends AnchorPane implements Observer {
     private int dateIndex;
     private Date currentIndex;
     private String mode = "";
+    private WorkShift toBeSwitched;
 
     public Schema() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Schema.fxml"));
@@ -49,6 +50,11 @@ public class Schema extends AnchorPane implements Observer {
     }
 
     private void generateEmployeePicker(WorkShift workShift) {
+        if (toBeSwitched !=null) {
+            OurCalendar.getInstance().getWorkday(dateIndex).swapOccupation(toBeSwitched, workShift);
+            updateDay();
+            return;
+        }
         listOfAvailableEmployees.getItems().clear();
         List<Employee> employees = new ArrayList<>();
         for (int i = 0; i < Admin.getInstance().getEmployeeListSize(); i++)
@@ -60,14 +66,36 @@ public class Schema extends AnchorPane implements Observer {
             tmp.setOnMouseClicked(mouseEvent -> assignEmployeeToWorkshift(workShift, e));
             listOfAvailableEmployees.getItems().add(tmp);
         }
+        removeShiftButton.setOnAction(actionEvent -> removeWorkShift(workShift));
         listOfAvailableEmployees.toFront();
         listOfAvailableEmployees.setVisible(true);
         listOfWorkshifts.toBack();
+        listOfWorkshifts.setVisible(false);
+        switchButton.setOnAction(actionEvent -> {
+            toBeSwitched = workShift;
+            listOfAvailableEmployees.toBack();
+            listOfAvailableEmployees.setVisible(false);
+            listOfWorkshifts.toFront();
+            listOfWorkshifts.setVisible(true);
+        });
+    }
+
+    private void removeWorkShift(WorkShift workShift) {
+        OurCalendar calendar = OurCalendar.getInstance();
+        calendar.getWorkday(calendar.getDateIndex(new Date(workShift.START))).removeWorkshift(workShift);
+        listOfAvailableEmployees.toBack();
+        listOfAvailableEmployees.setVisible(false);
+        listOfWorkshifts.toFront();
+        updateDay();
     }
 
     private void assignEmployeeToWorkshift(WorkShift workShift, Employee employee) {
         OurCalendar calendar = OurCalendar.getInstance();
-        calendar.getWorkday(calendar.getDateIndex(new Date(workShift.START))).occupiesEmployee(workShift, employee);
+        if (workShift.isOccupied()){
+            calendar.getWorkday(calendar.getDateIndex(new Date(workShift.START))).reOccupieEmployee(workShift, employee);
+        } else {
+            calendar.getWorkday(calendar.getDateIndex(new Date(workShift.START))).occupiesEmployee(workShift, employee);
+        }
         listOfAvailableEmployees.toBack();
         listOfAvailableEmployees.setVisible(false);
         listOfWorkshifts.toFront();
@@ -260,7 +288,13 @@ public class Schema extends AnchorPane implements Observer {
             listOfAvailableEmployees.toBack();
             listOfAvailableEmployees.setVisible(false);
             listOfWorkshifts.toFront();
+            listOfWorkshifts.setVisible(true);
         });
+        /*removeShiftButton.setOnAction(actionEvent -> {
+            //listOfAvailableEmployees.toBack();
+            listOfAvailableEmployees.setVisible(false);
+            listOfWorkshifts.toFront();
+        });*/
     }
 
     @Override

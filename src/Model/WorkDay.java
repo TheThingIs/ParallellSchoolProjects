@@ -167,6 +167,18 @@ public class WorkDay implements Observer {
         departments.add(department);
     }
 
+    public void removeWorkshift(WorkShift ws){
+        for (Department d : departments){
+            if(departmentLinks.get(d).contains(ws)){
+                if(ws.isOccupied()){
+                    ws.clearWorkShiftOccupation();
+                }
+
+                departmentLinks.get(d).remove(ws);
+            }
+        }
+    }
+
     /**
      * removes a department
      *
