@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * @author Christian Lind, Markus Grahn.
+ * Used by Admin. Uses Employee, certificate
  * A class that handles the certificates. Has a list with certificates and a hash map that link the employees with certificates
  */
 public class CertificateHandler {

@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * @author Oliver Andersson, Moa Berglund, Victor Cousin, Markus Grahn, Christian Lind
+ * Uses Workshift, Observer, BreakHandler, OurCalendar. Used By WorkDay, Admin.
  * Represents a department with a specified name and a list for work shifts where the department can be manned. It also has a minimum value of persons that has to work at the same time
  */
 public class Department implements Observable {

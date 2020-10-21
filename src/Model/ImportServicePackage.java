@@ -7,6 +7,7 @@ import java.util.Date;
 
 /**
  * @author Markus Grahn
+ * Uses Admin, OurCalendar
  * Represents an static admin for the project with is the heart of the application
  * @since 2020-10-16
  */

@@ -8,6 +8,7 @@ import java.util.Properties;
 
 /**
  * @author Christian Lind
+ * Used by EmployeeSorter.
  * Sends an email with provided information
  * @since 2020-10-15
  */

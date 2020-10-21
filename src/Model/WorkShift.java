@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * @author Markus Grahn and Christian Lind
+ * Uses OccupiedTime, Employee, Certificate. Used by Department, EmployeeSorter, SendNotification, WorkDay, Employee.
  * Represents a WorkShift in which an employee can work in if the have the specified certificates required
  * @since ?
  */

@@ -2,7 +2,8 @@ package Model;
 
 import java.util.*;
 
-/**
+/**@author Christian Lind, Oliver Andersson, Markus Grahn
+ * Uses Employee, WorkShift, WorkDay. Used by Admin
  * A class that handles the sortation of employees
  */
 public class EmployeeSorter implements Comparator<WorkShift> {

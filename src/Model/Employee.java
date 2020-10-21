@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @author Oliver Andersson, Makrus Grahn, Chistian Lind.
+ * Uses OccupiedTime, EmployeeCertificate. Used By EmployeeSorter, WorkShift, Admin, CertificateHandler, WorkDay.
  * Represents an employee with a specified name, email, personal ID, certificates and time span where the employee is not available for work
  */
 public class Employee {

@@ -13,6 +13,7 @@ import java.util.HashMap;
 /**
  * @author Christian Lind
  * Handles the login and encryption on passwords
+ * Used By Admin
  * @since 2020-10-18
  */
 public class Login {

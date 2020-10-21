@@ -1,6 +1,8 @@
 package Model;
 
 /**
+ * @autor Oliver Andersson, Christian Lind
+ * Used by EmployeeCertificate, WorkShift
  * Represents a certificate with a specified name and a ID value
  */
 public class Certificate {

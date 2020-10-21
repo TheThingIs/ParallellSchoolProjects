@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * @author Oliver Andersson and Christian Lind
+ * Uses WorkDay. Used by Admin, Department, EmployeeSorter, ImportServicePackage.
  * Represents a calendar filled with work days
  * @since 2020-09-08
  */

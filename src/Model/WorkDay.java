@@ -3,7 +3,8 @@ package Model;
 import java.util.*;
 
 /**
- * @author Markus Grahnand Christian Lind
+ * @author Markus Grahnand, Christian Lind, Oliver Andersson
+ * Uses Department, WorkShift, Employee, OccupiedTime, Used By Admin, EmployeeSorter, OurCalendar, ImportServicePackage.
  * Represents a work day with a specified date, a hash map(with departments, work shifts and employees),and a list of departments
  * @since ?
  */
@@ -220,12 +221,6 @@ public class WorkDay implements Observer {
                 }
             }
         }
-    }
-
-    public int getDayOfWeekOffset() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date(DATE));
-        return DayOfWeek.getDay(calendar.get(Calendar.DAY_OF_WEEK)).offset;
     }
 
     /**

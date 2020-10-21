@@ -2,6 +2,7 @@ package Model;
 
 /**
  * @author Christian Lind
+ * Used By Admin, BreakHandler, Department, ImportSErvicePackage, WorkShift.
  * Represents a static WeekHandler which is used to add time to the Java.Date object
  * @since 2020-10-11
  */
