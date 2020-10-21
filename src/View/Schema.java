@@ -54,6 +54,7 @@ public class Schema extends AnchorPane implements Observer {
         if (toBeSwitched !=null) {
             OurCalendar.getInstance().getWorkday(dateIndex).swapOccupation(toBeSwitched, workShift);
             updateDay();
+            toBeSwitched = null;
             return;
         }
         listOfAvailableEmployees.getItems().clear();
