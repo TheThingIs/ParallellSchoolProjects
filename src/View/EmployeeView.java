@@ -14,8 +14,6 @@ import javafx.scene.layout.AnchorPane;
  * @since 2020-10-07
  */
 public class EmployeeView extends AnchorPane implements Observer {
-    public void addCertificate() {
-    }
 
     Employee employee;
     @FXML

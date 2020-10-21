@@ -11,8 +11,8 @@ public class testEmployeeSorter {
     public void testGetQualifiedPersons() {
         Admin admin = Admin.getInstance();
         CertificateHandler ch = admin.getCertificatehandler();
-        admin.createNewEmployee("moa", "123456789231", "moa@email.nej");
-        admin.createNewEmployee("Victor", "123456789234", "Victor@haha.ha");
+        admin.createNewEmployee("moa", "123456789231", "moa@email.nej", "0315552267");
+        admin.createNewEmployee("Victor", "123456789234", "Victor@haha.ha", "0315552866");
         ch.createNewCertificate("Kassa");
         ch.createNewCertificate("Frukt");
         admin.createEmployeeCertificate(ch.getCertificate("Kassa"), admin.getEmployeeByName("moa"), new Date());
@@ -30,14 +30,14 @@ public class testEmployeeSorter {
     public void testGetListOfPotentialPersons() {
         Admin admin = Admin.getInstance();
         CertificateHandler ch = admin.getCertificatehandler();
-        admin.createNewEmployee("moa", "123456789231", "moa@email.nej");
-        admin.createNewEmployee("Victor", "123456789234", "Victor@haha.ha");
-        admin.createNewEmployee("markus1", "123456789225", "moa@email.nejs");
-        admin.createNewEmployee("markus2", "123456789236", "Victor@haha.had");
-        admin.createNewEmployee("Oliver", "123456789245", "moa@email.nejg");
-        admin.createNewEmployee("Sam", "123456789247", "Victor@haha.har");
-        admin.createNewEmployee("Abethenoob", "123456789288", "moa@email.nejh");
-        admin.createNewEmployee("Volvoraggare", "123456789299", "Victor@haha.markus");
+        admin.createNewEmployee("moa", "123456789231", "moa@email.nej", "031555226");
+        admin.createNewEmployee("Victor", "123456789234", "Victor@haha.ha", "0315554286");
+        admin.createNewEmployee("markus1", "123456789225", "moa@email.nejs", "0315562266");
+        admin.createNewEmployee("markus2", "123456789236", "Victor@haha.had", "0315252266");
+        admin.createNewEmployee("Oliver", "123456789245", "moa@email.nejg", "0315052266");
+        admin.createNewEmployee("Sam", "123456789247", "Victor@haha.har", "0315559266");
+        admin.createNewEmployee("Abethenoob", "123456789288", "moa@email.nejh", "0315552666");
+        admin.createNewEmployee("Volvoraggare", "123456789299", "Victor@haha.markus", "0315552286");
 
         ch.createNewCertificate("Kassa");
         ch.createNewCertificate("Frukt");
@@ -111,14 +111,14 @@ public class testEmployeeSorter {
     public void testSortWorkShiftPotentialWorkShiftCandidate() {
         Admin admin = Admin.getInstance();
         CertificateHandler ch = admin.getCertificatehandler();
-        admin.createNewEmployee("moa", "123456789231", "moa@email.nej");
-        admin.createNewEmployee("Victor", "123456789234", "Victor@haha.ha");
-        admin.createNewEmployee("markus1", "123456789225", "moa@email.nejs");
-        admin.createNewEmployee("markus2", "123456789236", "Victor@haha.had");
-        admin.createNewEmployee("Oliver", "123456789245", "moa@email.nejg");
-        admin.createNewEmployee("Sam", "123456789247", "Victor@haha.har");
-        admin.createNewEmployee("Abethenoob", "123456789288", "moa@email.nejh");
-        admin.createNewEmployee("Volvoraggare", "123456789299", "Victor@haha.markus");
+        admin.createNewEmployee("moa", "123456789231", "moa@email.nej", "0315552266");
+        admin.createNewEmployee("Victor", "123456789234", "Victor@haha.ha", "0315552261");
+        admin.createNewEmployee("markus1", "123456789225", "moa@email.nejs", "0315552268");
+        admin.createNewEmployee("markus2", "123456789236", "Victor@haha.had", "0315552286");
+        admin.createNewEmployee("Oliver", "123456789245", "moa@email.nejg", "0315552466");
+        admin.createNewEmployee("Sam", "123456789247", "Victor@haha.har", "0315582266");
+        admin.createNewEmployee("Abethenoob", "123456789288", "moa@email.nejh", "0315552666");
+        admin.createNewEmployee("Volvoraggare", "123456789299", "Victor@haha.markus", "031555266");
 
         ch.createNewCertificate("Kassa");
         ch.createNewCertificate("Frukt");
@@ -199,8 +199,8 @@ public class testEmployeeSorter {
     public void testAllWorkShiftNotFull() {
         Admin admin = Admin.getInstance();
         CertificateHandler ch = admin.getCertificatehandler();
-        admin.createNewEmployee("moa", "123456789231", "moa@email.nej");
-        admin.createNewEmployee("Victor", "123456789234", "Victor@haha.ha");
+        admin.createNewEmployee("moa", "123456789231", "moa@email.nej", "0315552566");
+        admin.createNewEmployee("Victor", "123456789234", "Victor@haha.ha", "0315562266");
 
         admin.createNewDepartment("Kassa", 10);
 

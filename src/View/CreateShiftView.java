@@ -37,8 +37,8 @@ public class CreateShiftView extends AnchorPane implements Observer {
     private ListView<CertificateObject> listOfCertificates;
     @FXML
     protected Label warningCreateWorkshift;
-    private List<Certificate> certificates = new ArrayList<>();
-    private List<CertificateObject> certificateObjects = new ArrayList<>();
+    private final List<Certificate> certificates = new ArrayList<>();
+    private final List<CertificateObject> certificateObjects = new ArrayList<>();
     SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Admin.getInstance().getEmployeeListSize() + 100, 1, 1);
 
 
@@ -129,7 +129,7 @@ public class CreateShiftView extends AnchorPane implements Observer {
         //long workStart = date.getTime() + ((Long.parseLong(min1.getText())) * 1000 * 60) + ((Long.parseLong(hour1.getText())) * 1000 * 60 * 60);
         //long workStop = date.getTime() + ((Long.parseLong(min2.getText())) * 1000 * 60) + ((Long.parseLong(hour2.getText())) * 1000 * 60 * 60);
         Department d = Admin.getInstance().getDepartmentByName(departmentComboBox.getValue().toString());
-        boolean repeat[] = {sunday.isSelected(), monday.isSelected(), tuesday.isSelected(), wednesday.isSelected(), thursday.isSelected(), friday.isSelected(), saturday.isSelected()};
+        boolean[] repeat = {sunday.isSelected(), monday.isSelected(), tuesday.isSelected(), wednesday.isSelected(), thursday.isSelected(), friday.isSelected(), saturday.isSelected()};
         for (int i = 0; i < Integer.parseInt(numberPersonel.getEditor().getText()); i++) {
             Admin.getInstance().createWorkshift(d, workStart, workStop, certificates, repeat);
         }

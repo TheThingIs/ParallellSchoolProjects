@@ -12,9 +12,9 @@ public class testCertificateHandler {
     @Test
     public void testWhoHasCertificate() {
         Admin admin = Admin.getInstance();
-        admin.createNewEmployee("moa", "123456789231", "moa@gmail.com");
-        admin.createNewEmployee("moa", "213456789123", "moa3@gmail.com");
-        admin.createNewEmployee("crilllle", "312123456789", "llllllll@gmail.com");
+        admin.createNewEmployee("moa", "123456789231", "moa@gmail.com", "03185552266");
+        admin.createNewEmployee("moa", "213456789123", "moa3@gmail.com", "03185552267");
+        admin.createNewEmployee("crilllle", "312123456789", "llllllll@gmail.com", "03185552268");
         CertificateHandler ch = admin.getCertificatehandler();
         ch.createNewCertificate("Kassa");
         ch.createNewCertificate("Frukt");
@@ -30,9 +30,9 @@ public class testCertificateHandler {
     @Test
     public void testRemoveGlobalCertificate() {
         Admin admin = Admin.getInstance();
-        admin.createNewEmployee("moa", "123456789231", "moa@gmail.com");
-        admin.createNewEmployee("moa", "123456789232", "moa2@gmail.com");
-        admin.createNewEmployee("crilllle", "1234567892315", "chrille@gmail.com");
+        admin.createNewEmployee("moa", "123456789231", "moa@gmail.com", "03185552267");
+        admin.createNewEmployee("moa", "123456789232", "moa2@gmail.com", "03185552268");
+        admin.createNewEmployee("crilllle", "1234567892315", "chrille@gmail.com", "03185552269");
         CertificateHandler ch = admin.getCertificatehandler();
         ch.createNewCertificate("Kassa");
         ch.createNewCertificate("Frukt");

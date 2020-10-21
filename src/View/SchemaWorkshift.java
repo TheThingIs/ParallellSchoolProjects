@@ -1,6 +1,5 @@
 package View;
 
-import Model.Employee;
 import Model.WeekHandler;
 import Model.WorkShift;
 import javafx.fxml.FXML;
@@ -16,8 +15,6 @@ import javafx.scene.paint.Color;
 import java.util.Date;
 
 public class SchemaWorkshift extends AnchorPane {
-    private Employee employee;
-    private Color color;
     private double sizeX = 900;
 
     @FXML
@@ -34,15 +31,13 @@ public class SchemaWorkshift extends AnchorPane {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.employee = workShift.getEmployee();
-        this.color = color;
         this.start.setText(new Date(workShift.START).toString());
         this.end.setText(new Date(workShift.END).toString());
         this.departmentName.setText(departmentName);
         this.timeBar.setPrefWidth(sizeX * percentageOfDayFilled(workShift.START, workShift.END));
         this.timeBar.setTranslateX(getOffset(workShift.START) * sizeX);
         if (workShift.getEmployee() == null) {
-            BackgroundFill tmp = new BackgroundFill(new Color(0.7,0.7,0.7,1), new CornerRadii(0), new Insets(0));
+            BackgroundFill tmp = new BackgroundFill(new Color(0.7, 0.7, 0.7, 1), new CornerRadii(0), new Insets(0));
             this.timeBar.setBackground(new Background(tmp));
             this.name.setText("Ledig!");
         } else {
@@ -54,7 +49,7 @@ public class SchemaWorkshift extends AnchorPane {
 
     private double percentageOfDayFilled(long start, long end) {
         long difference = end - start;
-        return ((double)difference) / ((double)WeekHandler.plusDays(1));
+        return ((double) difference) / ((double) WeekHandler.plusDays(1));
     }
 
     private double getOffset(long start) {
@@ -62,6 +57,6 @@ public class SchemaWorkshift extends AnchorPane {
         tmp.setHours(0);
         tmp.setMinutes(0);
         tmp.setSeconds(0);
-        return ((double)(start - tmp.getTime()) / ((double)WeekHandler.plusDays(1)));
+        return ((double) (start - tmp.getTime()) / ((double) WeekHandler.plusDays(1)));
     }
 }

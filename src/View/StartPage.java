@@ -96,7 +96,7 @@ public class StartPage implements Observer, Initializable {
             loginPage.setVisible(false);
             loginPage.toBack();
         } else {
-            falseDetails.setText("Username or password not correct");
+            falseDetails.setText("Användarnamn eller lösenord är felaktigt");
             passwordField.setText("");
             userNameField.setText("");
         }

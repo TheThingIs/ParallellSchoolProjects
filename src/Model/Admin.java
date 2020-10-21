@@ -156,17 +156,9 @@ public class Admin implements Observable {
      * @param name       name of the employee
      * @param personalId personal ID of the employee
      */
-    public void createNewEmployee(String name, String personalId, String email) {
+    public void createNewEmployee(String name, String personalId, String email, String phoneNumber) {
         if (checkLengthEmployeeId(personalId) && checkIfExistsEmployeeId(personalId)) {
-            employees.add(new Employee(name, personalId, email));
-            notifyObservers();
-        }
-    }
-    public void createNewEmployee(String name, String personalId, String email,String phoneNumber) {
-        if (checkLengthEmployeeId(personalId) && checkIfExistsEmployeeId(personalId)) {
-            Employee employee = new Employee(name,personalId,email);
-            employee.setPhoneNumber(phoneNumber);
-            employees.add(employee);
+            employees.add(new Employee(name, personalId, email, phoneNumber));
             notifyObservers();
         }
     }
@@ -464,6 +456,7 @@ public class Admin implements Observable {
         loginHandler.newUser(name, password);
 
     }
+
     /**
      * Removes a user with the specified username and password
      *
