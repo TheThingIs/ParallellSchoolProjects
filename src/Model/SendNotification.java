@@ -37,13 +37,13 @@ public class SendNotification {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("There are " + workshiftsNotFilled.size() + " Workshifts not filled with ids");
+        sb.append("There are " + workshiftsNotFilled.size() + " Workshift(s) not filled with ids");
 
         for (WorkShift ws : workshiftsNotFilled) {
-            sb.append(ws.ID + "\n");
+            sb.append("\n" + ws.ID);
         }
 
-        sb.append("Sincerly EmployeeSorter");
+        sb.append("\nSincerly EmployeeSorter");
         sendMessage(session, from, to, subject, sb.toString());
     }
 
