@@ -24,7 +24,7 @@
                   <Font size="14.0" />
                </font></Label>
             <Button fx:id="save" layoutX="243.0" layoutY="385.0" mnemonicParsing="false" style="-fx-background-color: #00FF00; -fx-border-color: #000000;" text="Spara" />
-            <ListView fx:id="listEmployees" layoutX="73.0" layoutY="136.0" prefHeight="240.0" prefWidth="219.0" />
+            <ListView fx:id="listNames" layoutX="73.0" layoutY="136.0" prefHeight="240.0" prefWidth="219.0" />
             <Label layoutX="74.0" layoutY="118.0" text="Dessa anställda har certifikatet">
                <font>
                   <Font size="14.0" />

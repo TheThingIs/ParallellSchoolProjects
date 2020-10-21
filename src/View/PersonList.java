@@ -16,8 +16,8 @@ import java.util.*;
  * @since 2020-10-07
  */
 public class PersonList extends AnchorPane implements Observer {
-    private Map<Employee, EmployeeView> employeeEmployeeViewMap;
-    private List<EmployeeView> employeeViews;
+    private final Map<Employee, EmployeeView> employeeEmployeeViewMap;
+    private final List<EmployeeView> employeeViews;
     @FXML
     ListView<EmployeeView> employeeViewPane;
     @FXML

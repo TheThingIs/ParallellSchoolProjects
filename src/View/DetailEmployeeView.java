@@ -1,10 +1,6 @@
 package View;
 
 import Model.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -99,27 +95,19 @@ public class DetailEmployeeView extends AnchorPane implements Observer {
             }
         });
 
-        tf.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    tf.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                tf.setText(newValue.replaceAll("[^\\d]", ""));
             }
+
         });
     }
     private void generatephoneNumber(TextField tf){
-        tf.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    tf.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                tf.setText(newValue.replaceAll("[^\\d]", ""));
             }
+
         });
     }
     
@@ -150,12 +138,17 @@ public class DetailEmployeeView extends AnchorPane implements Observer {
 
         deleteEmployee.setOnAction(actionEvent -> deleteAction());
         removeCertificate.setOnAction(actionEvent -> {
-            for (EmployeeCertificateObject e : certificateList.getItems()) {
-                if (e.checked.isSelected()) {
-                    Admin.getInstance().removeEmployeeCertificate(e.certificate.getCertificate(), employee);
-                    e.checked.setSelected(false);
+            boolean[] arr = new boolean[certificateList.getItems().size()];
+            for (int index = certificateList.getItems().size() - 1; index >= 0; index--) {
+                arr[index] = certificateList.getItems().get(index).checked.isSelected();
+            }
+            for (int index = certificateList.getItems().size() - 1; index >= 0; index--) {
+                if (arr[index]) {
+                    Admin.getInstance().removeEmployeeCertificate(certificateList.getItems().get(index).certificate.getCertificate(), employee);
+
                 }
             }
+
         });
         addCertificate.setOnAction(actionEvent -> {
             information.toBack();

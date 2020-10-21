@@ -17,17 +17,19 @@ public class Employee {
     /**
      * Constructs an employee with a list for time span where the employee is not available for work, a specified name, specified personal ID and a list for provided certificates
      *
-     * @param name       the employee's name
-     * @param personalId the employee's personal ID
+     * @param name        the employee's name
+     * @param personalId  the employee's personal ID
+     * @param email       the employee's personal email
+     * @param phoneNumber the employee's personal phonenumber
      */
-    protected Employee(String name, String personalId, String email) {
+    protected Employee(String name, String personalId, String email, String phoneNumber) {
+        this.phoneNumber = phoneNumber;
         this.occupiedTimes = new ArrayList<>();
         this.name = name;
         this.PERSONAL_ID = personalId;
         this.certificates = new ArrayList<>();
         this.email = email;
     }
-
 
 
     /**
@@ -107,10 +109,23 @@ public class Employee {
         }
         return count == workShift.getCertificatesSize();
     }
-    public void setPhoneNumber(String phoneNumber){this.phoneNumber=phoneNumber;}
-    public void setEmail(String email){this.email=email;}
-    public String getPhoneNumber(){return phoneNumber;}
-    public String getEmail(){return email;}
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     /**
      * Returns the personal id
      *

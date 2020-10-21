@@ -16,8 +16,8 @@ import java.util.*;
  * @since 2020-10-07
  */
 public class DepartmentList extends AnchorPane implements Observer {
-    private Map<Department, DepartmentView> departmentDepartmentViewMap;
-    private List<DepartmentView> departmentViews;
+    private final Map<Department, DepartmentView> departmentDepartmentViewMap;
+    private final List<DepartmentView> departmentViews;
     @FXML
     private ListView<DepartmentView> departmentViewPane;
     @FXML
@@ -77,10 +77,7 @@ public class DepartmentList extends AnchorPane implements Observer {
 
     @Override
     public void update() {
-        if (Admin.getInstance().getDepartments().size() == 0) {
-            paneDetailView.setVisible(false);
-        } else
-            paneDetailView.setVisible(true);
+        paneDetailView.setVisible(Admin.getInstance().getDepartments().size() != 0);
 
         generateDepartmentViews(Admin.getInstance().getDepartments());
     }

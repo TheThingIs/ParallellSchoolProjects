@@ -11,24 +11,24 @@ public class testAdmin {
     @Test
     public void testCreateNewEmployee() {  //kollar så createNewEmployee lägger till i listan och att man inte kan lägga till om personnummret inte är 12 långt samt om det redan finns
         Admin admin = Admin.getInstance();
-        admin.createNewEmployee("moa", "1234789123", "moa@gmail.com");
+        admin.createNewEmployee("moa", "1234789123", "moa@gmail.com", "0315552266");
         assertTrue(admin.getEmployeeListSize() == 0);
-        admin.createNewEmployee("moa", "123456789123", "moa1@gmail.com");
+        admin.createNewEmployee("moa", "123456789123", "moa1@gmail.com", "0315552267");
         assertTrue(admin.getEmployeeListSize() == 1);
-        admin.createNewEmployee("moa", "123456789123", "moa3@gmail.com");
+        admin.createNewEmployee("moa", "123456789123", "moa3@gmail.com", "0315552268");
         assertTrue(admin.getEmployeeListSize() == 1);
-        admin.createNewEmployee("moa", "123456089123", "moa2@gmail.com");
+        admin.createNewEmployee("moa", "123456089123", "moa2@gmail.com", "0315552269");
         assertTrue(admin.getEmployeeListSize() == 2);
     }
 
     @Test
     public void testDeleteEmployee() {
         Admin admin = Admin.getInstance();
-        admin.createNewEmployee("moa", "123456789123", "moa@gmail.com");
-        admin.createNewEmployee("markus", "213456789123", "markus@gmail.com");
+        admin.createNewEmployee("moa", "123456789123", "moa@gmail.com", "0315552266");
+        admin.createNewEmployee("markus", "213456789123", "markus@gmail.com", "0315552267");
         admin.removeEmployee(admin.getEmployeeByName("moa"));
         assertTrue(admin.getEmployeeListSize() == 1);
-        admin.createNewEmployee("Crille", "312456789123", "ush@gmail.com");
+        admin.createNewEmployee("Crille", "312456789123", "ush@gmail.com", "0315552268");
         admin.removeEmployee("312456789123");
         assertTrue(admin.getEmployeeListSize() == 1);
     }
@@ -37,9 +37,9 @@ public class testAdmin {
     @Test
     public void testRemoveEmployeeCertificate() {
         Admin admin = Admin.getInstance();
-        admin.createNewEmployee("moa", "123456789231", "moa@gmail.com"); //TODO det ska inte finnas dubletter av personnummer samt 10 siffror långt
-        admin.createNewEmployee("moa", "123456789235", "moa2@gmail.com");
-        admin.createNewEmployee("crilllle", "123456789239", "lll@gmail.com");
+        admin.createNewEmployee("moa", "123456789231", "moa@gmail.com", "0315552266");
+        admin.createNewEmployee("moa", "123456789235", "moa2@gmail.com", "0315552268");
+        admin.createNewEmployee("crilllle", "123456789239", "lll@gmail.com", "0315552269");
         CertificateHandler ch = admin.getCertificatehandler();
         ch.createNewCertificate("Kassa");
         ch.createNewCertificate("Frukt");
@@ -66,7 +66,7 @@ public class testAdmin {
         assertTrue(admin.getDepartmentByName("Kassa").getSizeAllShifts() == 3);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void removeDepartment() {
         Admin a = Admin.getInstance();
         a.createNewDepartment("Kassa", 2);
@@ -76,12 +76,7 @@ public class testAdmin {
         assertEquals(1, a.getDepartmentListSize());
         a.removeDepartment(a.getDepartmentByName("Kassa"));
         assertEquals(0, a.getDepartmentListSize());
-        boolean didItNotWork = false;
-        try {
-            OurCalendar.getInstance().getWorkday(d.getDate()).getWorkShifts(a.getDepartmentByName("Kassa")).size();
-        } catch (NullPointerException e) {
-            didItNotWork = true;
-        }
-        assertTrue(didItNotWork);
+        OurCalendar.getInstance().getWorkday(d.getDate()).getWorkShifts(a.getDepartmentByName("Kassa")).size();
+
     }
 }

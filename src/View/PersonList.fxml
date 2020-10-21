@@ -15,7 +15,7 @@
                             <items>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                     <children>
-                                        <Button fx:id="buttonCreateEmployee" layoutX="72.0" layoutY="24.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="Create New Employee" />
+                                        <Button fx:id="buttonCreateEmployee" layoutX="72.0" layoutY="24.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="Skapa ny anställd" />
                                     </children>
                                 </AnchorPane>
                         <ListView fx:id="employeeViewPane" prefHeight="500.0" prefWidth="200.0" />

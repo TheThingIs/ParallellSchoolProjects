@@ -14,7 +14,7 @@ public class testWorkday {
     public void testoccupiesEmployee() {
         Admin a = Admin.getInstance();
         boolean repeat[] = {true, true, true, true, true, true, true};
-        a.createNewEmployee("moa", "000211444444", "moa@email.com");
+        a.createNewEmployee("moa", "000211444444", "moa@email.com", "0315552266");
         Date d = new Date();
         d.setTime(d.getTime() + 1000);
         CertificateHandler ch = CertificateHandler.getInstance();
@@ -71,7 +71,7 @@ public class testWorkday {
     @Test
     public void testOccupieAnOccupiedEmployee() {
         Admin a = Admin.getInstance();
-        a.createNewEmployee("moa", "000211444444", "moa@email.com");
+        a.createNewEmployee("moa", "000211444444", "moa@email.com", "0315552255");
         Date d = new Date();
         boolean repeat[] = {false, false, false, false, false, false, false};
         d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
@@ -96,7 +96,7 @@ public class testWorkday {
     public void testCertifiedEmployee() {
         Admin a = Admin.getInstance();
         boolean repeat[] = {true, true, true, true, true, true, true};
-        a.createNewEmployee("moa", "000211444444", "moa@email.com");
+        a.createNewEmployee("moa", "000211444444", "moa@email.com", "0315552566");
         Date d = new Date();
         d.setTime(d.getTime() + (WeekHandler.plusHours(24)));
         CertificateHandler ch = CertificateHandler.getInstance();
@@ -119,9 +119,9 @@ public class testWorkday {
     public void testSwapOccupation() {
         boolean repeat[] = {false, false, false, false, false, false, false};
         Admin a = Admin.getInstance();
-        a.createNewEmployee("moa", "000211444444", "moa@email.se"); //e1
-        a.createNewEmployee("sam", "000211444442", "sam@ntiskolan.se"); //e2
-        a.createNewEmployee("mas", "000211444443", "mas@nej.com"); //e3
+        a.createNewEmployee("moa", "000211444444", "moa@email.se", "0315552466"); //e1
+        a.createNewEmployee("sam", "000211444442", "sam@ntiskolan.se", "0315352266"); //e2
+        a.createNewEmployee("mas", "000211444443", "mas@nej.com", "0315552226"); //e3
         Date d = new Date();
         d.setTime(d.getTime() + (WeekHandler.plusHours(24)));
         CertificateHandler ch = CertificateHandler.getInstance();

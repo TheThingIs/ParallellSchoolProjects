@@ -10,7 +10,7 @@ public class testEmployeeCertificate {
     @Test
     public void testDeligateCertificate() {
         Admin admin = Admin.getInstance();
-        admin.createNewEmployee("moa", "123456789123", "moa@gmail.com");
+        admin.createNewEmployee("moa", "123456789123", "moa@gmail.com", "03185552266");
         CertificateHandler ch = CertificateHandler.getInstance();
         ch.createNewCertificate("Kassa");
         admin.createEmployeeCertificate(ch.getCertificate("Kassa"), admin.getEmployeeByID("123456789123"), new Date());

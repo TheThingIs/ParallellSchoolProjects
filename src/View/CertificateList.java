@@ -72,12 +72,7 @@ public class CertificateList extends AnchorPane implements Observer {
         delete.setOnAction(actionEvent -> {
             boolean[] arr = new boolean[listOfCertificates.getItems().size()];
             for (int index = listOfCertificates.getItems().size() - 1; index >= 0; index--) {
-                if (listOfCertificates.getItems().get(index).checked.isSelected()) {
-                    arr[index] = true;
-
-                } else {
-                    arr[index] = false;
-                }
+                arr[index] = listOfCertificates.getItems().get(index).checked.isSelected();
             }
             for (int index = listOfCertificates.getItems().size() - 1; index >= 0; index--) {
                 if (arr[index]) {
