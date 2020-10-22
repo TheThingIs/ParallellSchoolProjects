@@ -3,7 +3,7 @@ package main.java.model;
 import java.util.*;
 
 /**
- * @author Christian Lind, Oliver Andersson, Markus Grahn
+ * @author Christian Lind, Oliver Andersson, Markus Grahn, Moa Berglund, Victor Cousin
  * Uses Employee, WorkShift, WorkDay. Used by Admin
  * A class that handles the sortation of employees
  * @since 2020-10-16
