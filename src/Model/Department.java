@@ -10,6 +10,7 @@ import java.util.List;
  * @author Oliver Andersson, Moa Berglund, Victor Cousin, Markus Grahn, Christian Lind
  * Uses Workshift, Observer, BreakHandler, OurCalendar. Used By WorkDay, Admin.
  * Represents a department with a specified name and a list for work shifts where the department can be manned. It also has a minimum value of persons that has to work at the same time
+ * @since 2020-09-28
  */
 public class Department implements Observable {
 
@@ -235,6 +236,7 @@ public class Department implements Observable {
 
     /**
      * Gets a workshift that needs to be added
+     *
      * @param index index of workshift to add
      * @return an workshift to add
      */
@@ -244,6 +246,7 @@ public class Department implements Observable {
 
     /**
      * Checks how many workshifts that needs to be added
+     *
      * @return how many workshifts that needs to be added
      */
     public int getAddWorkShiftSize() {
@@ -252,6 +255,7 @@ public class Department implements Observable {
 
     /**
      * Gets one workshift to be removed
+     *
      * @param index index of workshift
      * @return a workshift to be removed
      */
@@ -261,6 +265,7 @@ public class Department implements Observable {
 
     /**
      * Checks how many workshifts that should be removed
+     *
      * @return How many workshifts that needs to be removed
      */
     public int getRemoveWorkShiftSize() {
@@ -269,6 +274,7 @@ public class Department implements Observable {
 
     /**
      * Adds an observer to the department
+     *
      * @param observer a workDay that will observe the department
      */
     @Override
@@ -278,6 +284,7 @@ public class Department implements Observable {
 
     /**
      * Removes an observer
+     *
      * @param observer a workDay that will stop observing the department
      */
     @Override
