@@ -34,9 +34,9 @@ public class Department implements Observable {
         this.name = name;
         this.minPersonsOnShift = minPersonsOnShift;
         this.BREAKHANDLER = BreakHandler.getInstance();
-        this.OBSERVERS = new ArrayList();
-        this.ADDEDSHIFTS = new ArrayList();
-        this.REMOVEDSHIFTS = new ArrayList();
+        this.OBSERVERS = new ArrayList<>();
+        this.ADDEDSHIFTS = new ArrayList<>();
+        this.REMOVEDSHIFTS = new ArrayList<>();
         for (int i = 0; i < OurCalendar.getInstance().getOurDateSize(); i++) {
             addObserver(OurCalendar.getInstance().getWorkday(i));
         }

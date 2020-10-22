@@ -27,7 +27,9 @@ public class Schema extends AnchorPane implements Observer {
     @FXML
     private Label currentFormatInfo;
     @FXML
-    private ListView listOfWorkshifts, listOfAvailableEmployees;
+    private ListView<SchemaWorkshift> listOfWorkshifts;
+    @FXML
+    private ListView<EmployeeView> listOfAvailableEmployees;
 
     private int dateIndex;
     private Date currentIndex;
@@ -50,7 +52,7 @@ public class Schema extends AnchorPane implements Observer {
     }
 
     private void generateEmployeePicker(WorkShift workShift) {
-        if (toBeSwitched !=null) {
+        if (toBeSwitched != null) {
             OurCalendar.getInstance().getWorkday(dateIndex).swapOccupation(toBeSwitched, workShift);
             updateDay();
             toBeSwitched = null;
@@ -92,7 +94,7 @@ public class Schema extends AnchorPane implements Observer {
 
     private void assignEmployeeToWorkshift(WorkShift workShift, Employee employee) {
         OurCalendar calendar = OurCalendar.getInstance();
-        if (workShift.isOccupied()){
+        if (workShift.isOccupied()) {
             calendar.getWorkday(calendar.getDateIndex(new Date(workShift.START))).reOccupieEmployee(workShift, employee);
         } else {
             calendar.getWorkday(calendar.getDateIndex(new Date(workShift.START))).occupiesEmployee(workShift, employee);
@@ -160,7 +162,7 @@ public class Schema extends AnchorPane implements Observer {
     }
 
     private void next() {
-        if (dateIndex>=365)
+        if (dateIndex >= 365)
             return;
         switch (mode) {
             case "Dag" -> {
@@ -180,7 +182,7 @@ public class Schema extends AnchorPane implements Observer {
     }
 
     private void previous() {
-        if (dateIndex<=0)
+        if (dateIndex <= 0)
             return;
         switch (mode) {
             case "Dag" -> {
@@ -192,7 +194,7 @@ public class Schema extends AnchorPane implements Observer {
                 updateWeek();
             }
             case "Månad" -> {
-                this.dateIndex -= YearMonth.of(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear() + 1900, new Date(OurCalendar.getInstance().getWorkday(dateIndex-1).DATE).getMonth()+1).lengthOfMonth();
+                this.dateIndex -= YearMonth.of(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear() + 1900, new Date(OurCalendar.getInstance().getWorkday(dateIndex - 1).DATE).getMonth() + 1).lengthOfMonth();
                 updateMonth();
             }
         }
@@ -297,15 +299,15 @@ public class Schema extends AnchorPane implements Observer {
         autoFillButton.setOnAction(actionEvent -> autoFill(7, dateIndex));
     }
 
-    private void autoFill(int daysAhead, int offset){
+    private void autoFill(int daysAhead, int offset) {
         EmployeeSorter tmp = Admin.getInstance().getEmployeeSorter();
         OurCalendar calendar = OurCalendar.getInstance();
         List<WorkDay> tmpList = new ArrayList<>();
         List<Employee> employees = new ArrayList<>();
-        for (int i = 0; i<Admin.getInstance().getEmployeeListSize(); i++)
+        for (int i = 0; i < Admin.getInstance().getEmployeeListSize(); i++)
             employees.add(Admin.getInstance().getEmployee(i));
-        for (int i = 0; i<daysAhead; i++){
-            tmpList.add(calendar.getWorkday( + i + offset));
+        for (int i = 0; i < daysAhead; i++) {
+            tmpList.add(calendar.getWorkday(+i + offset));
         }
         tmp.sortPotentialWorkShiftCandidate(employees, tmpList);
         tmp.delegateEmployeeToWorkshift();

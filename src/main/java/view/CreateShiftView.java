@@ -20,13 +20,13 @@ import java.util.*;
 public class CreateShiftView extends AnchorPane implements Observer {
 
     @FXML
-    protected ComboBox departmentComboBox;
+    protected ComboBox<String> departmentComboBox;
     @FXML
     protected DatePicker datePicker;
     @FXML
     protected TextField hour1, hour2, min1, min2;
     @FXML
-    private Spinner numberPersonel;
+    private Spinner<Integer> numberPersonel;
     @FXML
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     @FXML
