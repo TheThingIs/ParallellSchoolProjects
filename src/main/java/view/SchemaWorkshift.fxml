@@ -7,10 +7,12 @@
    <children>
       <AnchorPane fx:id="timeBar" prefHeight="60.0" prefWidth="200.0">
          <children>
-            <Label fx:id="start" layoutY="38.0" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="38.0" />
-            <Label fx:id="end" layoutX="172.0" layoutY="38.0" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0" />
-            <Label fx:id="name" layoutY="6.0" text="Label" />
-            <Label fx:id="departmentName" layoutX="172.0" layoutY="6.0" text="Label" AnchorPane.rightAnchor="0.0" />
+            <Label fx:id="start" layoutY="22.0" text="Label" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="22.0" />
+            <Label fx:id="end" layoutX="182.0" layoutY="22.0" text="Label" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="22.0" />
+            <Label fx:id="name" layoutY="2.0" text="Label" />
+            <Label fx:id="departmentName" layoutX="182.0" layoutY="2.0" text="Label" AnchorPane.rightAnchor="0.0" />
+            <Label fx:id="breakeStart" layoutY="42.0" text="Label" />
+            <Label fx:id="breakeEnd" layoutX="182.0" layoutY="42.0" text="Label" />
          </children>
       </AnchorPane>
    </children>

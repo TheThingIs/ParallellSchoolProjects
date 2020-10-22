@@ -2,9 +2,11 @@ package main.java.model;
 
 import java.util.Date;
 
-/** @author Markus Grahn, Oliver Andersson
+/**
+ * @author Markus Grahn, Oliver Andersson
  * Uses Certificate. Used by Employee, CertificateHandler
  * A certificate that is assigned to a employee. Has an expiry date and a linked certificate
+ * @since 2020-09-28
  */
 public class EmployeeCertificate {
 
@@ -55,7 +57,7 @@ public class EmployeeCertificate {
      * @return the expiry date as a string
      */
     public String getExpiryDateAsString() {
-        if (expiryDate == null){
+        if (expiryDate == null) {
             return "";
         }
         return expiryDate.toString();

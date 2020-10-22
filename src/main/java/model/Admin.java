@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Victor Cousin, Moa Berglund, Markus Grahn, Oliver Andersson and Christian Lind
  * Represents an static admin for the project with is the heart of the application
- * @since ?
+ * @since 2020-09-08
  */
 
 public class Admin implements Observable {

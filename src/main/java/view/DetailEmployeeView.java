@@ -119,10 +119,7 @@ public class DetailEmployeeView extends AnchorPane implements Observer {
             if (employee == null) {
                 Admin.getInstance().createNewEmployee(firstName.getText() + " " + lastName.getText(), personalID.getText(), email.getText(),phoneNumber.getText());
             } else {
-                employee.setPhoneNumber(phoneNumber.getText());
-                employee.setEmail(email.getText());
                 Admin.getInstance().changeEmployeeName(employee, firstName.getText() + " " + lastName.getText());
-
             }
         });
 

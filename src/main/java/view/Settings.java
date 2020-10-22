@@ -17,21 +17,22 @@ import javafx.scene.layout.AnchorPane;
 
 public class Settings extends AnchorPane implements Observer {
 
-    @FXML private TextField guarantedFreetime, minBreak, midBreak, maxBreak;
-   @FXML private Button saveButton;
+    @FXML
+    private TextField guarantedFreetime, minBreak, midBreak, maxBreak;
+    @FXML
+    private Button saveButton;
 
 
-    public Settings(){
+    public Settings() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-       generateSave();
+        generateSave();
         setDefaultValues();
         generateTextFields(minBreak);
         generateTextFields(midBreak);
@@ -40,7 +41,7 @@ public class Settings extends AnchorPane implements Observer {
 
     }
 
-    private void setDefaultValues(){
+    private void setDefaultValues() {
         guarantedFreetime.clear();
         midBreak.clear();
         maxBreak.clear();
@@ -52,16 +53,16 @@ public class Settings extends AnchorPane implements Observer {
     }
 
 
-   private void generateSave(){
-     saveButton.setOnAction(actionEvent -> {
-         Admin.getInstance().setGuaranteedFreeTime(Integer.parseInt(guarantedFreetime.getText()));
-         BreakHandler.getInstance().setMinBreakLength(Integer.parseInt(minBreak.getText()));
-         BreakHandler.getInstance().setMidBreakLength(Integer.parseInt(midBreak.getText()));
-         BreakHandler.getInstance().setMaxBreakLength(Integer.parseInt(maxBreak.getText()));
-     });
+    private void generateSave() {
+        saveButton.setOnAction(actionEvent -> {
+            Admin.getInstance().setGuaranteedFreeTime(Integer.parseInt(guarantedFreetime.getText()));
+            BreakHandler.getInstance().setMinBreakLength(Integer.parseInt(minBreak.getText()));
+            BreakHandler.getInstance().setMidBreakLength(Integer.parseInt(midBreak.getText()));
+            BreakHandler.getInstance().setMaxBreakLength(Integer.parseInt(maxBreak.getText()));
+        });
     }
 
-    private  void generateTextFields(TextField tf){
+    private void generateTextFields(TextField tf) {
 
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
             if (tf.getText().length() > 2) {
@@ -77,8 +78,9 @@ public class Settings extends AnchorPane implements Observer {
 
         });
     }
+
     @Override
     public void update() {
-            setDefaultValues();
+        setDefaultValues();
     }
 }
