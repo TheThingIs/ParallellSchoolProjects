@@ -14,7 +14,12 @@ public class BreakHandler {
 
     private BreakHandler() {
     }
-
+    
+    /**
+     * Return the singleton object of Breakhandler
+     *
+     * @return The instance of the Breakhandler
+     */
     public static BreakHandler getInstance() {
         if (instance == null)
             instance = new BreakHandler();
