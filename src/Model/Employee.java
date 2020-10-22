@@ -47,7 +47,7 @@ public class Employee {
                 return c;
             }
         }
-        return null; //TODO exeption
+        throw new IllegalArgumentException();
     }
 
     /**
