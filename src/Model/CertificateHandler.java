@@ -85,13 +85,6 @@ public class CertificateHandler {
     }
 
     /**
-     * Deletes all the certificates
-     */
-    public void deleteAllCertificates() {
-        this.allCertificates.clear();
-    }
-
-    /**
      * Gets all the certificates using an Iterator
      *
      * @return the iterator of all the certificates
@@ -153,15 +146,6 @@ public class CertificateHandler {
     }
 
     /**
-     * Deletes the certificate that has the given ID from the list of all certificates
-     *
-     * @param ID The ID of the certificate that will be removed
-     */
-    public void deleteCertificate(int ID) {
-        this.allCertificates.remove(ID);
-    }
-
-    /**
      * Deletes the certificate that has the given name from the list of all certificates
      *
      * @param name The name of the certificate that will be removed
@@ -172,18 +156,6 @@ public class CertificateHandler {
                 deleteCertificate(c);
                 break;
             }
-        }
-    }
-
-    /**
-     * Assigns an EmployeeCertificate to to list of employees
-     *
-     * @param certificate the EmployeeCertificate that will be assigned
-     * @param employees   A list of employees
-     */
-    public void assignCertificateToEmployees(EmployeeCertificate certificate, List<Employee> employees) {
-        for (Employee e : employees) {
-            e.assignCertificate(certificate);
         }
     }
 }

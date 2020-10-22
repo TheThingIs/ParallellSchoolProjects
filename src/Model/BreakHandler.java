@@ -54,10 +54,6 @@ public class BreakHandler {
         this.maxBreakLength = WeekHandler.plusMinutes((int) maxBreakLength);
     }
 
-    public long getMinBreakLength() {
-        return minBreakLength;
-    }
-
     public long getMinutesOfMinBreakLength() {
         return minBreakLength / WeekHandler.plusMinutes(1);
     }
@@ -70,11 +66,4 @@ public class BreakHandler {
         return midBreakLength / WeekHandler.plusMinutes(1);
     }
 
-    public long getMidBreakLength() {
-        return midBreakLength;
-    }
-
-    public long getMaxBreakLength() {
-        return maxBreakLength;
-    }
 }

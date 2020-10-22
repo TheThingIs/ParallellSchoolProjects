@@ -24,7 +24,6 @@ public class PersonList extends AnchorPane implements Observer {
     Button buttonCreateEmployee;
     @FXML
     AnchorPane paneDetailView;
-    //private int sizeOfEmployees = 0;
 
     public PersonList() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PersonList.fxml"));
@@ -59,7 +58,6 @@ public class PersonList extends AnchorPane implements Observer {
 
     private void generatePersonViews() {
         List<Employee> employees = new ArrayList<>();
-        //sizeOfEmployees = Admin.getInstance().getEmployeeListSize();
         for (int i = 0; i < Admin.getInstance().getEmployeeListSize(); i++)
             employees.add(Admin.getInstance().getEmployee(i));
         sortEmployeesAlphabetically(employees);

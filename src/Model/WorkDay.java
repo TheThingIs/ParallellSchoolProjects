@@ -141,19 +141,6 @@ public class WorkDay implements Observer {
     }
 
     /**
-     * Returns all the workshifts for each department
-     * @return a list of all the Workshifts
-     */
-
-    public List<WorkShift> getAllWorkshifts(){
-        List<WorkShift> all = new ArrayList<>();
-        for (Department d : departments){
-            all.addAll(departmentLinks.get(d));
-        }
-        return all;
-    }
-
-    /**
      * Returns all workshifts in the specified department
      *
      * @param department The department to get the workshift from

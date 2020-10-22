@@ -44,7 +44,7 @@ public class DepartmentList extends AnchorPane implements Observer {
 
     private void generateButtons() {
         buttonCreateDepartment.setOnAction(actionEvent -> {
-            createDepartment();//TODO
+            createDepartment();
         });
     }
 

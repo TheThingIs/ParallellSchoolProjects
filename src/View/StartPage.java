@@ -36,9 +36,9 @@ public class StartPage implements Observer, Initializable {
     @FXML
     private Button buttonNewFile;
     @FXML
-    private Button buttonSaveAndExit; //TODO Implement load and save functionality
+    private Button buttonSaveAndExit;
     @FXML
-    private Button buttonLoadFile; //TODO Implement load and save functionality
+    private Button buttonLoadFile;
     @FXML
     private Tab tabSchedule;
     @FXML
