@@ -51,7 +51,6 @@ public class SchemaWorkshift extends AnchorPane {
             this.timeBar.setBackground(new Background(tmp));
             this.name.setText(workShift.getEmployee().getPersonalId());
         }
-        System.out.println(new Date(workShift.getBreakTime().START).toString());
     }
 
     private double percentageOfDayFilled(long start, long end) {

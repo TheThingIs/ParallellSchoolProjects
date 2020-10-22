@@ -20,7 +20,7 @@ public class DetailDepartmentView extends AnchorPane implements Observer {
     @FXML
     private TextField name;
     @FXML
-    private Spinner minPersonsOnShift;
+    private Spinner<Integer> minPersonsOnShift;
     @FXML
     private Button saveChanges, deleteDepartment;
     @FXML
