@@ -41,7 +41,7 @@ public class CertificateHandler {
      * @param employee    The employee that will be linked to a certificate
      */
     public void linkEmployeeToCertificate(Certificate certificate, Employee employee) {
-        employeeLinkCertificate.get(certificate).add(employee);
+        EMPLOYEELINKCERTIFICATE.get(certificate).add(employee);
     }
 
     /**
@@ -51,7 +51,7 @@ public class CertificateHandler {
      * @param employee    The employee that will be unliked to a certificate
      */
     public void unlinkEmployeeToCertificate(Certificate certificate, Employee employee) {
-        employeeLinkCertificate.get(certificate).remove(employee);
+        EMPLOYEELINKCERTIFICATE.get(certificate).remove(employee);
     }
 
     /**
@@ -61,7 +61,7 @@ public class CertificateHandler {
      * @return A list with employees that are linked to the certificate
      */
     public Iterator<Employee> getEmployeeWithCertificate(Certificate certificate) {
-        return employeeLinkCertificate.get(certificate).iterator();
+        return EMPLOYEELINKCERTIFICATE.get(certificate).iterator();
     }
 
     /**
