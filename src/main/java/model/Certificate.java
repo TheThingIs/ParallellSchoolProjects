@@ -4,7 +4,6 @@ package main.java.model;
  * @autor Oliver Andersson, Christian Lind
  * Used by EmployeeCertificate, WorkShift
  * Represents a certificate with a specified name and a ID value
- * @since 2020-09-14
  */
 public class Certificate {
     public final String NAME;
