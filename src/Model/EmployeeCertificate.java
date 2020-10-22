@@ -10,7 +10,7 @@ import java.util.Date;
 public class EmployeeCertificate {
 
     private Date expiryDate;
-    private final Certificate certificate;
+    private final Certificate CERTIFICATE;
 
     /**
      * Constructs an EmployeeCertificate with an expiry date and a certificate
@@ -20,7 +20,7 @@ public class EmployeeCertificate {
      */
     protected EmployeeCertificate(Certificate certificate, Date expiryDate) {
         this.expiryDate = expiryDate;
-        this.certificate = certificate;
+        this.CERTIFICATE = certificate;
     }
 
     /**
@@ -29,7 +29,7 @@ public class EmployeeCertificate {
      * @param certificate Assign a certificate to the new EmployeeCertificate
      */
     protected EmployeeCertificate(Certificate certificate) {
-        this.certificate = certificate;
+        this.CERTIFICATE = certificate;
     }
 
     /**
@@ -38,7 +38,7 @@ public class EmployeeCertificate {
      * @return the certificate
      */
     public Certificate getCertificate() {
-        return certificate;
+        return CERTIFICATE;
     }
 
     /**
@@ -47,7 +47,7 @@ public class EmployeeCertificate {
      * @return the name of the certificate
      */
     public String getCertificateName() {
-        return this.certificate.NAME;
+        return this.CERTIFICATE.NAME;
     }
 
     /**

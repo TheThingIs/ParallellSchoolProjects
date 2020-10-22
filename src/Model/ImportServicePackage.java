@@ -17,7 +17,6 @@ public class ImportServicePackage {
         Admin admin = Admin.getInstance();
         Date date = new Date();
 
-        admin.createNewUser("Moa", "Hemligt");
         date.setTime(OurCalendar.getInstance().getDate(date).DATE + WeekHandler.plusDays(1));
 
         admin.createNewEmployee("Moa Borg", "200005174938", "Moa@gmail.com", "03185552266");
