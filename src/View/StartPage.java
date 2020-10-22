@@ -1,6 +1,7 @@
 package View;
 
 import Model.Admin;
+import Model.ImportServicePackage;
 import Model.Observer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -88,6 +89,7 @@ public class StartPage implements Observer, Initializable {
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 (ov, t, t1) -> settings.update()
         );
+        buttonLoadFile.setOnAction(actionEvent -> loadFile());
     }
 
     private void checklogin() {
@@ -115,6 +117,14 @@ public class StartPage implements Observer, Initializable {
 
     private void save() {
         //TODO implement
+    }
+
+    private void loadFile(){
+        ImportServicePackage.loadPackage();
+        startPage.toFront();
+        defaultPage.toBack();
+        defaultPage.setVisible(false);
+        startPage.setVisible(true);
     }
 
     private void saveAndExit() {
