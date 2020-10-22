@@ -120,13 +120,12 @@ public class CreateShiftView extends AnchorPane implements Observer {
 
 
     public void save() {
-
         LocalDate localDate = datePicker.getValue();
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
         long workStart = date.getTime() + WeekHandler.plusMinutes(Integer.parseInt(min1.getText())) + WeekHandler.plusHours(Integer.parseInt(hour1.getText()));
         long workStop = date.getTime() + WeekHandler.plusMinutes(Integer.parseInt(min2.getText())) + WeekHandler.plusHours(Integer.parseInt(hour2.getText()));
-        Department d = Admin.getInstance().getDepartmentByName(departmentComboBox.getValue().toString());
+        Department d = Admin.getInstance().getDepartmentByName(departmentComboBox.getValue());
         boolean[] repeat = {sunday.isSelected(), monday.isSelected(), tuesday.isSelected(), wednesday.isSelected(), thursday.isSelected(), friday.isSelected(), saturday.isSelected()};
         for (int i = 0; i < Integer.parseInt(numberPersonel.getEditor().getText()); i++) {
             Admin.getInstance().createWorkshift(d, workStart, workStop, certificates, repeat);
