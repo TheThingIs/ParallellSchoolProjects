@@ -15,14 +15,14 @@ import javafx.scene.paint.Color;
 import java.util.Date;
 
 public class SchemaWorkshift extends AnchorPane {
-    private double sizeX = 900;
 
     @FXML
     AnchorPane timeBar;
     @FXML
-    Label start, end, name, departmentName;
+    Label start, end, name, departmentName, breakeStart, breakeEnd;
 
     public SchemaWorkshift(WorkShift workShift, Color color, String departmentName) {
+        double sizeX = 900;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SchemaWorkshift.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -31,8 +31,14 @@ public class SchemaWorkshift extends AnchorPane {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.start.setText(new Date(workShift.START).toString());
-        this.end.setText(new Date(workShift.END).toString());
+        Date d = new Date(workShift.START);
+        this.start.setText("Arbetspass mellan " + d.getHours() + ":" + d.getMinutes());
+        d.setTime(workShift.END);
+        this.end.setText("Arbetspass mellan " + d.getHours() + ":" + d.getMinutes());
+        d.setTime(workShift.getBreakTime().START);
+        this.breakeStart.setText("Rast mellan " + d.getHours() + ":" + d.getMinutes());
+        d.setTime(workShift.getBreakTime().END);
+        this.breakeEnd.setText("Rast mellan " + d.getHours() + ":" + d.getMinutes());
         this.departmentName.setText(departmentName);
         this.timeBar.setPrefWidth(sizeX * percentageOfDayFilled(workShift.START, workShift.END));
         this.timeBar.setTranslateX(getOffset(workShift.START) * sizeX);
@@ -45,6 +51,7 @@ public class SchemaWorkshift extends AnchorPane {
             this.timeBar.setBackground(new Background(tmp));
             this.name.setText(workShift.getEmployee().getPersonalId());
         }
+        System.out.println(new Date(workShift.getBreakTime().START).toString());
     }
 
     private double percentageOfDayFilled(long start, long end) {
