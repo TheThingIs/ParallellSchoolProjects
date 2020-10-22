@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
  * Root node in the view, everything is build upon this
  * @since 2020-10-07
  */
-public class StartPage implements Observer, Initializable {
+public class StartPage implements Initializable {
     @FXML
     private AnchorPane backGround;
     @FXML
@@ -130,10 +130,5 @@ public class StartPage implements Observer, Initializable {
     private void saveAndExit() {
         save();
         exit();
-    }
-
-    @Override
-    public void update() {
-
     }
 }
