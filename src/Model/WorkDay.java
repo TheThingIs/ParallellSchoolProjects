@@ -10,8 +10,8 @@ import java.util.*;
  */
 public class WorkDay implements Observer {
     public final long DATE;
-    private static final List<Department> departments = new ArrayList<>();
-    private final HashMap<Department, List<WorkShift>> departmentLinks;
+    private static final List<Department> DEPARTMENTS = new ArrayList<>();
+    private final HashMap<Department, List<WorkShift>> DEPARTMENTLINKS;
 
 
     /**
@@ -21,18 +21,18 @@ public class WorkDay implements Observer {
      */
     protected WorkDay(long date) {
         this.DATE = date;
-        this.departmentLinks = new HashMap<>();
-        for (Department d : departments) {
+        this.DEPARTMENTLINKS = new HashMap<>();
+        for (Department d : DEPARTMENTS) {
             d.addObserver(this);
         }
     }
 
     public int getDepartmentSize() {
-        return departments.size();
+        return DEPARTMENTS.size();
     }
 
     public Department getDepartment(int index) {
-        return departments.get(index);
+        return DEPARTMENTS.get(index);
     }
 
 
@@ -117,8 +117,8 @@ public class WorkDay implements Observer {
      */
     public boolean isEmpty() {
         updateDepartments();
-        for (Department d : departments) {
-            if (departmentLinks.get(d).size() != 0)
+        for (Department d : DEPARTMENTS) {
+            if (DEPARTMENTLINKS.get(d).size() != 0)
                 return false;
         }
         return true;
@@ -131,8 +131,8 @@ public class WorkDay implements Observer {
      */
     public boolean isFilled() {
         updateDepartments();
-        for (Department d : departments) {
-            for (WorkShift w : departmentLinks.get(d)) {
+        for (Department d : DEPARTMENTS) {
+            for (WorkShift w : DEPARTMENTLINKS.get(d)) {
                 if (!w.isOccupied())
                     return false;
             }
@@ -147,8 +147,8 @@ public class WorkDay implements Observer {
 
     public List<WorkShift> getAllWorkshifts(){
         List<WorkShift> all = new ArrayList<>();
-        for (Department d : departments){
-            all.addAll(departmentLinks.get(d));
+        for (Department d : DEPARTMENTS){
+            all.addAll(DEPARTMENTLINKS.get(d));
         }
         return all;
     }
@@ -160,15 +160,15 @@ public class WorkDay implements Observer {
      * @return a list of workshift in the department
      */
     public List<WorkShift> getWorkShifts(Department department) {
-        return departmentLinks.get(department);
+        return DEPARTMENTLINKS.get(department);
     }
 
     /**
      * Makes sure all departments are properly linked in departmentLinks
      */
     public void updateDepartments() {
-        for (Department d : departments) {
-            departmentLinks.computeIfAbsent(d, k -> new ArrayList<>());
+        for (Department d : DEPARTMENTS) {
+            DEPARTMENTLINKS.computeIfAbsent(d, k -> new ArrayList<>());
         }
     }
 
@@ -178,17 +178,17 @@ public class WorkDay implements Observer {
      * @param department department to add
      */
     protected static void addDepartment(Department department) {
-        departments.add(department);
+        DEPARTMENTS.add(department);
     }
 
     public void removeWorkshift(WorkShift ws){
-        for (Department d : departments){
-            if(departmentLinks.get(d).contains(ws)){
+        for (Department d : DEPARTMENTS){
+            if(DEPARTMENTLINKS.get(d).contains(ws)){
                 if(ws.isOccupied()){
                     ws.clearWorkShiftOccupation();
                 }
 
-                departmentLinks.get(d).remove(ws);
+                DEPARTMENTLINKS.get(d).remove(ws);
             }
         }
     }
@@ -199,7 +199,7 @@ public class WorkDay implements Observer {
      * @param department department to remove
      */
     protected static void removeDepartment(Department department) {
-        departments.remove(department);
+        DEPARTMENTS.remove(department);
     }
 
     /**
@@ -210,9 +210,9 @@ public class WorkDay implements Observer {
      * @param end      time to remove to
      */
     public void unRegisterOccupations(Employee employee, long start, long end) {
-        for (Department d : departments) {
-            if (!(departmentLinks.isEmpty())) {
-                for (WorkShift ws : departmentLinks.get(d)) {
+        for (Department d : DEPARTMENTS) {
+            if (!(DEPARTMENTLINKS.isEmpty())) {
+                for (WorkShift ws : DEPARTMENTLINKS.get(d)) {
                     if (ws.isOccupied()) {
                         if (ws.getOccupation().inBetween(start, end) && ws.getEmployee() == employee) {
                             ws.clearWorkShiftOccupation();
@@ -229,7 +229,7 @@ public class WorkDay implements Observer {
     @Override
     public void update() {
         updateDepartments();
-        for (Department d : departments) {
+        for (Department d : DEPARTMENTS) {
             if (d.getAddWorkShiftSize() > 0) {
                 ArrayList<WorkShift> addShifts = new ArrayList<>();
                 for (int i = 0; i < d.getAddWorkShiftSize(); i++) {
@@ -239,7 +239,7 @@ public class WorkDay implements Observer {
                     Date wsDate = new Date(addWorkShift.START);
                     Date thisDate = new Date(this.DATE);
                     if ((addWorkShift.REPEAT && (wsDate.getDay() == thisDate.getDay())) || (!addWorkShift.REPEAT && (wsDate.getDay() == thisDate.getDay()) && (wsDate.getDate() == thisDate.getDate()))) {
-                        this.departmentLinks.get(d).add(new WorkShift(addWorkShift, this.DATE));
+                        this.DEPARTMENTLINKS.get(d).add(new WorkShift(addWorkShift, this.DATE));
                     }
                 }
             }
@@ -249,7 +249,7 @@ public class WorkDay implements Observer {
                     removeShifts.add(d.getRemoveWorkShift(i));
                 }
                 for (WorkShift removeShift : removeShifts) {
-                    departmentLinks.get(d).removeIf(checkShift -> removeShift.ID == checkShift.ID);
+                    DEPARTMENTLINKS.get(d).removeIf(checkShift -> removeShift.ID == checkShift.ID);
                 }
             }
         }

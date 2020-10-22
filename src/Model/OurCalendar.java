@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class OurCalendar {
     private Calendar calendar;
-    private final List<WorkDay> workDays;
+    private final List<WorkDay> WORKDAYS;
     private static OurCalendar instance = null;
 
     /**
@@ -28,7 +28,7 @@ public class OurCalendar {
 
     private OurCalendar() {
         this.calendar = java.util.Calendar.getInstance();
-        this.workDays = new ArrayList<>();
+        this.WORKDAYS = new ArrayList<>();
         this.generateDates();
     }
 
@@ -43,7 +43,7 @@ public class OurCalendar {
                 throwAwayDate.setDate(day);
                 throwAwayDate.setMonth((startingMonth + month) % 12);
                 resetThrowable(throwAwayDate);
-                workDays.add(new WorkDay(throwAwayDate.getTime()));
+                WORKDAYS.add(new WorkDay(throwAwayDate.getTime()));
             }
             if (throwAwayDate.getMonth() == Calendar.DECEMBER) {
                 throwAwayDate.setYear(throwAwayDate.getYear() + 1);
@@ -62,11 +62,11 @@ public class OurCalendar {
     public WorkDay getWorkday(int index) {
         if (index < 0) index = -index;
         index = index % getOurDateSize();
-        return workDays.get(index);
+        return WORKDAYS.get(index);
     }
 
     public int getOurDateSize() {
-        return workDays.size();
+        return WORKDAYS.size();
     }
 
     /**
@@ -87,7 +87,7 @@ public class OurCalendar {
      * @return the work day of the date
      */
     public WorkDay getDate(Date date) {
-        for (WorkDay workday : workDays) {
+        for (WorkDay workday : WORKDAYS) {
             Date date2 = new Date(workday.DATE);
             if (date.getDate() == date2.getDate() && date.getMonth() == date2.getMonth() && date.getYear() == date2.getYear()) {
                 return workday;
@@ -103,8 +103,8 @@ public class OurCalendar {
      * @return The index for the specified Java.Date object in the list over WorkDays
      */
     public int getDateIndex(Date date) {
-        for (int i = 0; i < workDays.size(); i++) {
-            Date date2 = new Date(workDays.get(i).DATE);
+        for (int i = 0; i < WORKDAYS.size(); i++) {
+            Date date2 = new Date(WORKDAYS.get(i).DATE);
             if (date.getDate() == date2.getDate() && date.getMonth() == date2.getMonth() && date.getYear() == date2.getYear()) {
                 return i;
             }

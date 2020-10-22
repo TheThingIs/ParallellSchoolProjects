@@ -2,7 +2,6 @@ package Model;
 
 import javafx.scene.paint.Color;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,13 +13,13 @@ import java.util.List;
  */
 public class Department implements Observable {
 
-    private final List<WorkShift> allShifts;
-    private final List<WorkShift> addedShifts;
-    private final List<WorkShift> removedShifts;
-    private final List<Observer> observers;
+    private final List<WorkShift> ALLSHIFTS;
+    private final List<WorkShift> ADDEDSHIFTS;
+    private final List<WorkShift> REMOVEDSHIFTS;
+    private final List<Observer> OBSERVERS;
     private String name;
     private int minPersonsOnShift;
-    private final BreakHandler breakHandler;
+    private final BreakHandler BREAKHANDLER;
     private Color paint = new Color(1, 1, 1, 1);
 
     /**
@@ -30,13 +29,13 @@ public class Department implements Observable {
      * @param minPersonsOnShift minimum value of persons who must work at the same time (not be on break)
      */
     protected Department(String name, int minPersonsOnShift) {
-        this.allShifts = new ArrayList<>();
+        this.ALLSHIFTS = new ArrayList<>();
         this.name = name;
         this.minPersonsOnShift = minPersonsOnShift;
-        this.breakHandler = BreakHandler.getInstance();
-        this.observers = new ArrayList();
-        this.addedShifts = new ArrayList();
-        this.removedShifts = new ArrayList();
+        this.BREAKHANDLER = BreakHandler.getInstance();
+        this.OBSERVERS = new ArrayList();
+        this.ADDEDSHIFTS = new ArrayList();
+        this.REMOVEDSHIFTS = new ArrayList();
         for (int i = 0; i < OurCalendar.getInstance().getOurDateSize(); i++) {
             addObserver(OurCalendar.getInstance().getWorkday(i));
         }
@@ -63,7 +62,7 @@ public class Department implements Observable {
      * @return a calculated break, placed as close to the middle of the work shift as possible, in form of an OccupiedTime
      */
     private OccupiedTime createBreak(long startForTheWorkShift, long stopForTheWorkShift) {
-        long breakLength = breakHandler.calculateLengthOfBreak(startForTheWorkShift, stopForTheWorkShift);
+        long breakLength = BREAKHANDLER.calculateLengthOfBreak(startForTheWorkShift, stopForTheWorkShift);
         long breakStart = (((stopForTheWorkShift + startForTheWorkShift) / 2) - (breakLength / 2));
         int numberOfBreakTogether = 0;
         int numberOfWorkingPersonel = countPersonelOnDepartment(startForTheWorkShift, stopForTheWorkShift);
@@ -71,7 +70,7 @@ public class Department implements Observable {
             throw new IllegalArgumentException("minPersonsOnShift cannot be 0");
         }
         while (true) {
-            for (WorkShift s : allShifts) {
+            for (WorkShift s : ALLSHIFTS) {
                 if (s.getBreakTime().inBetween(breakStart, breakStart + breakLength)) {
                     numberOfBreakTogether++;
                 }
@@ -90,7 +89,7 @@ public class Department implements Observable {
 
     private int countPersonelOnDepartment(long startForTheWorkShift, long stopForTheWorkShift) {
         int count = 0;
-        for (WorkShift s : allShifts) {
+        for (WorkShift s : ALLSHIFTS) {
             if (s.END >= startForTheWorkShift && stopForTheWorkShift >= s.START)
                 count++;
         }
@@ -109,8 +108,8 @@ public class Department implements Observable {
         WorkShift ws = new WorkShift(start, stop, certificates, createBreak(start, stop), true);
         if (setRepeat(ws, repeat)) {
             WorkShift shift = new WorkShift(start, stop, certificates, createBreak(start, stop), false);
-            allShifts.add(shift);
-            addedShifts.add(shift);
+            ALLSHIFTS.add(shift);
+            ADDEDSHIFTS.add(shift);
         }
         notifyObservers();
     }
@@ -127,8 +126,8 @@ public class Department implements Observable {
         WorkShift ws = new WorkShift(start, stop, certificate, createBreak(start, stop), true);
         if (setRepeat(ws, repeat)) {
             WorkShift shift = new WorkShift(start, stop, certificate, createBreak(start, stop), false);
-            allShifts.add(shift);
-            addedShifts.add(shift);
+            ALLSHIFTS.add(shift);
+            ADDEDSHIFTS.add(shift);
         }
         notifyObservers();
     }
@@ -142,8 +141,8 @@ public class Department implements Observable {
         WorkShift ws = new WorkShift(start, stop, createBreak(start, stop), true);
         if (setRepeat(ws, repeat)) {
             WorkShift shift = new WorkShift(start, stop, createBreak(start, stop), false);
-            allShifts.add(shift);
-            addedShifts.add(shift);
+            ALLSHIFTS.add(shift);
+            ADDEDSHIFTS.add(shift);
         }
         notifyObservers();
     }
@@ -154,7 +153,7 @@ public class Department implements Observable {
      * @param workshift The workshift to copy from
      */
     protected void createShift(WorkShift workshift) {
-        allShifts.add(new WorkShift(workshift, 0));
+        ALLSHIFTS.add(new WorkShift(workshift, 0));
     }
 
     /**
@@ -165,8 +164,8 @@ public class Department implements Observable {
      */
     protected void createShift(WorkShift workshift, int plusDays) {
         WorkShift shift = new WorkShift(workshift, createBreak(workshift.START + WeekHandler.plusDays(plusDays), workshift.END + WeekHandler.plusDays(plusDays)), plusDays);
-        allShifts.add(shift);
-        addedShifts.add(shift);
+        ALLSHIFTS.add(shift);
+        ADDEDSHIFTS.add(shift);
     }
 
     /**
@@ -194,8 +193,8 @@ public class Department implements Observable {
      * @param workshift The workshift to remove
      */
     protected void removeShift(WorkShift workshift) {
-        allShifts.remove(workshift);
-        removedShifts.add(workshift);
+        ALLSHIFTS.remove(workshift);
+        REMOVEDSHIFTS.add(workshift);
         notifyObservers();
     }
 
@@ -206,7 +205,7 @@ public class Department implements Observable {
      * @return The workshift at the specified index
      */
     public WorkShift getShift(int index) {
-        return allShifts.get(index);
+        return ALLSHIFTS.get(index);
     }
 
     /**
@@ -215,7 +214,7 @@ public class Department implements Observable {
      * @return How many workshifts there are
      */
     public int getSizeAllShifts() {
-        return allShifts.size();
+        return ALLSHIFTS.size();
     }
 
     /**
@@ -224,7 +223,7 @@ public class Department implements Observable {
      * @return true if all work shifts are manned, else false
      */
     public boolean isAllShiftsFilled() {
-        for (WorkShift ws : allShifts) {
+        for (WorkShift ws : ALLSHIFTS) {
             if (!ws.isOccupied())
                 return false;
         }
@@ -240,7 +239,7 @@ public class Department implements Observable {
     }
 
     public BreakHandler getBreakHandler() {
-        return breakHandler;
+        return BREAKHANDLER;
     }
 
     public void setName(String name) {
@@ -253,7 +252,7 @@ public class Department implements Observable {
      * @return an workshift to add
      */
     public WorkShift getAddWorkShift(int index) {
-        return addedShifts.get(index);
+        return ADDEDSHIFTS.get(index);
     }
 
     /**
@@ -261,7 +260,7 @@ public class Department implements Observable {
      * @return how many workshifts that needs to be added
      */
     public int getAddWorkShiftSize() {
-        return addedShifts.size();
+        return ADDEDSHIFTS.size();
     }
 
     /**
@@ -270,7 +269,7 @@ public class Department implements Observable {
      * @return a workshift to be removed
      */
     public WorkShift getRemoveWorkShift(int index) {
-        return removedShifts.get(index);
+        return REMOVEDSHIFTS.get(index);
     }
 
     /**
@@ -278,7 +277,7 @@ public class Department implements Observable {
      * @return How many workshifts that needs to be removed
      */
     public int getRemoveWorkShiftSize() {
-        return removedShifts.size();
+        return REMOVEDSHIFTS.size();
     }
 
     /**
@@ -287,7 +286,7 @@ public class Department implements Observable {
      */
     @Override
     public void addObserver(Observer observer) {
-        observers.add(observer);
+        OBSERVERS.add(observer);
     }
 
     /**
@@ -296,7 +295,7 @@ public class Department implements Observable {
      */
     @Override
     public void removeObserver(Observer observer) {
-        observers.remove(observer);
+        OBSERVERS.remove(observer);
     }
 
     /**
@@ -304,11 +303,11 @@ public class Department implements Observable {
      */
     @Override
     public void notifyObservers() {
-        for (Observer observer : observers) {
+        for (Observer observer : OBSERVERS) {
             observer.update();
         }
-        addedShifts.clear();
-        removedShifts.clear();
+        ADDEDSHIFTS.clear();
+        REMOVEDSHIFTS.clear();
     }
 
 

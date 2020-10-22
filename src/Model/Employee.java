@@ -9,7 +9,7 @@ import java.util.List;
  * Represents an employee with a specified name, email, personal ID, certificates and time span where the employee is not available for work
  */
 public class Employee {
-    private final List<OccupiedTime> occupiedTimes; //TODO should vacation be seperate?
+    private final List<OccupiedTime> OCCUPIEDTIMES; //TODO should vacation be seperate?
     private String name;
     private String email;
     private String phoneNumber;
@@ -26,7 +26,7 @@ public class Employee {
      */
     protected Employee(String name, String personalId, String email, String phoneNumber) {
         this.phoneNumber = phoneNumber;
-        this.occupiedTimes = new ArrayList<>();
+        this.OCCUPIEDTIMES = new ArrayList<>();
         this.name = name;
         this.PERSONAL_ID = personalId;
         this.certificates = new ArrayList<>();
@@ -85,7 +85,7 @@ public class Employee {
      * @return true if the employee is not available and false if the employee is available
      */
     public boolean isOccupied(long start, long end) {
-        for (OccupiedTime occupiedTime : occupiedTimes) {
+        for (OccupiedTime occupiedTime : OCCUPIEDTIMES) {
             if (occupiedTime.inBetween(start, end))
                 return true;
         }
@@ -161,7 +161,7 @@ public class Employee {
      * @param occupiedTime The OccupiedTime in which the employee should no longer have
      */
     public void unRegisterOccupation(OccupiedTime occupiedTime) {
-        occupiedTimes.remove(occupiedTime);
+        OCCUPIEDTIMES.remove(occupiedTime);
     }
 
     /**
@@ -170,7 +170,7 @@ public class Employee {
      * @return The size of OccupiedTime
      */
     public int getOccupiedTimesSize() {
-        return occupiedTimes.size();
+        return OCCUPIEDTIMES.size();
     }
 
     /**
@@ -180,7 +180,7 @@ public class Employee {
      * @return The OccupiedTime at the specified index
      */
     public OccupiedTime getOccupiedTime(int index) {//TODO immutable
-        return occupiedTimes.get(index);
+        return OCCUPIEDTIMES.get(index);
     }
 
     /**
@@ -190,7 +190,7 @@ public class Employee {
      * @param end   The end time of the shift
      */
     protected void registerOccupation(long start, long end) {
-        occupiedTimes.add(new OccupiedTime(start, end));
+        OCCUPIEDTIMES.add(new OccupiedTime(start, end));
     }
 
     /**
@@ -199,7 +199,7 @@ public class Employee {
      * @param occupiedTime The occupiedTime the Employee is to be non avalible
      */
     protected void registerOccupation(OccupiedTime occupiedTime) {
-        occupiedTimes.add(occupiedTime);
+        OCCUPIEDTIMES.add(occupiedTime);
     }
 
     /**

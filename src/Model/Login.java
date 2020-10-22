@@ -17,10 +17,10 @@ import java.util.HashMap;
  * @since 2020-10-18
  */
 public class Login {
-    private final ArrayList<String> userNames = new ArrayList<>();
-    private final HashMap<String, String> passwords = new HashMap<>();
+    private final ArrayList<String> USERNAMES = new ArrayList<>();
+    private final HashMap<String, String> PASSWORDS = new HashMap<>();
     private static SecretKeySpec secretKey;
-    private final static String keyString = "QeThWmZq4t7w!z%C*F-JaNcRfUjXn2r5";
+    private final static String KEYSTRING = "QeThWmZq4t7w!z%C*F-JaNcRfUjXn2r5";
     private static byte[] key;
 
     protected Login() {
@@ -33,8 +33,8 @@ public class Login {
      * @param password The password of the employee/admin
      */
     protected void newUser(String userName, String password) {
-        userNames.add(userName);
-        passwords.put(userName, encrypt(password));
+        USERNAMES.add(userName);
+        PASSWORDS.put(userName, encrypt(password));
     }
 
     /**
@@ -44,10 +44,10 @@ public class Login {
      * @param password the password of the user to remove
      */
     protected void removeUser(String userName, String password) {
-        if (userNames.contains(userName)) {
-            if (decrypt(passwords.get(userName)).equals(password)) {
-                passwords.remove(userName);
-                userNames.remove(userName);
+        if (USERNAMES.contains(userName)) {
+            if (decrypt(PASSWORDS.get(userName)).equals(password)) {
+                PASSWORDS.remove(userName);
+                USERNAMES.remove(userName);
             }
         }
     }
@@ -60,8 +60,8 @@ public class Login {
      * @return If the username and password matches a current user
      */
     public boolean isLoginInformationCorrect(String userName, String password) {
-        if (userNames.contains(userName)) {
-            return decrypt(passwords.get(userName)).equals(password);
+        if (USERNAMES.contains(userName)) {
+            return decrypt(PASSWORDS.get(userName)).equals(password);
         }
         return false;
     }
@@ -72,7 +72,7 @@ public class Login {
     private static void setKey() {
         MessageDigest sha;
         try {
-            key = keyString.getBytes(StandardCharsets.UTF_8);
+            key = KEYSTRING.getBytes(StandardCharsets.UTF_8);
             sha = MessageDigest.getInstance("SHA-1");
             key = sha.digest(key);
             key = Arrays.copyOf(key, 16);

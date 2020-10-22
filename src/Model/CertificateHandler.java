@@ -13,13 +13,13 @@ import java.util.List;
  */
 public class CertificateHandler {
     private static CertificateHandler single_instance = null;
-    private final List<Certificate> allCertificates;
-    private final HashMap<Certificate, List<Employee>> employeeLinkCertificate;
+    private final List<Certificate> ALLCERTIFICATES;
+    private final HashMap<Certificate, List<Employee>> EMPLOYEELINKCERTIFICATE;
 
 
     private CertificateHandler() {
-        this.allCertificates = new ArrayList<>();
-        this.employeeLinkCertificate = new HashMap<>();
+        this.ALLCERTIFICATES = new ArrayList<>();
+        this.EMPLOYEELINKCERTIFICATE = new HashMap<>();
     }
 
     /**
@@ -40,7 +40,7 @@ public class CertificateHandler {
      * @param e The employee that will be linked to a certificate
      */
     public void linkEmployeeToCertificate(Certificate c, Employee e) {
-        employeeLinkCertificate.get(c).add(e);
+        EMPLOYEELINKCERTIFICATE.get(c).add(e);
     }
 
     /**
@@ -50,7 +50,7 @@ public class CertificateHandler {
      * @param e The employee that will be unliked to a certificate
      */
     public void unlinkEmployeeToCertificate(Certificate c, Employee e) {
-        employeeLinkCertificate.get(c).remove(e);
+        EMPLOYEELINKCERTIFICATE.get(c).remove(e);
     }
 
     /**
@@ -60,7 +60,7 @@ public class CertificateHandler {
      * @return A list with employees that are linked to the certificate
      */
     public Iterator<Employee> getEmployeeWithCertificate(Certificate c) {
-        return employeeLinkCertificate.get(c).iterator();
+        return EMPLOYEELINKCERTIFICATE.get(c).iterator();
     }
 
     /**
@@ -70,7 +70,7 @@ public class CertificateHandler {
      * @return How many employees has the certificate
      */
     public int getEmployeeWithCertificateSize(Certificate certificate) {
-        return employeeLinkCertificate.get(certificate).size();
+        return EMPLOYEELINKCERTIFICATE.get(certificate).size();
     }
 
     /**
@@ -81,14 +81,14 @@ public class CertificateHandler {
      * @return true if employee has the certificate or false if otherwise
      */
     public boolean checkEmployeeWithCertificate(Certificate certificate, Employee employee) {
-        return employeeLinkCertificate.get(certificate).contains(employee);
+        return EMPLOYEELINKCERTIFICATE.get(certificate).contains(employee);
     }
 
     /**
      * Deletes all the certificates
      */
     public void deleteAllCertificates() {
-        this.allCertificates.clear();
+        this.ALLCERTIFICATES.clear();
     }
 
     /**
@@ -97,7 +97,7 @@ public class CertificateHandler {
      * @return the iterator of all the certificates
      */
     public Iterator<Certificate> getAllCertificates() {
-        return allCertificates.iterator();
+        return ALLCERTIFICATES.iterator();
     }
 
     /**
@@ -107,7 +107,7 @@ public class CertificateHandler {
      * @return the certificate that has the given name, or returns null if the name is invalid
      */
     public Certificate getCertificate(String name) {
-        for (Certificate c : allCertificates) {
+        for (Certificate c : ALLCERTIFICATES) {
             if (c.NAME.equals(name))
                 return c;
         }
@@ -122,7 +122,7 @@ public class CertificateHandler {
      * @return the certificate that has the given ID, or returns null if the ID is invalid
      */
     public Certificate getCertificate(long ID) {
-        for (Certificate c : allCertificates) {
+        for (Certificate c : ALLCERTIFICATES) {
             if (c.ID == ID)
                 return c;
         }
@@ -136,8 +136,8 @@ public class CertificateHandler {
      */
     public void createNewCertificate(String nameOfCertificate) {
         Certificate tmp = new Certificate(nameOfCertificate);
-        this.allCertificates.add(tmp);
-        employeeLinkCertificate.put(tmp, new ArrayList<>());
+        this.ALLCERTIFICATES.add(tmp);
+        EMPLOYEELINKCERTIFICATE.put(tmp, new ArrayList<>());
     }
 
     /**
@@ -146,10 +146,10 @@ public class CertificateHandler {
      * @param certificate The certificate that will be removed
      */
     public void deleteCertificate(Certificate certificate) {
-        for (Employee e : employeeLinkCertificate.get(certificate)) {
+        for (Employee e : EMPLOYEELINKCERTIFICATE.get(certificate)) {
             e.unAssignCertificate(e.getEmployeeCertificate(certificate));
         }
-        this.allCertificates.remove(certificate);
+        this.ALLCERTIFICATES.remove(certificate);
     }
 
     /**
@@ -158,7 +158,7 @@ public class CertificateHandler {
      * @param ID The ID of the certificate that will be removed
      */
     public void deleteCertificate(int ID) {
-        this.allCertificates.remove(ID);
+        this.ALLCERTIFICATES.remove(ID);
     }
 
     /**
@@ -167,7 +167,7 @@ public class CertificateHandler {
      * @param name The name of the certificate that will be removed
      */
     public void deleteCertificate(String name) {
-        for (Certificate c : allCertificates) {
+        for (Certificate c : ALLCERTIFICATES) {
             if (c.NAME.equalsIgnoreCase(name)) {
                 deleteCertificate(c);
                 break;

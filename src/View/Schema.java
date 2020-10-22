@@ -161,6 +161,8 @@ public class Schema extends AnchorPane implements Observer {
     }
 
     private void next() {
+        if (dateIndex>=365)
+            return;
         switch (mode) {
             case "Dag" -> {
                 this.dateIndex++;
@@ -179,6 +181,8 @@ public class Schema extends AnchorPane implements Observer {
     }
 
     private void previous() {
+        if (dateIndex<=0)
+            return;
         switch (mode) {
             case "Dag" -> {
                 this.dateIndex--;
@@ -189,7 +193,7 @@ public class Schema extends AnchorPane implements Observer {
                 updateWeek();
             }
             case "Månad" -> {
-                this.dateIndex -= YearMonth.of(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear() + 1900, new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getMonth() + 1).lengthOfMonth();
+                this.dateIndex -= YearMonth.of(new Date(OurCalendar.getInstance().getWorkday(dateIndex).DATE).getYear() + 1900, new Date(OurCalendar.getInstance().getWorkday(dateIndex-1).DATE).getMonth()+1).lengthOfMonth();
                 updateMonth();
             }
         }

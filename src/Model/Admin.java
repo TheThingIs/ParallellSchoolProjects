@@ -13,13 +13,13 @@ import java.util.List;
  */
 
 public class Admin implements Observable {
-    private final List<Employee> employees;
+    private final List<Employee> EMPLOYEES;
     private long guaranteedFreeTime = WeekHandler.plusHours(8); //startvalue
-    private final List<Department> departments;
-    private final CertificateHandler certificateHandler;
-    private final OurCalendar calendar;
-    private final EmployeeSorter employeeSorter;
-    private final Login loginHandler; //TODO private
+    private final List<Department> DEPARTMENTS;
+    private final CertificateHandler CERTIFICATEHANDLER;
+    private final OurCalendar CALENDAR;
+    private final EmployeeSorter EMPLOYEESORTER;
+    private final Login LOGINHANDLER; //TODO private
     private List<Observer> observers, toBeAdded, toBeRemoved;
     private static Admin instance = null;
 
@@ -35,12 +35,12 @@ public class Admin implements Observable {
     }
 
     private Admin() {
-        this.loginHandler = new Login();
-        this.certificateHandler = CertificateHandler.getInstance();
-        this.employees = new ArrayList<>();
-        this.calendar = OurCalendar.getInstance();
-        this.employeeSorter = new EmployeeSorter();
-        this.departments = new ArrayList<>();
+        this.LOGINHANDLER = new Login();
+        this.CERTIFICATEHANDLER = CertificateHandler.getInstance();
+        this.EMPLOYEES = new ArrayList<>();
+        this.CALENDAR = OurCalendar.getInstance();
+        this.EMPLOYEESORTER = new EmployeeSorter();
+        this.DEPARTMENTS = new ArrayList<>();
         this.observers = new ArrayList<>();
         this.toBeAdded = new ArrayList<>();
         this.toBeRemoved = new ArrayList<>();
@@ -53,7 +53,7 @@ public class Admin implements Observable {
      * @return An employee
      */
     public Employee getEmployee(int index) {
-        return employees.get(index);
+        return EMPLOYEES.get(index);
 
     }
 
@@ -90,7 +90,7 @@ public class Admin implements Observable {
      * @return an integer on how many employees there are
      */
     public int getEmployeeListSize() {
-        return employees.size();
+        return EMPLOYEES.size();
     }
 
     /**
@@ -99,7 +99,7 @@ public class Admin implements Observable {
      * @return an integer on how many departments there are
      */
     public int getDepartmentListSize() {
-        return departments.size();
+        return DEPARTMENTS.size();
     }
 
     /**
@@ -108,7 +108,7 @@ public class Admin implements Observable {
      * @return the employeesorter
      */
     public EmployeeSorter getEmployeeSorter() {
-        return employeeSorter;
+        return EMPLOYEESORTER;
     }
 
     /**
@@ -120,7 +120,7 @@ public class Admin implements Observable {
     public Employee getEmployeeByName(String name) {
         int count = 0;
         Employee tmp = null;
-        for (Employee e : employees) {
+        for (Employee e : EMPLOYEES) {
             if (e.getName().equals(name)) {
                 count++;
                 tmp = e;
@@ -140,14 +140,14 @@ public class Admin implements Observable {
      * @return The employee with the specified ID
      */
     public Employee getEmployeeByID(String ID) {
-        for (Employee e : employees)
+        for (Employee e : EMPLOYEES)
             if (e.getPersonalId().equals(ID))
                 return e;
         throw new IllegalArgumentException("Invalid ID");
     }
 
     public CertificateHandler getCertificatehandler() {
-        return certificateHandler;
+        return CERTIFICATEHANDLER;
     }
 
     /**
@@ -158,7 +158,7 @@ public class Admin implements Observable {
      */
     public void createNewEmployee(String name, String personalId, String email, String phoneNumber) {
         if (checkLengthEmployeeId(personalId) && checkIfExistsEmployeeId(personalId)) {
-            employees.add(new Employee(name, personalId, email, phoneNumber));
+            EMPLOYEES.add(new Employee(name, personalId, email, phoneNumber));
             notifyObservers();
         }
     }
@@ -170,7 +170,7 @@ public class Admin implements Observable {
      * @return true if the ID doesn't match an employee's and false if it does
      */
     private boolean checkIfExistsEmployeeId(String PersonalId) {
-        for (Employee e : employees) {
+        for (Employee e : EMPLOYEES) {
             if (e.getPersonalId().equals(PersonalId)) {
                 return false;
             }
@@ -194,7 +194,7 @@ public class Admin implements Observable {
      * @param name The name of the new certificate
      */
     public void createCertificate(String name) {
-        certificateHandler.createNewCertificate(name);
+        CERTIFICATEHANDLER.createNewCertificate(name);
         notifyObservers();
     }
 
@@ -207,7 +207,7 @@ public class Admin implements Observable {
      */
     public void createEmployeeCertificate(Certificate certificate, Employee e, Date expiryDate) {
         e.assignCertificate(new EmployeeCertificate(certificate, expiryDate));
-        certificateHandler.linkEmployeeToCertificate(certificate, e);
+        CERTIFICATEHANDLER.linkEmployeeToCertificate(certificate, e);
         notifyObservers();
     }
 
@@ -217,13 +217,13 @@ public class Admin implements Observable {
      * @param certificate The certificate that will be removed
      */
     public void deleteCertificate(Certificate certificate) {
-        certificateHandler.deleteCertificate(certificate);
+        CERTIFICATEHANDLER.deleteCertificate(certificate);
         notifyObservers();
     }
 
     public void createEmployeeCertificate(Certificate certificate, Employee e) {
         e.assignCertificate(new EmployeeCertificate(certificate));
-        certificateHandler.linkEmployeeToCertificate(certificate, e);
+        CERTIFICATEHANDLER.linkEmployeeToCertificate(certificate, e);
     }
 
     /**
@@ -234,7 +234,7 @@ public class Admin implements Observable {
      */
     public void removeEmployeeCertificate(Certificate certificate, Employee e) {
         e.unAssignCertificate(e.getEmployeeCertificate(certificate));
-        certificateHandler.unlinkEmployeeToCertificate(certificate, e);
+        CERTIFICATEHANDLER.unlinkEmployeeToCertificate(certificate, e);
         notifyObservers();
     }
 
@@ -244,7 +244,7 @@ public class Admin implements Observable {
      * @param e the employee that shall be removed
      */
     public void removeEmployee(Employee e) {
-        employees.remove(e);
+        EMPLOYEES.remove(e);
         notifyObservers();
     }
 
@@ -254,9 +254,9 @@ public class Admin implements Observable {
      * @param personalId the personal ID that belongs to the employee that shall be removed
      */
     public void removeEmployee(String personalId) {
-        for (Employee e : employees) {
+        for (Employee e : EMPLOYEES) {
             if (e.getPersonalId().equals(personalId)) {
-                employees.remove(e);
+                EMPLOYEES.remove(e);
                 break;
             }
         }
@@ -274,7 +274,7 @@ public class Admin implements Observable {
         Department d = new Department(name, minPersonsOnShift);
         d.setColor(color);
         WorkDay.addDepartment(d);
-        departments.add(d);
+        DEPARTMENTS.add(d);
         notifyObservers();
     }
 
@@ -287,7 +287,7 @@ public class Admin implements Observable {
     public void createNewDepartment(String name, int minPersonsOnShift) {
         Department d = new Department(name, minPersonsOnShift);
         WorkDay.addDepartment(d);
-        departments.add(d);
+        DEPARTMENTS.add(d);
     }
 
     /**
@@ -297,7 +297,7 @@ public class Admin implements Observable {
      */
     public void removeDepartment(Department department) {
         WorkDay.removeDepartment(department);
-        departments.remove(department);
+        DEPARTMENTS.remove(department);
         notifyObservers();
     }
 
@@ -380,7 +380,7 @@ public class Admin implements Observable {
      * @return The department that matches name
      */
     public Department getDepartmentByName(String name) {
-        for (Department d : departments) {
+        for (Department d : DEPARTMENTS) {
             if (d.getName().equals(name)) {
                 return d;
             }
@@ -410,7 +410,7 @@ public class Admin implements Observable {
     }
 
     public List<Department> getDepartments() {
-        return departments;
+        return DEPARTMENTS;
     }
 
     public void changeDepartmentName(Department department, String name) {
@@ -427,10 +427,10 @@ public class Admin implements Observable {
     public void setVacation(Employee employee, long start, long end) {
         Date startDate = new Date(start);
         Date endDate = new Date(end);
-        int stop = calendar.getDateIndex(endDate);
+        int stop = CALENDAR.getDateIndex(endDate);
         employee.registerOccupation(start, end);
-        for (int i = calendar.getDateIndex(startDate); i <= stop + 4; i++) {
-            calendar.getWorkday(i).unRegisterOccupations(employee, start, end);
+        for (int i = CALENDAR.getDateIndex(startDate); i <= stop + 4; i++) {
+            CALENDAR.getWorkday(i).unRegisterOccupations(employee, start, end);
         }
     }
 
@@ -453,7 +453,7 @@ public class Admin implements Observable {
      * @param password The password of the employee/admin
      */
     public void createNewUser(String name, String password) {
-        loginHandler.newUser(name, password);
+        LOGINHANDLER.newUser(name, password);
 
     }
 
@@ -464,7 +464,7 @@ public class Admin implements Observable {
      * @param password the password of the user to remove
      */
     public void removeUser(String name, String password) {
-        loginHandler.removeUser(name, password);
+        LOGINHANDLER.removeUser(name, password);
     }
 
     /**
@@ -475,7 +475,7 @@ public class Admin implements Observable {
      * @return If the username and password matches a current user
      */
     public boolean isLoginInformationCorrect(String name, String password) {
-        return loginHandler.isLoginInformationCorrect(name, password);
+        return LOGINHANDLER.isLoginInformationCorrect(name, password);
     }
 
 
