@@ -8,7 +8,7 @@ import java.util.List;
  * @author Markus Grahn and Christian Lind
  * Uses OccupiedTime, Employee, Certificate. Used by Department, EmployeeSorter, SendNotification, WorkDay, Employee.
  * Represents a WorkShift in which an employee can work in if the have the specified certificates required
- * @since 2020-09-12
+ * @since ?
  */
 
 public class WorkShift {
@@ -124,6 +124,7 @@ public class WorkShift {
      */
     protected void registerOccupation(Employee e, OccupiedTime ot) {
         if (!occupied) {
+            //TODO checka att employee har certificate via metod
             this.employee = e;
             this.occupiedTime = ot;
             occupied = true;

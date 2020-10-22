@@ -10,7 +10,6 @@ import java.util.List;
  * @author Christian Lind, Markus Grahn.
  * Used by Admin. Uses Employee, certificate
  * A class that handles the certificates. Has a list with certificates and a hash map that link the employees with certificates
- * @since 2020-09-18
  */
 public class CertificateHandler {
     private static CertificateHandler single_instance = null;
@@ -37,31 +36,31 @@ public class CertificateHandler {
     /**
      * Links the given employee to a certain certificate in the hash map
      *
-     * @param certificate The certificate that the employee will be linked to
-     * @param employee    The employee that will be linked to a certificate
+     * @param c The certificate that the employee will be linked to
+     * @param e The employee that will be linked to a certificate
      */
-    public void linkEmployeeToCertificate(Certificate certificate, Employee employee) {
-        EMPLOYEELINKCERTIFICATE.get(certificate).add(employee);
+    public void linkEmployeeToCertificate(Certificate c, Employee e) {
+        EMPLOYEELINKCERTIFICATE.get(c).add(e);
     }
 
     /**
      * Unlinks the given employee with a certain certificate in the hash map
      *
-     * @param certificate The certificate that the employee is linked to
-     * @param employee    The employee that will be unliked to a certificate
+     * @param c The certificate that the employee is linked to
+     * @param e The employee that will be unliked to a certificate
      */
-    public void unlinkEmployeeToCertificate(Certificate certificate, Employee employee) {
-        EMPLOYEELINKCERTIFICATE.get(certificate).remove(employee);
+    public void unlinkEmployeeToCertificate(Certificate c, Employee e) {
+        EMPLOYEELINKCERTIFICATE.get(c).remove(e);
     }
 
     /**
      * Gets a list with employees that are linked to a certificate
      *
-     * @param certificate A certificate
+     * @param c A certificate
      * @return A list with employees that are linked to the certificate
      */
-    public Iterator<Employee> getEmployeeWithCertificate(Certificate certificate) {
-        return EMPLOYEELINKCERTIFICATE.get(certificate).iterator();
+    public Iterator<Employee> getEmployeeWithCertificate(Certificate c) {
+        return EMPLOYEELINKCERTIFICATE.get(c).iterator();
     }
 
     /**

@@ -45,6 +45,7 @@ public class Schema extends AnchorPane implements Observer {
         }
         generateDate();
         generateComboBox();
+        //generateLabels();
         generateButtons();
         Admin.getInstance().addObserver(this);
     }
@@ -249,6 +250,7 @@ public class Schema extends AnchorPane implements Observer {
     }
 
     private void updateDay() {
+        //OurCalendar.getInstance().getWorkday(dateIndex).setWorkDay();
         listOfWorkshifts.getItems().clear();
         for (Department d : Admin.getInstance().getDepartments()) {
             for (WorkShift w : OurCalendar.getInstance().getWorkday(dateIndex).getWorkShifts(d)) {
