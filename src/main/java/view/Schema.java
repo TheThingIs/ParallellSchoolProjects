@@ -17,7 +17,7 @@ import java.util.*;
 public class Schema extends AnchorPane implements Observer {
     @FXML
     private Button next, previous, createWorkshift, discardButtonCreateNewShift,
-            saveButtonCreateNewShift, cancelButton, switchButton, removeShiftButton, autoFillButton;
+            saveButtonCreateNewShift, cancelButton, switchButton, removeShiftButton, autoFillButton, removeEmployee;
     @FXML
     private GridPane monthGrid, weekGrid;
     @FXML
@@ -70,6 +70,7 @@ public class Schema extends AnchorPane implements Observer {
             listOfAvailableEmployees.getItems().add(tmp);
         }
         removeShiftButton.setOnAction(actionEvent -> removeWorkShift(workShift));
+        removeEmployee.setOnAction(actionEvent -> removeEmployee(workShift));
         listOfAvailableEmployees.toFront();
         listOfAvailableEmployees.setVisible(true);
         listOfWorkshifts.toBack();
@@ -81,6 +82,11 @@ public class Schema extends AnchorPane implements Observer {
             listOfWorkshifts.toFront();
             listOfWorkshifts.setVisible(true);
         });
+    }
+
+    private void removeEmployee(WorkShift workShift) {
+        workShift.clearWorkShiftOccupation();
+        updateDay();
     }
 
     private void removeWorkShift(WorkShift workShift) {
@@ -296,6 +302,7 @@ public class Schema extends AnchorPane implements Observer {
             listOfWorkshifts.toFront();
             listOfWorkshifts.setVisible(true);
         });
+
         autoFillButton.setOnAction(actionEvent -> autoFill(7, dateIndex));
     }
 

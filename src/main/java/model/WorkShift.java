@@ -143,8 +143,12 @@ public class WorkShift {
      * Clears the occupation for the Workshift
      */
     public void clearWorkShiftOccupation() {
-        employee.unRegisterOccupation(occupiedTime);
-        occupied = false;
+        if (occupied){
+            employee.unRegisterOccupation(occupiedTime);
+            occupied = false;
+            employee = null;
+        }
+
     }
 
     /**
