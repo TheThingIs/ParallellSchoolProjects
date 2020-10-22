@@ -4,7 +4,7 @@ package Model;
  * @author Oliver Andersson
  * Used By WorkShift, Employee
  * Represents a time span when someone is not available, has a start and an end value
- * @since ?
+ * @since 2020-09-12
  */
 public class OccupiedTime {
     public final long START, END;

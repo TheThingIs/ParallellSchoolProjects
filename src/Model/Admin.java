@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Victor Cousin, Moa Berglund, Markus Grahn, Oliver Andersson and Christian Lind
  * Represents an static admin for the project with is the heart of the application
- * @since ?
+ * @since 2020-09-08
  */
 
 public class Admin implements Observable {
@@ -20,7 +20,7 @@ public class Admin implements Observable {
     private final OurCalendar calendar;
     private final EmployeeSorter employeeSorter;
     private final Login loginHandler; //TODO private
-    private List<Observer> observers, toBeAdded, toBeRemoved;
+    private final List<Observer> observers, toBeAdded, toBeRemoved;
     private static Admin instance = null;
 
     /**

@@ -6,7 +6,7 @@ import java.util.*;
  * @author Markus Grahnand, Christian Lind, Oliver Andersson
  * Uses Department, WorkShift, Employee, OccupiedTime, Used By Admin, EmployeeSorter, OurCalendar, ImportServicePackage.
  * Represents a work day with a specified date, a hash map(with departments, work shifts and employees),and a list of departments
- * @since ?
+ * @since 2020-09-12
  */
 public class WorkDay implements Observer {
     public final long DATE;
@@ -168,10 +168,10 @@ public class WorkDay implements Observer {
         departments.add(department);
     }
 
-    public void removeWorkshift(WorkShift ws){
-        for (Department d : departments){
-            if(departmentLinks.get(d).contains(ws)){
-                if(ws.isOccupied()){
+    public void removeWorkshift(WorkShift ws) {
+        for (Department d : departments) {
+            if (departmentLinks.get(d).contains(ws)) {
+                if (ws.isOccupied()) {
                     ws.clearWorkShiftOccupation();
                 }
 
