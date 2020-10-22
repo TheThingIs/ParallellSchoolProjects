@@ -49,7 +49,7 @@ public class EmployeeSorter implements Comparator<WorkShift> {
             }
         }
         if (!isAllOccupied) {
-            //new SendNotification("smtp.gmail.com", "random@gmail.com", "random@gmail.com", "*****", "Workshifts not filled", getEmptyWorkShifts());
+            new SendNotification("smtp.gmail.com", "random@gmail.com", "random@gmail.com", "*****", "Workshifts not filled", getEmptyWorkShifts());
         }
 
     }

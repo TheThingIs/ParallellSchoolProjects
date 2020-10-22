@@ -60,15 +60,6 @@ public class Employee {
     }
 
     /**
-     * Assigns several specified certificates to the employee
-     *
-     * @param certificates list with all the certificates that should be assigned
-     */
-    protected void assignCertificate(List<EmployeeCertificate> certificates) {
-        this.certificates.addAll(certificates);
-    }
-
-    /**
      * Removes a specified certificate from the employee
      *
      * @param certificate the certificate that should be taken from the employee
@@ -110,14 +101,6 @@ public class Employee {
             }
         }
         return count == workShift.getCertificatesSize();
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhoneNumber() {

@@ -14,7 +14,12 @@ public class BreakHandler {
 
     private BreakHandler() {
     }
-
+    
+    /**
+     * Return the singleton object of Breakhandler
+     *
+     * @return The instance of the Breakhandler
+     */
     public static BreakHandler getInstance() {
         if (instance == null)
             instance = new BreakHandler();
@@ -41,40 +46,45 @@ public class BreakHandler {
 
         return 0;
     }
-
+    
+   /**
+    * Sets the time of the shortest possible break
+    */
     public void setMinBreakLength(long minBreakLength) {
         this.minBreakLength = WeekHandler.plusMinutes((int) minBreakLength);
     }
-
+   /**
+    * Sets the time of medium second longest possible break
+    */
     public void setMidBreakLength(long midBreakLength) {
         this.midBreakLength = WeekHandler.plusMinutes((int) midBreakLength);
     }
-
+   /**
+    * Sets the time of the longest possible break
+    */
     public void setMaxBreakLength(long maxBreakLength) {
         this.maxBreakLength = WeekHandler.plusMinutes((int) maxBreakLength);
     }
-
-    public long getMinBreakLength() {
-        return minBreakLength;
-    }
-
+   /**
+    * Gets the time of the shortest possible break
+    * @return length of the shortest break
+    */
     public long getMinutesOfMinBreakLength() {
         return minBreakLength / WeekHandler.plusMinutes(1);
     }
-
+      /**
+    * Gets the time of the longest possible break
+    * @return length of the longest break
+    */
     public long getMinutesOfMaxBreakLength() {
         return maxBreakLength / WeekHandler.plusMinutes(1);
     }
-
+      /**
+    * Gets the time of the second longest possible break
+    * @return length of the second longest break
+    */
     public long getMinutesOfMidBreakLength() {
         return midBreakLength / WeekHandler.plusMinutes(1);
     }
 
-    public long getMidBreakLength() {
-        return midBreakLength;
-    }
-
-    public long getMaxBreakLength() {
-        return maxBreakLength;
-    }
 }

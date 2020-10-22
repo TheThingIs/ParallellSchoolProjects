@@ -217,19 +217,6 @@ public class Department implements Observable {
         return ALLSHIFTS.size();
     }
 
-    /**
-     * Checks if all work shift of the department are manned
-     *
-     * @return true if all work shifts are manned, else false
-     */
-    public boolean isAllShiftsFilled() {
-        for (WorkShift ws : ALLSHIFTS) {
-            if (!ws.isOccupied())
-                return false;
-        }
-        return true;
-    }
-
     public void setMinPersonsOnShift(int minPersonsOnShift) {
         this.minPersonsOnShift = minPersonsOnShift;
     }
