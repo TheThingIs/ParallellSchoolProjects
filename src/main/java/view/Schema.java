@@ -13,7 +13,11 @@ import main.java.model.Observer;
 
 import java.time.YearMonth;
 import java.util.*;
-
+/**
+ * @author Oliver Andersson
+ * Visual representation of the OurCalendar in model
+ * @since 2020-10-07
+ */
 public class Schema extends AnchorPane implements Observer {
     @FXML
     private Button next, previous, createWorkshift, discardButtonCreateNewShift,

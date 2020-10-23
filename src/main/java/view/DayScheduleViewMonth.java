@@ -13,7 +13,11 @@ import javafx.scene.paint.Color;
 
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * @author Oliver Andersson
+ * Visual representation of a WorkDay. Is viewed in a GridPane
+ * @since 2020-10-07
+ */
 public class DayScheduleViewMonth extends AnchorPane {
     private WorkDay thisDay;
     @FXML

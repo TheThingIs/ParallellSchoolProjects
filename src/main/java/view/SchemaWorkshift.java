@@ -15,7 +15,11 @@ import javafx.scene.paint.Color;
 import java.util.Date;
 
 public class SchemaWorkshift extends AnchorPane {
-
+    /**
+     * @author Oliver Andersson
+     * Visual representation of a WorkShift. Is viewed in a ListView
+     * @since 2020-10-07
+     */
     @FXML
     AnchorPane timeBar;
     @FXML
