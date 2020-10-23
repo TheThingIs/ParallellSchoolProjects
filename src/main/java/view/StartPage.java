@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @author Oliver Andersson, Christian Lind
+ * @author Oliver Andersson, Christian Lind, Victor Cousin, Moa Berglund
  * Root node in the view, everything is build upon this
  * @since 2020-10-07
  */

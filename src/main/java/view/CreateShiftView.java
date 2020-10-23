@@ -20,13 +20,13 @@ import java.util.*;
 public class CreateShiftView extends AnchorPane implements Observer {
 
     @FXML
-    protected ComboBox departmentComboBox;
+    protected ComboBox<String> departmentComboBox;
     @FXML
     protected DatePicker datePicker;
     @FXML
     protected TextField hour1, hour2, min1, min2;
     @FXML
-    private Spinner numberPersonel;
+    private Spinner<Integer> numberPersonel;
     @FXML
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     @FXML
@@ -120,13 +120,12 @@ public class CreateShiftView extends AnchorPane implements Observer {
 
 
     public void save() {
-
         LocalDate localDate = datePicker.getValue();
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
         long workStart = date.getTime() + WeekHandler.plusMinutes(Integer.parseInt(min1.getText())) + WeekHandler.plusHours(Integer.parseInt(hour1.getText()));
         long workStop = date.getTime() + WeekHandler.plusMinutes(Integer.parseInt(min2.getText())) + WeekHandler.plusHours(Integer.parseInt(hour2.getText()));
-        Department d = Admin.getInstance().getDepartmentByName(departmentComboBox.getValue().toString());
+        Department d = Admin.getInstance().getDepartmentByName(departmentComboBox.getValue());
         boolean[] repeat = {sunday.isSelected(), monday.isSelected(), tuesday.isSelected(), wednesday.isSelected(), thursday.isSelected(), friday.isSelected(), saturday.isSelected()};
         for (int i = 0; i < Integer.parseInt(numberPersonel.getEditor().getText()); i++) {
             Admin.getInstance().createWorkshift(d, workStart, workStop, certificates, repeat);
