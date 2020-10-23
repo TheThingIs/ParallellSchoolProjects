@@ -85,9 +85,16 @@ public class testWorkday {
         WorkDay workday = OurCalendar.getInstance().getWorkday(d.getDate() - 1);
         a.setGuaranteedFreeTime(10);
         workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByName("moa"));
-        workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(1), a.getEmployeeByName("moa"));
-        workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(2), a.getEmployeeByName("moa"));
-        assertEquals(1, a.getEmployeeByName("moa").getOccupiedTimesSize());
+        try {
+            workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(1), a.getEmployeeByName("moa"));
+        } catch(IllegalArgumentException e) {
+            assertEquals("The employee cannot occupy the shift", e.getMessage());
+        }
+        try {
+            workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(2), a.getEmployeeByName("moa"));
+        } catch(IllegalArgumentException e) {
+            assertEquals("The employee cannot occupy the shift", e.getMessage());
+        }
     }
 
     @Test
@@ -108,7 +115,11 @@ public class testWorkday {
         a.createEmployeeCertificate(ch.getCertificate("Kassa"), a.getEmployeeByName("moa"));
         WorkDay workday = OurCalendar.getInstance().getWorkday(d.getDate());
         a.setGuaranteedFreeTime(10);
-        workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByName("moa"));
+        try {
+            workday.occupiesEmployee(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0), a.getEmployeeByName("moa"));
+        } catch(IllegalArgumentException e) {
+            assertEquals("The employee cannot occupy the shift", e.getMessage());
+        }
         assertTrue(workday.getWorkShifts(a.getDepartmentByName("Kassa")).get(0).getEmployee() != a.getEmployeeByName("moa"));
     }
 
