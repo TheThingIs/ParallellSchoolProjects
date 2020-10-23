@@ -64,7 +64,7 @@ public class testWorkShift {
         a.createNewDepartment("Kassa", 1);
         a.createWorkshift(a.getDepartmentByName("Kassa"), d.getTime() + 1111, d.getTime() + 11111, repeat);
         a.createNewEmployee("Cristian är kass", "133742042069", "kass@gmail.com", "0315552266");
-        a.createWorkshift(a.getDepartmentByName("Kassa"), OurCalendar.getInstance().getWorkday(1).DATE + 10, OurCalendar.getInstance().getWorkday(1).DATE + 1100, repeat);
+        a.createWorkshift(a.getDepartmentByName("Kassa"), OurCalendar.getInstance().getWorkday(d.getDate()+1).DATE + 10, OurCalendar.getInstance().getWorkday(d.getDate()+1).DATE + 1100, repeat);
         OurCalendar.getInstance().getWorkday(1).occupiesEmployee(a.getDepartmentByName("Kassa").getShift(0), a.getEmployeeByID("133742042069"));
         assertTrue(a.getDepartmentByName("Kassa").getShift(0).getEmployee().getPersonalId().equals("133742042069"));
         a.createNewEmployee("Markus passar bättre här", "694201337420", "bättre@gmail.com", "0315552666");
